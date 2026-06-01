@@ -4,248 +4,348 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임분당 시설문의 및 관리 시스템</title>
+    <!-- Tailwind CSS (디자인 프레임워크) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 폰트 및 아이콘 -->
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body { 
             font-family: 'Pretendard', sans-serif; 
-            background-color: #F1F5F9; 
         }
+        /* 대시보드용 스크롤바 커스텀 */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
         .hidden { display: none; }
-        /* 부드러운 애니메이션 */
-        .transition-all { transition: all 0.3s ease; }
+        .tag-item { 
+            display: inline-block; 
+            background-color: #f1f5f9; 
+            border: 1px solid #e2e8f0; 
+            color: #475569; 
+            font-size: 0.75rem; 
+            font-weight: 500; 
+            padding: 0.25rem 0.6rem; 
+            border-radius: 0.375rem; 
+            margin-right: 0.375rem; 
+            margin-bottom: 0.375rem;
+        }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="bg-slate-50 h-screen overflow-hidden flex text-slate-800">
 
-    <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
-        <div class="flex items-center">
-            <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-md mr-3 shadow-md">FACILITY</span>
-            <h1 class="text-xl font-bold mr-4 text-slate-900">게임분당 시설 및 SW 관리 시스템</h1>
-            <span class="text-slate-400 text-sm hidden md:inline">Google Sheets 연동 자동화 모드</span>
+    <!-- [좌측 사이드바: 관제 컨트롤 패널] -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col h-full flex-shrink-0 shadow-xl z-20">
+        <!-- 로고 및 시스템명 영역 -->
+        <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
+            <h1 class="font-bold text-white tracking-wide text-sm">G-BUNDANG <span class="text-blue-400">FACILITY</span></h1>
         </div>
-        <button id="admin-login-btn" class="text-xs font-bold text-slate-500 border border-slate-300 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-all">
-            ⚙️ 관리자 모드
-        </button>
-    </header>
-
-    <div class="max-w-7xl mx-auto flex px-6 py-8 gap-8">
         
-        <aside class="w-64 flex-shrink-0">
-            <h2 class="text-xs font-bold text-slate-400 mb-4 pl-4 uppercase tracking-widest">Navigation</h2>
-            <ul class="space-y-1">
-                <li><a href="#section-software" class="block pl-4 py-2 text-blue-600 font-bold bg-blue-50 rounded-lg">강의실 프로그램 현황</a></li>
-                <li><a href="#section-report" class="block pl-4 py-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-all">고장 신고 접수</a></li>
-                <li><a href="#section-emergency" class="block pl-4 py-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-all">비상 연락망</a></li>
-            </ul>
+        <!-- 네비게이션 메뉴 -->
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2">System Menu</p>
+            <a href="#section-software" class="flex items-center px-4 py-2.5 bg-blue-600/10 text-blue-400 font-semibold rounded-lg border border-blue-500/20 transition-colors">
+                <span class="mr-3">🖥️</span> 인프라 및 SW 모니터링
+            </a>
+            <a href="#section-report" class="flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-medium rounded-lg transition-colors">
+                <span class="mr-3">🎫</span> 장애 처리 티켓 발급
+            </a>
+            <a href="#section-emergency" class="flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-medium rounded-lg transition-colors">
+                <span class="mr-3">🚨</span> 비상 대응 연락망
+            </a>
+        </nav>
 
-            <div class="mt-10 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                <p class="text-[10px] text-slate-400 font-bold uppercase mb-3">System Info</p>
+        <!-- 시스템 & 관리자 정보 -->
+        <div class="p-4 border-t border-slate-800 bg-slate-900/50">
+            <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                <p class="text-[10px] text-slate-400 font-bold uppercase mb-3">Node Info</p>
                 <div class="space-y-2 text-xs">
-                    <div class="flex justify-between text-slate-500"><span>제작자</span><span class="font-bold text-slate-800">이승민 책임</span></div>
-                    <div class="flex justify-between text-slate-500"><span>업데이트</span><span class="font-bold text-slate-800">2026.06</span></div>
-                    <div class="flex justify-between text-slate-500"><span>버전</span><span class="font-bold text-blue-600">v2.2 (Auto)</span></div>
+                    <div class="flex justify-between text-slate-400"><span>책임 관리자</span><span class="font-bold text-white">이승민</span></div>
+                    <div class="flex justify-between text-slate-400"><span>DB 연동</span><span class="font-bold text-emerald-400">Google Sheets</span></div>
+                    <div class="flex justify-between text-slate-400"><span>업데이트</span><span class="text-slate-300">2026.03</span></div>
                 </div>
             </div>
-        </aside>
+        </div>
+    </aside>
 
-        <main class="flex-1 space-y-10">
-            
-            <section id="section-software" class="space-y-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-2 h-8 bg-blue-600 rounded-full"></div>
-                    <h2 class="text-2xl font-bold text-slate-900">Classroom Software Status</h2>
-                </div>
+    <!-- [우측 메인 영역] -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
+        
+        <!-- 상단 탑바 (헤더) -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10 shadow-sm">
+            <div>
+                <h2 class="font-bold text-slate-800 text-lg">통합 관제 대시보드</h2>
+                <p class="text-xs text-slate-500">실시간 강의실 소프트웨어 현황 및 시설 장애 접수 시스템</p>
+            </div>
+            <!-- 관리자 모드 토글 버튼 -->
+            <button id="admin-login-btn" class="flex items-center gap-2 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-4 py-2 rounded-md transition-colors">
+                <span>⚙️ 시스템 관리자 모드</span>
+            </button>
+        </header>
 
-                <!-- 강의실 현황 그리드 (A, B, C, E는 2단, D는 가로로 길게 배치) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 메인 스크롤 콘텐츠 -->
+        <main class="flex-1 overflow-y-auto p-8 scroll-smooth" id="main-content">
+            <div class="max-w-6xl mx-auto space-y-8">
+
+                <!-- 1. 강의실 인프라 모니터링 섹션 -->
+                <section id="section-software">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <span class="w-1.5 h-6 bg-blue-600 rounded-full inline-block"></span>
+                            강의실 인프라 및 설치 프로그램 현황
+                        </h3>
+                        <span class="text-xs text-slate-400 font-medium bg-white px-3 py-1 border border-slate-200 rounded-full shadow-sm">
+                            Last Checked: 2026.03
+                        </span>
+                    </div>
+
+                    <!-- 강의실 카드 그리드 (대시보드 노드 스타일) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        
+                        <!-- A 강의실 -->
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                                <h4 class="font-bold text-slate-800">A 강의실</h4>
+                                <!-- 상태 표시기 -->
+                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-bold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
+                                </div>
+                            </div>
+                            <div>
+                                <span class="tag-item">Photoshop 2022</span>
+                                <span class="tag-item">Visual Studio 2022</span>
+                                <span class="tag-item border-blue-300 bg-blue-50 text-blue-700">Visual Studio 2026</span>
+                                <span class="tag-item">한글 2024</span>
+                                <span class="tag-item">Office 2021</span>
+                                <span class="tag-item font-bold text-slate-700">Unreal 5.7.4</span>
+                                <span class="tag-item">Unity 2021.3.45f2</span>
+                                <span class="tag-item border-indigo-200 bg-indigo-50 text-indigo-700">Unity 6000.3.9f1</span>
+                            </div>
+                        </div>
+
+                        <!-- B 강의실 -->
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                                <h4 class="font-bold text-slate-800">B 강의실</h4>
+                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-bold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
+                                </div>
+                            </div>
+                            <div>
+                                <span class="tag-item">Photoshop 2021</span>
+                                <span class="tag-item">Visual Studio 2019</span>
+                                <span class="tag-item">Visual Studio 2022</span>
+                                <span class="tag-item">Office 2021</span>
+                                <span class="tag-item font-bold text-slate-700">Unreal 5.1.1</span>
+                                <span class="tag-item font-bold text-slate-700">Unreal 5.2.1</span>
+                                <span class="tag-item font-bold text-slate-700">Unreal 5.5.4</span>
+                                <span class="tag-item">Unity 2021.3.45f2</span>
+                                <span class="tag-item">Unity 2022.3.44f1</span>
+                                <span class="tag-item border-indigo-200 bg-indigo-50 text-indigo-700">Unity 6000.3.9f1</span>
+                            </div>
+                        </div>
+
+                        <!-- C 강의실 -->
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                                <h4 class="font-bold text-slate-800">C 강의실</h4>
+                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-bold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
+                                </div>
+                            </div>
+                            <div>
+                                <span class="tag-item">Photoshop 2022</span>
+                                <span class="tag-item border-pink-200 bg-pink-50 text-pink-700">CLIP STUDIO PAINT 3.0</span>
+                                <span class="tag-item">Sketchup 2022</span>
+                                <span class="tag-item">Office 2021</span>
+                            </div>
+                        </div>
+
+                        <!-- D 강의실 -->
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow md:col-span-2 lg:col-span-2">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                                <h4 class="font-bold text-slate-800">D 강의실 <span class="font-normal text-slate-500 text-xs ml-2">Graphics & 3D Specialist</span></h4>
+                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-bold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
+                                </div>
+                            </div>
+                            <div>
+                                <span class="tag-item">Photoshop 2022</span>
+                                <span class="tag-item border-orange-200 bg-orange-50 text-orange-700">3ds Max 2023</span>
+                                <span class="tag-item">TopoGun2</span>
+                                <span class="tag-item border-green-200 bg-green-50 text-green-700">Substance Painter 11.0.2</span>
+                                <span class="tag-item font-bold text-slate-700">Unreal 5.3.2</span>
+                                <span class="tag-item">Marmoset Toolbag 4</span>
+                                <span class="tag-item">CrazyBump</span>
+                                <span class="tag-item border-yellow-200 bg-yellow-50 text-yellow-700">Marvelous Designer 2025</span>
+                                <span class="tag-item">Office 2021</span>
+                            </div>
+                        </div>
+
+                        <!-- E 강의실 -->
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                                <h4 class="font-bold text-slate-800">E 강의실</h4>
+                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-bold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
+                                </div>
+                            </div>
+                            <div>
+                                <span class="tag-item">Photoshop 2020</span>
+                                <span class="tag-item">한글 2024</span>
+                                <span class="tag-item">Office 2021</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- 관리자 패널 (기본 숨김) -->
+                <section id="admin-panel" class="hidden">
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+                        <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+                            <h3 class="font-bold text-white flex items-center gap-2 text-sm">
+                                <span class="text-red-500">●</span> 관리자 보안 시스템 (이승민 전용)
+                            </h3>
+                            <button id="admin-close-btn" class="text-slate-400 hover:text-white text-xs font-bold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 transition-colors">패널 닫기</button>
+                        </div>
+                        <div class="p-6 bg-slate-900">
+                            <div class="flex justify-between items-end mb-4">
+                                <p class="text-xs text-slate-400">구글 시트로 발송된 접수 내역의 브라우저 로컬 데이터 백업입니다.</p>
+                            </div>
+                            <!-- 접수 내역 리스트 -->
+                            <div id="report-list-container" class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar text-sm">
+                                <p class="text-center text-slate-500 py-6 text-xs">접수된 장애 티켓이 없습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. 장애 처리 티켓 발급 폼 -->
+                <section id="section-report">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-1 h-6 bg-blue-600 rounded-full"></div>
+                        <h3 class="font-bold text-lg text-slate-800">시설 장애 처리 티켓 발급</h3>
+                    </div>
                     
-                    <!-- A 강의실 -->
-                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                        <div class="flex justify-between mb-4">
-                            <h3 class="font-bold text-blue-700 text-lg">A 강의실</h3>
-                            <span class="text-[10px] text-slate-300">ADMIN: 010-6580-2656</span>
-                        </div>
-                        <ul class="text-sm space-y-2 text-slate-600">
-                            <li>🎨 Photoshop 2022</li>
-                            <li>💻 VS 2022 / <b>Visual Studio 2026</b></li>
-                            <li>🎮 Unreal 5.7.4 / Unity 6000.3.9f1</li>
-                            <li>📊 한글 2024 / Office 2021</li>
-                        </ul>
-                    </div>
-
-                    <!-- B 강의실 -->
-                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                        <div class="flex justify-between mb-4">
-                            <h3 class="font-bold text-blue-700 text-lg">B 강의실</h3>
-                            <span class="text-[10px] text-slate-300">ADMIN: 010-6580-2656</span>
-                        </div>
-                        <ul class="text-sm space-y-2 text-slate-600">
-                            <li>🎨 Photoshop 2021</li>
-                            <li>💻 VS 2019 / VS 2022</li>
-                            <li>🎮 Unreal 5.1.1, 5.2.1, 5.5.4</li>
-                            <li>📦 Unity 21.3.45f2, 22.3.44f1, 6000.3.9f1</li>
-                        </ul>
-                    </div>
-
-                    <!-- C 강의실 (누락 복구됨) -->
-                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                        <div class="flex justify-between mb-4">
-                            <h3 class="font-bold text-blue-700 text-lg">C 강의실</h3>
-                            <span class="text-[10px] text-slate-300">ADMIN: 010-6580-2656</span>
-                        </div>
-                        <ul class="text-sm space-y-2 text-slate-600">
-                            <li>🎨 Photoshop 2022</li>
-                            <li>🖌️ CLIP STUDIO PAINT 3.0</li>
-                            <li>📐 SketchUp 2022</li>
-                            <li>📊 Office 2021</li>
-                        </ul>
-                    </div>
-
-                    <!-- E 강의실 (누락 복구됨) -->
-                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                        <div class="flex justify-between mb-4">
-                            <h3 class="font-bold text-blue-700 text-lg">E 강의실</h3>
-                            <span class="text-[10px] text-slate-300">ADMIN: 010-6580-2656</span>
-                        </div>
-                        <ul class="text-sm space-y-2 text-slate-600">
-                            <li>🎨 Photoshop 2020</li>
-                            <li>📝 한글 2024</li>
-                            <li>📊 Office 2021</li>
-                        </ul>
-                    </div>
-
-                    <!-- D 강의실 (가로 넓게 2칸 차지) -->
-                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all md:col-span-2">
-                        <div class="flex justify-between mb-4">
-                            <h3 class="font-bold text-blue-700 text-lg">D 강의실 <span class="text-sm font-normal text-slate-500">(Graphics & 3D Specialist)</span></h3>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4 text-sm text-slate-600">
-                            <ul class="space-y-1">
-                                <li>🎨 Photoshop 2022 / Office 2021</li>
-                                <li>🎮 Unreal 5.3.2</li>
-                                <li>🏗️ 3ds Max 2023</li>
-                                <li>👤 TopoGun2</li>
-                            </ul>
-                            <ul class="space-y-1">
-                                <li>🖌️ Substance Painter 11.0.2</li>
-                                <li>🐵 Marmoset Toolbag 4</li>
-                                <li>👕 Marvelous Designer 2025</li>
-                                <li>🌋 CrazyBump</li>
-                            </ul>
+                    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                        <div class="p-6 md:p-8 flex flex-col md:flex-row gap-8">
+                            <!-- 좌측 안내문 -->
+                            <div class="w-full md:w-1/3 bg-slate-50 rounded-lg p-6 border border-slate-100 flex flex-col justify-center">
+                                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl mb-4">🔧</div>
+                                <h4 class="font-bold text-slate-800 mb-2">신속한 장애 조치를 위해<br>상세히 기재해 주세요.</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                                    발급된 티켓은 즉시 구글 시트 데이터베이스에 기록되며, 관리자(이승민 책임)의 이메일 및 시스템으로 자동 푸시 알림이 전송됩니다.
+                                </p>
+                            </div>
+                            
+                            <!-- 우측 폼 입력 -->
+                            <div class="flex-1 space-y-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">신고자 성명 (Reporter)</label>
+                                    <input type="text" id="input-name" class="w-full bg-white border border-slate-300 rounded-md px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow" placeholder="이름을 입력하세요">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">장애 발생 위치 및 증상 상세 (Issue Details)</label>
+                                    <textarea id="input-content" rows="4" class="w-full bg-white border border-slate-300 rounded-md px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow resize-none" placeholder="예: B강의실 10번 좌석 키보드 특정 키 입력 불량"></textarea>
+                                </div>
+                                <div class="pt-2">
+                                    <button id="btn-submit" class="w-full md:w-auto px-8 bg-slate-800 text-white font-bold py-3 rounded-md hover:bg-slate-900 transition-colors shadow-md flex justify-center items-center gap-2">
+                                        티켓 전송 (Submit Ticket)
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- 신고 접수 폼 -->
-            <section id="section-report" class="bg-white border-2 border-blue-100 rounded-3xl shadow-xl shadow-blue-50 overflow-hidden">
-                <div class="p-8 border-b border-blue-50 bg-blue-50/30">
-                    <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">🛠️ 시설 고장 및 불편사항 신고</h3>
-                    <p class="text-sm text-slate-500 mt-2">제출 시 구글 시트에 기록되며 관리자(이승민)에게 이메일 알림이 전송됩니다.</p>
-                </div>
-                <div class="p-8 space-y-5">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">신고자 이름</label>
-                            <input type="text" id="input-name" class="w-full border-2 border-slate-100 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all" placeholder="성함을 입력하세요">
-                        </div>
+                <!-- 3. 비상 대응 연락망 -->
+                <section id="section-emergency">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-1 h-6 bg-red-500 rounded-full"></div>
+                        <h3 class="font-bold text-lg text-slate-800">비상 대응망 (Emergency Contacts)</h3>
                     </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">고장 및 불편 상세 내용</label>
-                        <textarea id="input-content" rows="4" class="w-full border-2 border-slate-100 rounded-xl p-4 text-sm focus:border-blue-500 outline-none transition-all" placeholder="예: C강의실 10번 좌석 클립스튜디오 실행이 안 됩니다."></textarea>
-                    </div>
-                    <button id="btn-submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex justify-center items-center gap-2">
-                        <span>신고 접수 및 구글 시트 전송</span>
-                    </button>
-                </div>
-            </section>
 
-            <!-- 관리자 뷰어 -->
-            <section id="admin-panel" class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl hidden transition-all">
-                <div class="p-8 border-b border-slate-800 flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-white flex items-center gap-2">🔐 관리자 데이터 뷰어 (로컬)</h3>
-                        <p class="text-sm text-slate-400">접수 버튼을 눌렀을 때 화면에 남아있는 로컬 백업 내역입니다.</p>
+                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="bg-slate-100 text-slate-600 font-bold text-xs uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4">구분 (Type)</th>
+                                    <th class="px-6 py-4">담당처 (Department)</th>
+                                    <th class="px-6 py-4">긴급 연락처 (Contact)</th>
+                                    <th class="px-6 py-4 hidden md:table-cell">관리 범위 (Scope)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-slate-800">시설/인프라 총괄</td>
+                                    <td class="px-6 py-4 text-slate-600">이승민 책임</td>
+                                    <td class="px-6 py-4 font-bold text-blue-600">010-6580-2656</td>
+                                    <td class="px-6 py-4 text-slate-500 text-xs hidden md:table-cell">PC 인프라, 소프트웨어, 네트워크 전체</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-bold text-slate-800">물리 보안 통제</td>
+                                    <td class="px-6 py-4 text-slate-600">통합 관제센터</td>
+                                    <td class="px-6 py-4 font-bold text-slate-700">1588-3112</td>
+                                    <td class="px-6 py-4 text-slate-500 text-xs hidden md:table-cell">무단 침입, 야간 긴급 출동 및 방범</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <button id="admin-close-btn" class="text-slate-400 hover:text-white">닫기 ✕</button>
-                </div>
-                <div class="p-8">
-                    <div id="report-list" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-                        <p class="text-center text-slate-600 py-10 italic">내역이 없습니다.</p>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- 비상 연락망 -->
-            <section id="section-emergency" class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-                <div class="p-6 border-b border-slate-50 bg-slate-50/50 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600">🚨</div>
-                    <h3 class="font-bold text-lg text-slate-900">비상 시설 연락망</h3>
-                </div>
-                <div class="p-6">
-                    <table class="w-full text-left text-sm">
-                        <thead class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
-                            <tr>
-                                <th class="pb-4">구분</th>
-                                <th class="pb-4">담당</th>
-                                <th class="pb-4">긴급 연락처</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-slate-700">
-                            <tr class="border-t border-slate-50">
-                                <td class="py-4 font-bold">시설 총괄</td>
-                                <td class="py-4 font-medium">이승민 책임</td>
-                                <td class="py-4 font-bold text-blue-600">010-6580-2656</td>
-                            </tr>
-                            <tr class="border-t border-slate-50">
-                                <td class="py-4 font-bold">무인 보안</td>
-                                <td class="py-4 font-medium">관제센터</td>
-                                <td class="py-4 font-bold">1588-3112</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                <!-- 최하단 여백 확보 -->
+                <div class="h-10"></div>
+            </div>
         </main>
     </div>
 
+    <!-- [자바스크립트 비즈니스 로직] -->
     <script>
-        /**
-         * 🔴 [중요] 구글 앱스 스크립트 배포 URL을 아래 큰따옴표 안에 넣어주세요!
-         */
+        // =====================================================================
+        // 🔴 [중요] 구글 앱스 스크립트 배포 URL (반드시 아래 큰따옴표 안에 입력) 🔴
+        // =====================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
-
+        
         const ADMIN_PW = "admin1234";
 
-        // 요소 바인딩
+        // DOM 요소 바인딩
         const inputName = document.getElementById('input-name');
         const inputContent = document.getElementById('input-content');
         const btnSubmit = document.getElementById('btn-submit');
         const adminPanel = document.getElementById('admin-panel');
-        const reportList = document.getElementById('report-list');
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const adminCloseBtn = document.getElementById('admin-close-btn');
+        const reportListContainer = document.getElementById('report-list-container');
 
-        // [기능 1] 구글 시트 전송 및 이메일 발송
+        // 로컬 데이터
+        let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
+
+        // 티켓 전송 (구글 시트 연동) 로직
         btnSubmit.addEventListener('click', async () => {
             const name = inputName.value.trim();
             const content = inputContent.value.trim();
 
             if (!name || !content) {
-                alert("이름과 내용을 모두 입력해 주세요!");
+                alert("신고자 성명과 장애 내용을 모두 입력해 주세요.");
                 return;
             }
 
             if (GOOGLE_SCRIPT_URL.includes("여기에")) {
-                alert("구글 시트 연동 주소가 설정되지 않았습니다. 코드를 확인해 주세요.");
+                alert("경고: 구글 스크립트 주소가 연동되지 않았습니다. 관리자에게 문의하세요.");
                 return;
             }
 
-            // 버튼 로딩 상태
+            // 전송 중 상태 표시
+            const originalBtnText = btnSubmit.innerHTML;
             btnSubmit.disabled = true;
-            btnSubmit.innerHTML = "구글 시트 기록 중... ⏳";
+            btnSubmit.innerHTML = `<span class="animate-pulse">데이터베이스 기록 중...</span>`;
+            btnSubmit.classList.replace('bg-slate-800', 'bg-blue-600');
 
             try {
-                // 구글 스크립트로 데이터 전송 (form-urlencoded 방식 사용)
+                // 구글 시트로 POST 요청 발송
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -255,60 +355,87 @@
                 const result = await response.json();
 
                 if (result.result === "success") {
-                    alert(`${name}님, 구글 시트 기록이 성공적으로 완료되었습니다!`);
-                    saveToLocal(name, content);
+                    alert(`장애 처리 티켓이 발급되었습니다.\n관리자(이승민)에게 즉시 통보됩니다.`);
+                    
+                    // 성공 시 로컬에도 백업 저장
+                    const newReport = {
+                        id: Date.now(),
+                        name: name,
+                        content: content,
+                        date: new Date().toLocaleString()
+                    };
+                    localReports.push(newReport);
+                    localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
+                    
+                    // 입력창 초기화
                     inputName.value = "";
                     inputContent.value = "";
+                    
+                    // 관리자 패널이 열려있다면 즉시 업데이트
+                    if (!adminPanel.classList.contains('hidden')) {
+                        renderAdminReports();
+                    }
                 } else {
-                    alert("시스템 오류: " + result.message);
+                    alert("시스템 오류 발생: " + result.message);
                 }
             } catch (err) {
-                alert("통신 오류가 발생했습니다. 구글 스크립트 주소나 배포 설정(모든 사용자 권한)을 확인하세요.");
+                alert("통신 오류 발생: 시스템 방화벽 또는 배포 권한(모든 사용자)을 확인하세요.");
             } finally {
+                // 버튼 상태 복구
                 btnSubmit.disabled = false;
-                btnSubmit.innerHTML = "신고 접수 및 구글 시트 전송";
+                btnSubmit.innerHTML = originalBtnText;
+                btnSubmit.classList.replace('bg-blue-600', 'bg-slate-800');
             }
         });
 
-        // [기능 2] 관리자 패널 제어
-        document.getElementById('admin-login-btn').addEventListener('click', () => {
-            const pw = prompt("관리자 비밀번호를 입력하세요.");
+        // 관리자 모드 접속 로직
+        adminLoginBtn.addEventListener('click', () => {
+            const pw = prompt("시스템 관리자 보안 코드를 입력하세요.");
             if (pw === ADMIN_PW) {
                 adminPanel.classList.remove('hidden');
-                renderLocalReports();
-                adminPanel.scrollIntoView({ behavior: 'smooth' });
+                renderAdminReports();
+                // 관리자 패널 위치로 스크롤
+                adminPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else if (pw !== null) {
-                alert("비밀번호가 올바르지 않습니다.");
+                alert("보안 코드가 일치하지 않습니다. 접근이 거부되었습니다.");
             }
         });
 
-        document.getElementById('admin-close-btn').addEventListener('click', () => {
+        // 관리자 패널 닫기
+        adminCloseBtn.addEventListener('click', () => {
             adminPanel.classList.add('hidden');
         });
 
-        // [기능 3] 화면 표시용 로컬 저장 (브라우저 새로고침해도 남도록)
-        function saveToLocal(name, content) {
-            const data = JSON.parse(localStorage.getItem('my_facility_data')) || [];
-            data.push({ name, content, time: new Date().toLocaleString() });
-            localStorage.setItem('my_facility_data', JSON.stringify(data));
-        }
-
-        function renderLocalReports() {
-            const data = JSON.parse(localStorage.getItem('my_facility_data')) || [];
-            if (data.length === 0) {
-                reportList.innerHTML = '<p class="text-center text-slate-600 py-10 italic">내역이 없습니다.</p>';
+        // 관리자 데이터 렌더링 함수
+        function renderAdminReports() {
+            if (localReports.length === 0) {
+                reportListContainer.innerHTML = '<p class="text-center text-slate-500 py-6 text-xs">접수된 장애 티켓이 없습니다.</p>';
                 return;
             }
-            reportList.innerHTML = data.map((item, idx) => `
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                    <div class="flex justify-between text-[10px] text-slate-500 mb-1">
-                        <span>NO.${idx + 1}</span>
-                        <span>${item.time}</span>
+
+            reportListContainer.innerHTML = localReports.map((report, idx) => `
+                <div class="bg-slate-800 border border-slate-700 p-4 rounded-md flex justify-between items-start gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Ticket #${localReports.length - idx}</span>
+                            <span class="text-[10px] text-slate-500">${report.date}</span>
+                        </div>
+                        <p class="text-white text-sm mb-1"><span class="text-slate-400 text-xs mr-2">Reporter</span> ${report.name}</p>
+                        <p class="text-slate-300 text-sm whitespace-pre-wrap"><span class="text-slate-400 text-xs mr-2">Issue</span> ${report.content}</p>
                     </div>
-                    <p class="text-white text-sm"><span class="text-blue-400 font-bold">${item.name}:</span> ${item.content}</p>
+                    <button onclick="deleteLocalReport(${report.id})" class="text-[10px] text-slate-400 hover:text-red-400 border border-slate-700 hover:border-red-900/50 bg-slate-900 px-3 py-1.5 rounded transition-colors whitespace-nowrap">완료/삭제</button>
                 </div>
             `).reverse().join('');
         }
+
+        // 로컬 데이터 삭제 함수 (구글 시트의 데이터는 보존됨)
+        window.deleteLocalReport = function(id) {
+            if (confirm("해당 장애 건의 로컬 티켓을 삭제하시겠습니까?\n(구글 시트의 원본 데이터는 삭제되지 않습니다.)")) {
+                localReports = localReports.filter(r => r.id !== id);
+                localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
+                renderAdminReports();
+            }
+        };
     </script>
 </body>
 </html>
