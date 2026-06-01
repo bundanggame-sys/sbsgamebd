@@ -43,8 +43,8 @@
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3">System Info</p>
                 <div class="space-y-2 text-xs">
                     <div class="flex justify-between text-slate-500"><span>제작자</span><span class="font-bold text-slate-800">이승민 책임</span></div>
-                    <div class="flex justify-between text-slate-500"><span>업데이트</span><span class="font-bold text-slate-800">2026.03</span></div>
-                    <div class="flex justify-between text-slate-500"><span>버전</span><span class="font-bold text-blue-600">v2.1 (Auto)</span></div>
+                    <div class="flex justify-between text-slate-500"><span>업데이트</span><span class="font-bold text-slate-800">2026.06</span></div>
+                    <div class="flex justify-between text-slate-500"><span>버전</span><span class="font-bold text-blue-600">v2.2 (Auto)</span></div>
                 </div>
             </div>
         </aside>
@@ -57,7 +57,10 @@
                     <h2 class="text-2xl font-bold text-slate-900">Classroom Software Status</h2>
                 </div>
 
+                <!-- 강의실 현황 그리드 (A, B, C, E는 2단, D는 가로로 길게 배치) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- A 강의실 -->
                     <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
                         <div class="flex justify-between mb-4">
                             <h3 class="font-bold text-blue-700 text-lg">A 강의실</h3>
@@ -71,6 +74,7 @@
                         </ul>
                     </div>
 
+                    <!-- B 강의실 -->
                     <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
                         <div class="flex justify-between mb-4">
                             <h3 class="font-bold text-blue-700 text-lg">B 강의실</h3>
@@ -84,26 +88,57 @@
                         </ul>
                     </div>
 
+                    <!-- C 강의실 (누락 복구됨) -->
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between mb-4">
+                            <h3 class="font-bold text-blue-700 text-lg">C 강의실</h3>
+                            <span class="text-[10px] text-slate-300">ADMIN: 010-6580-2656</span>
+                        </div>
+                        <ul class="text-sm space-y-2 text-slate-600">
+                            <li>🎨 Photoshop 2022</li>
+                            <li>🖌️ CLIP STUDIO PAINT 3.0</li>
+                            <li>📐 SketchUp 2022</li>
+                            <li>📊 Office 2021</li>
+                        </ul>
+                    </div>
+
+                    <!-- E 강의실 (누락 복구됨) -->
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between mb-4">
+                            <h3 class="font-bold text-blue-700 text-lg">E 강의실</h3>
+                            <span class="text-[10px] text-slate-300">ADMIN: 010-6580-2656</span>
+                        </div>
+                        <ul class="text-sm space-y-2 text-slate-600">
+                            <li>🎨 Photoshop 2020</li>
+                            <li>📝 한글 2024</li>
+                            <li>📊 Office 2021</li>
+                        </ul>
+                    </div>
+
+                    <!-- D 강의실 (가로 넓게 2칸 차지) -->
                     <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all md:col-span-2">
                         <div class="flex justify-between mb-4">
-                            <h3 class="font-bold text-blue-700 text-lg">D 강의실 (Graphics & 3D Specialist)</h3>
+                            <h3 class="font-bold text-blue-700 text-lg">D 강의실 <span class="text-sm font-normal text-slate-500">(Graphics & 3D Specialist)</span></h3>
                         </div>
                         <div class="grid grid-cols-2 gap-4 text-sm text-slate-600">
                             <ul class="space-y-1">
-                                <li>🏗️ 3ds Max 2023 / TopoGun2</li>
-                                <li>🖌️ Substance Painter 11.0.2</li>
-                                <li>🐵 Marmoset Toolbag 4</li>
+                                <li>🎨 Photoshop 2022 / Office 2021</li>
+                                <li>🎮 Unreal 5.3.2</li>
+                                <li>🏗️ 3ds Max 2023</li>
+                                <li>👤 TopoGun2</li>
                             </ul>
                             <ul class="space-y-1">
+                                <li>🖌️ Substance Painter 11.0.2</li>
+                                <li>🐵 Marmoset Toolbag 4</li>
                                 <li>👕 Marvelous Designer 2025</li>
-                                <li>🌋 CrazyBump / Unreal 5.3.2</li>
-                                <li>🎨 Photoshop 2022 / Office 2021</li>
+                                <li>🌋 CrazyBump</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- 신고 접수 폼 -->
             <section id="section-report" class="bg-white border-2 border-blue-100 rounded-3xl shadow-xl shadow-blue-50 overflow-hidden">
                 <div class="p-8 border-b border-blue-50 bg-blue-50/30">
                     <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">🛠️ 시설 고장 및 불편사항 신고</h3>
@@ -118,19 +153,20 @@
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">고장 및 불편 상세 내용</label>
-                        <textarea id="input-content" rows="4" class="w-full border-2 border-slate-100 rounded-xl p-4 text-sm focus:border-blue-500 outline-none transition-all" placeholder="예: B강의실 10번 좌석 키보드 입력이 안 됩니다."></textarea>
+                        <textarea id="input-content" rows="4" class="w-full border-2 border-slate-100 rounded-xl p-4 text-sm focus:border-blue-500 outline-none transition-all" placeholder="예: C강의실 10번 좌석 클립스튜디오 실행이 안 됩니다."></textarea>
                     </div>
                     <button id="btn-submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex justify-center items-center gap-2">
-                        <span>신고 접수 및 자동 알림 발송</span>
+                        <span>신고 접수 및 구글 시트 전송</span>
                     </button>
                 </div>
             </section>
 
+            <!-- 관리자 뷰어 -->
             <section id="admin-panel" class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl hidden transition-all">
                 <div class="p-8 border-b border-slate-800 flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold text-white flex items-center gap-2">🔐 관리자 데이터 뷰어 (로컬)</h3>
-                        <p class="text-sm text-slate-400">구글 시트로 전송된 데이터의 로컬 백업 내역입니다.</p>
+                        <p class="text-sm text-slate-400">접수 버튼을 눌렀을 때 화면에 남아있는 로컬 백업 내역입니다.</p>
                     </div>
                     <button id="admin-close-btn" class="text-slate-400 hover:text-white">닫기 ✕</button>
                 </div>
@@ -141,6 +177,7 @@
                 </div>
             </section>
 
+            <!-- 비상 연락망 -->
             <section id="section-emergency" class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
                 <div class="p-6 border-b border-slate-50 bg-slate-50/50 flex items-center gap-3">
                     <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600">🚨</div>
@@ -205,20 +242,20 @@
 
             // 버튼 로딩 상태
             btnSubmit.disabled = true;
-            btnSubmit.innerHTML = "구글 시트 기록 및 이메일 전송 중... ⏳";
+            btnSubmit.innerHTML = "구글 시트 기록 중... ⏳";
 
             try {
-                // 구글 스크립트로 데이터 쏘기
+                // 구글 스크립트로 데이터 전송 (form-urlencoded 방식 사용)
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ name, content })
+                    body: new URLSearchParams({ name: name, content: content })
                 });
 
                 const result = await response.json();
 
                 if (result.result === "success") {
-                    alert(`${name}님, 구글 시트 기록 및 이메일 알림이 성공적으로 완료되었습니다!`);
+                    alert(`${name}님, 구글 시트 기록이 성공적으로 완료되었습니다!`);
                     saveToLocal(name, content);
                     inputName.value = "";
                     inputContent.value = "";
@@ -226,10 +263,10 @@
                     alert("시스템 오류: " + result.message);
                 }
             } catch (err) {
-                alert("통신 오류가 발생했습니다. 구글 앱스 스크립트 배포 설정(모든 사용자)을 확인하세요.");
+                alert("통신 오류가 발생했습니다. 구글 스크립트 주소나 배포 설정(모든 사용자 권한)을 확인하세요.");
             } finally {
                 btnSubmit.disabled = false;
-                btnSubmit.innerHTML = "신고 접수 및 자동 알림 발송";
+                btnSubmit.innerHTML = "신고 접수 및 구글 시트 전송";
             }
         });
 
@@ -249,7 +286,7 @@
             adminPanel.classList.add('hidden');
         });
 
-        // [기능 3] 화면 표시용 로컬 저장
+        // [기능 3] 화면 표시용 로컬 저장 (브라우저 새로고침해도 남도록)
         function saveToLocal(name, content) {
             const data = JSON.parse(localStorage.getItem('my_facility_data')) || [];
             data.push({ name, content, time: new Date().toLocaleString() });
