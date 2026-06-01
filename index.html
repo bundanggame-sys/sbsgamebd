@@ -4,32 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임분당 시설문의 및 관리 시스템</title>
-    <!-- Tailwind CSS (디자인 프레임워크) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 폰트 및 아이콘 -->
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body { 
             font-family: 'Pretendard', sans-serif; 
+            background-color: #F1F5F9; 
         }
-        /* 대시보드용 스크롤바 커스텀 */
+        .hidden { display: none; }
+        .transition-all { transition: all 0.3s ease; }
+        
+        /* 대시보드 스크롤바 */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
-        .hidden { display: none; }
         .tag-item { 
-            display: inline-block; 
-            background-color: #f1f5f9; 
-            border: 1px solid #e2e8f0; 
-            color: #475569; 
-            font-size: 0.75rem; 
-            font-weight: 500; 
-            padding: 0.25rem 0.6rem; 
-            border-radius: 0.375rem; 
-            margin-right: 0.375rem; 
-            margin-bottom: 0.375rem;
+            display: inline-block; background-color: #f1f5f9; border: 1px solid #e2e8f0; 
+            color: #475569; font-size: 0.75rem; font-weight: 500; padding: 0.25rem 0.6rem; 
+            border-radius: 0.375rem; margin-right: 0.375rem; margin-bottom: 0.375rem;
         }
     </style>
 </head>
@@ -37,34 +31,32 @@
 
     <!-- [좌측 사이드바: 관제 컨트롤 패널] -->
     <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col h-full flex-shrink-0 shadow-xl z-20">
-        <!-- 로고 및 시스템명 영역 -->
         <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950">
             <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
             <h1 class="font-bold text-white tracking-wide text-sm">G-BUNDANG <span class="text-blue-400">FACILITY</span></h1>
         </div>
         
-        <!-- 네비게이션 메뉴 -->
         <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2">System Menu</p>
             <a href="#section-software" class="flex items-center px-4 py-2.5 bg-blue-600/10 text-blue-400 font-semibold rounded-lg border border-blue-500/20 transition-colors">
                 <span class="mr-3">🖥️</span> 인프라 및 SW 모니터링
             </a>
             <a href="#section-report" class="flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-medium rounded-lg transition-colors">
-                <span class="mr-3">🎫</span> 장애 처리 티켓 발급
+                <span class="mr-3">🎫</span> 시설 문의 & 티켓 발급
             </a>
             <a href="#section-emergency" class="flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-medium rounded-lg transition-colors">
                 <span class="mr-3">🚨</span> 비상 대응 연락망
             </a>
         </nav>
 
-        <!-- 시스템 & 관리자 정보 -->
         <div class="p-4 border-t border-slate-800 bg-slate-900/50">
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3">Node Info</p>
                 <div class="space-y-2 text-xs">
-                    <div class="flex justify-between text-slate-400"><span>책임 관리자</span><span class="font-bold text-white">이승민</span></div>
-                    <div class="flex justify-between text-slate-400"><span>DB 연동</span><span class="font-bold text-emerald-400">Google Sheets</span></div>
-                    <div class="flex justify-between text-slate-400"><span>업데이트</span><span class="text-slate-300">2026.03</span></div>
+                    <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white">이승민 책임</span></div>
+                    <div class="flex justify-between text-slate-400"><span>업데이트</span><span class="text-slate-300">2026.06</span></div>
+                    <!-- 자동 버전 텍스트 -->
+                    <div class="flex justify-between text-slate-400"><span>버전</span><span id="sys-version" class="font-bold text-blue-400">v1.0</span></div>
                 </div>
             </div>
         </div>
@@ -72,20 +64,16 @@
 
     <!-- [우측 메인 영역] -->
     <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-        
-        <!-- 상단 탑바 (헤더) -->
         <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10 shadow-sm">
             <div>
                 <h2 class="font-bold text-slate-800 text-lg">통합 관제 대시보드</h2>
-                <p class="text-xs text-slate-500">실시간 강의실 소프트웨어 현황 및 시설 장애 접수 시스템</p>
+                <p class="text-xs text-slate-500">실시간 강의실 현황 및 시설 고장·문의 접수 시스템</p>
             </div>
-            <!-- 관리자 모드 토글 버튼 -->
             <button id="admin-login-btn" class="flex items-center gap-2 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-4 py-2 rounded-md transition-colors">
                 <span>⚙️ 시스템 관리자 모드</span>
             </button>
         </header>
 
-        <!-- 메인 스크롤 콘텐츠 -->
         <main class="flex-1 overflow-y-auto p-8 scroll-smooth" id="main-content">
             <div class="max-w-6xl mx-auto space-y-8">
 
@@ -96,19 +84,13 @@
                             <span class="w-1.5 h-6 bg-blue-600 rounded-full inline-block"></span>
                             강의실 인프라 및 설치 프로그램 현황
                         </h3>
-                        <span class="text-xs text-slate-400 font-medium bg-white px-3 py-1 border border-slate-200 rounded-full shadow-sm">
-                            Last Checked: 2026.03
-                        </span>
                     </div>
 
-                    <!-- 강의실 카드 그리드 (대시보드 노드 스타일) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        
                         <!-- A 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
                             <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
                                 <h4 class="font-bold text-slate-800">A 강의실</h4>
-                                <!-- 상태 표시기 -->
                                 <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-bold text-emerald-600">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
                                 </div>
@@ -198,11 +180,10 @@
                                 <span class="tag-item">Office 2021</span>
                             </div>
                         </div>
-
                     </div>
                 </section>
 
-                <!-- 관리자 패널 (기본 숨김) -->
+                <!-- 관리자 패널 -->
                 <section id="admin-panel" class="hidden">
                     <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
                         <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
@@ -215,7 +196,6 @@
                             <div class="flex justify-between items-end mb-4">
                                 <p class="text-xs text-slate-400">구글 시트로 발송된 접수 내역의 브라우저 로컬 데이터 백업입니다.</p>
                             </div>
-                            <!-- 접수 내역 리스트 -->
                             <div id="report-list-container" class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar text-sm">
                                 <p class="text-center text-slate-500 py-6 text-xs">접수된 장애 티켓이 없습니다.</p>
                             </div>
@@ -223,37 +203,35 @@
                     </div>
                 </section>
 
-                <!-- 2. 장애 처리 티켓 발급 폼 -->
+                <!-- 2. 장애 처리 및 시설 문의 티켓 발급 폼 -->
                 <section id="section-report">
                     <div class="flex items-center gap-2 mb-4">
                         <div class="w-1 h-6 bg-blue-600 rounded-full"></div>
-                        <h3 class="font-bold text-lg text-slate-800">시설 장애 처리 티켓 발급</h3>
+                        <h3 class="font-bold text-lg text-slate-800">시설 고장 신고 및 문의 접수</h3>
                     </div>
                     
                     <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                         <div class="p-6 md:p-8 flex flex-col md:flex-row gap-8">
-                            <!-- 좌측 안내문 -->
                             <div class="w-full md:w-1/3 bg-slate-50 rounded-lg p-6 border border-slate-100 flex flex-col justify-center">
                                 <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl mb-4">🔧</div>
-                                <h4 class="font-bold text-slate-800 mb-2">신속한 장애 조치를 위해<br>상세히 기재해 주세요.</h4>
+                                <h4 class="font-bold text-slate-800 mb-2">고장 신고 및 일반 시설 문의를<br>상세히 기재해 주세요.</h4>
                                 <p class="text-xs text-slate-500 leading-relaxed mb-4">
                                     발급된 티켓은 즉시 구글 시트 데이터베이스에 기록되며, 관리자(이승민 책임)의 이메일 및 시스템으로 자동 푸시 알림이 전송됩니다.
                                 </p>
                             </div>
                             
-                            <!-- 우측 폼 입력 -->
                             <div class="flex-1 space-y-5">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">신고자 성명 (Reporter)</label>
                                     <input type="text" id="input-name" class="w-full bg-white border border-slate-300 rounded-md px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow" placeholder="이름을 입력하세요">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">장애 발생 위치 및 증상 상세 (Issue Details)</label>
-                                    <textarea id="input-content" rows="4" class="w-full bg-white border border-slate-300 rounded-md px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow resize-none" placeholder="예: B강의실 10번 좌석 키보드 특정 키 입력 불량"></textarea>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">장애 상세 내용 및 시설 문의사항 (Details)</label>
+                                    <textarea id="input-content" rows="4" class="w-full bg-white border border-slate-300 rounded-md px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow resize-none" placeholder="예: B강의실 10번 좌석 키보드 고장 또는 소프트웨어 설치 관련 문의"></textarea>
                                 </div>
                                 <div class="pt-2">
                                     <button id="btn-submit" class="w-full md:w-auto px-8 bg-slate-800 text-white font-bold py-3 rounded-md hover:bg-slate-900 transition-colors shadow-md flex justify-center items-center gap-2">
-                                        티켓 전송 (Submit Ticket)
+                                        티켓 및 문의 전송 (Submit)
                                     </button>
                                 </div>
                             </div>
@@ -282,7 +260,7 @@
                                 <tr class="hover:bg-slate-50 transition-colors">
                                     <td class="px-6 py-4 font-bold text-slate-800">시설/인프라 총괄</td>
                                     <td class="px-6 py-4 text-slate-600">이승민 책임</td>
-                                    <td class="px-6 py-4 font-bold text-blue-600">010-6580-2656</td>
+                                    <td class="px-6 py-4 font-bold text-blue-600">010-9287-2656</td>
                                     <td class="px-6 py-4 text-slate-500 text-xs hidden md:table-cell">PC 인프라, 소프트웨어, 네트워크 전체</td>
                                 </tr>
                                 <tr class="hover:bg-slate-50 transition-colors">
@@ -296,7 +274,6 @@
                     </div>
                 </section>
 
-                <!-- 최하단 여백 확보 -->
                 <div class="h-10"></div>
             </div>
         </main>
@@ -311,6 +288,19 @@
         
         const ADMIN_PW = "admin1234";
 
+        // [기능: 버전 자동 변경 로직 (AUTO)]
+        const versionEl = document.getElementById('sys-version');
+        let autoBuildCount = localStorage.getItem('g_bundang_auto_version') || 0;
+        autoBuildCount = parseInt(autoBuildCount) + 1;
+        localStorage.setItem('g_bundang_auto_version', autoBuildCount);
+
+        if (autoBuildCount === 1) {
+            versionEl.innerText = "v1.0";
+        } else {
+            versionEl.innerText = `v1.0 (AUTO-${autoBuildCount})`;
+            versionEl.classList.replace('text-blue-400', 'text-emerald-500'); // Auto 모드일 때 색상 변경
+        }
+
         // DOM 요소 바인딩
         const inputName = document.getElementById('input-name');
         const inputContent = document.getElementById('input-content');
@@ -320,16 +310,15 @@
         const adminCloseBtn = document.getElementById('admin-close-btn');
         const reportListContainer = document.getElementById('report-list-container');
 
-        // 로컬 데이터
         let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
 
-        // 티켓 전송 (구글 시트 연동) 로직
+        // 티켓 전송 (구글 시트 연동)
         btnSubmit.addEventListener('click', async () => {
             const name = inputName.value.trim();
             const content = inputContent.value.trim();
 
             if (!name || !content) {
-                alert("신고자 성명과 장애 내용을 모두 입력해 주세요.");
+                alert("신고자 성명과 문의/장애 내용을 모두 입력해 주세요.");
                 return;
             }
 
@@ -338,14 +327,12 @@
                 return;
             }
 
-            // 전송 중 상태 표시
             const originalBtnText = btnSubmit.innerHTML;
             btnSubmit.disabled = true;
             btnSubmit.innerHTML = `<span class="animate-pulse">데이터베이스 기록 중...</span>`;
             btnSubmit.classList.replace('bg-slate-800', 'bg-blue-600');
 
             try {
-                // 구글 시트로 POST 요청 발송
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -355,9 +342,8 @@
                 const result = await response.json();
 
                 if (result.result === "success") {
-                    alert(`장애 처리 티켓이 발급되었습니다.\n관리자(이승민)에게 즉시 통보됩니다.`);
+                    alert(`요청이 성공적으로 접수되었습니다.\n관리자(이승민)에게 즉시 통보됩니다.`);
                     
-                    // 성공 시 로컬에도 백업 저장
                     const newReport = {
                         id: Date.now(),
                         name: name,
@@ -367,11 +353,9 @@
                     localReports.push(newReport);
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                     
-                    // 입력창 초기화
                     inputName.value = "";
                     inputContent.value = "";
                     
-                    // 관리자 패널이 열려있다면 즉시 업데이트
                     if (!adminPanel.classList.contains('hidden')) {
                         renderAdminReports();
                     }
@@ -379,37 +363,33 @@
                     alert("시스템 오류 발생: " + result.message);
                 }
             } catch (err) {
-                alert("통신 오류 발생: 시스템 방화벽 또는 배포 권한(모든 사용자)을 확인하세요.");
+                alert("통신 오류 발생: 구글 앱스 스크립트 배포 설정을 확인하세요.");
             } finally {
-                // 버튼 상태 복구
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = originalBtnText;
                 btnSubmit.classList.replace('bg-blue-600', 'bg-slate-800');
             }
         });
 
-        // 관리자 모드 접속 로직
+        // 관리자 모드
         adminLoginBtn.addEventListener('click', () => {
             const pw = prompt("시스템 관리자 보안 코드를 입력하세요.");
             if (pw === ADMIN_PW) {
                 adminPanel.classList.remove('hidden');
                 renderAdminReports();
-                // 관리자 패널 위치로 스크롤
                 adminPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else if (pw !== null) {
-                alert("보안 코드가 일치하지 않습니다. 접근이 거부되었습니다.");
+                alert("보안 코드가 일치하지 않습니다.");
             }
         });
 
-        // 관리자 패널 닫기
         adminCloseBtn.addEventListener('click', () => {
             adminPanel.classList.add('hidden');
         });
 
-        // 관리자 데이터 렌더링 함수
         function renderAdminReports() {
             if (localReports.length === 0) {
-                reportListContainer.innerHTML = '<p class="text-center text-slate-500 py-6 text-xs">접수된 장애 티켓이 없습니다.</p>';
+                reportListContainer.innerHTML = '<p class="text-center text-slate-500 py-6 text-xs">접수된 문의/장애 티켓이 없습니다.</p>';
                 return;
             }
 
@@ -421,16 +401,15 @@
                             <span class="text-[10px] text-slate-500">${report.date}</span>
                         </div>
                         <p class="text-white text-sm mb-1"><span class="text-slate-400 text-xs mr-2">Reporter</span> ${report.name}</p>
-                        <p class="text-slate-300 text-sm whitespace-pre-wrap"><span class="text-slate-400 text-xs mr-2">Issue</span> ${report.content}</p>
+                        <p class="text-slate-300 text-sm whitespace-pre-wrap"><span class="text-slate-400 text-xs mr-2">Issue/Inquiry</span> ${report.content}</p>
                     </div>
                     <button onclick="deleteLocalReport(${report.id})" class="text-[10px] text-slate-400 hover:text-red-400 border border-slate-700 hover:border-red-900/50 bg-slate-900 px-3 py-1.5 rounded transition-colors whitespace-nowrap">완료/삭제</button>
                 </div>
             `).reverse().join('');
         }
 
-        // 로컬 데이터 삭제 함수 (구글 시트의 데이터는 보존됨)
         window.deleteLocalReport = function(id) {
-            if (confirm("해당 장애 건의 로컬 티켓을 삭제하시겠습니까?\n(구글 시트의 원본 데이터는 삭제되지 않습니다.)")) {
+            if (confirm("해당 건의 로컬 티켓을 삭제하시겠습니까?\n(구글 시트 원본은 유지됩니다.)")) {
                 localReports = localReports.filter(r => r.id !== id);
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                 renderAdminReports();
