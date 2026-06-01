@@ -51,7 +51,7 @@
                 <span class="mr-3">🖥️</span> 강의실 프로그램 현황
             </a>
             <a href="#section-report" class="menu-tab flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-medium rounded-lg transition-colors border border-transparent">
-                <span class="mr-3">🎫</span> 시설 문의 & 티켓 발급
+                <span class="mr-3">🎫</span> 시설 문의
             </a>
             <a href="#section-emergency" class="menu-tab flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-medium rounded-lg transition-colors border border-transparent">
                 <span class="mr-3">🚨</span> 비상 대응 연락망
@@ -187,12 +187,12 @@
                     </div>
                 </section>
 
-                <!-- 2. 시설 문의 & 장애 처리 티켓 발급 폼 (숨김 상태) -->
+                <!-- 2. 시설 문의 폼 (숨김 상태) -->
                 <section id="section-report" class="content-section hidden fade-in">
                     <div class="bg-white border-2 border-blue-100 rounded-3xl shadow-xl shadow-blue-50 overflow-hidden">
                         <div class="p-8 border-b border-blue-50 bg-blue-50/30">
                             <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">🛠️ 시설 고장 신고 및 문의 접수</h3>
-                            <p class="text-sm text-slate-500 mt-2">제출 시 구글 시트에 기록되며 관리자(이승민)에게 이메일 알림이 전송됩니다.</p>
+                            <p class="text-sm text-slate-500 mt-2">제출 시 구글 시트에 기록되며 관리자(이승민 책임)에게 이메일 알림이 전송됩니다.</p>
                         </div>
                         <div class="p-8 space-y-5">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -205,45 +205,32 @@
                                 <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">장애 상세 내용 및 시설 문의사항 (Details)</label>
                                 <textarea id="input-content" rows="4" class="w-full bg-white border-2 border-slate-100 rounded-xl p-4 text-sm focus:border-blue-500 outline-none transition-all resize-none" placeholder="예: B강의실 10번 좌석 키보드 고장 또는 소프트웨어 설치 관련 문의"></textarea>
                             </div>
-                            <button id="btn-submit" class="w-full bg-slate-800 text-white font-bold py-4 rounded-xl hover:bg-slate-900 transition-all shadow-lg flex justify-center items-center gap-2">
-                                <span>티켓 및 문의 전송 (Submit)</span>
+                            <button id="btn-submit" class="w-full md:w-auto bg-slate-800 text-white font-bold py-3 px-8 rounded-xl hover:bg-slate-900 transition-all shadow-lg flex justify-center items-center gap-2">
+                                <span>문의 접수</span>
                             </button>
                         </div>
                     </div>
                 </section>
 
-                <!-- 3. 비상 대응 연락망 (숨김 상태) -->
+                <!-- 3. 비상 대응 연락망 (숨김 상태, NODE INFO 디자인 적용) -->
                 <section id="section-emergency" class="content-section hidden fade-in">
-                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-                        <div class="p-6 border-b border-slate-50 bg-slate-50/50 flex items-center gap-3">
-                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600">🚨</div>
-                            <h3 class="font-bold text-lg text-slate-900">비상 대응망 (Emergency Contacts)</h3>
-                        </div>
-                        <div class="p-6">
-                            <table class="w-full text-left text-sm whitespace-nowrap">
-                                <thead class="bg-slate-100 text-slate-600 font-bold text-xs uppercase tracking-wider border-b border-slate-200">
-                                    <tr>
-                                        <th class="px-6 py-4">구분 (Type)</th>
-                                        <th class="px-6 py-4">담당처 (Department)</th>
-                                        <th class="px-6 py-4">긴급 연락처 (Contact)</th>
-                                        <th class="px-6 py-4 hidden md:table-cell">관리 범위 (Scope)</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100 text-slate-700">
-                                    <tr class="hover:bg-slate-50 transition-colors">
-                                        <td class="px-6 py-4 font-bold text-slate-800">시설/인프라 총괄</td>
-                                        <td class="px-6 py-4 text-slate-600">이승민 책임</td>
-                                        <td class="px-6 py-4 font-bold text-blue-600">010-9287-2656</td>
-                                        <td class="px-6 py-4 text-slate-500 text-xs hidden md:table-cell">PC 인프라, 소프트웨어, 네트워크 전체</td>
-                                    </tr>
-                                    <tr class="hover:bg-slate-50 transition-colors">
-                                        <td class="px-6 py-4 font-bold text-slate-800">물리 보안 통제</td>
-                                        <td class="px-6 py-4 text-slate-600">통합 관제센터</td>
-                                        <td class="px-6 py-4 font-bold text-slate-700">1588-3112</td>
-                                        <td class="px-6 py-4 text-slate-500 text-xs hidden md:table-cell">무단 침입, 야간 긴급 출동 및 방범</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-1.5 h-6 bg-red-500 rounded-full"></div>
+                        <h3 class="font-bold text-lg text-slate-800">비상 대응망 (Emergency Contacts)</h3>
+                    </div>
+
+                    <!-- NODE INFO 스타일이 적용된 다크 테마 위젯 -->
+                    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/50 max-w-md shadow-lg">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase mb-4">Emergency Info</p>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/50 pb-3">
+                                <span>시설 총괄 <span class="text-xs text-slate-500 ml-1">(이승민 책임)</span></span>
+                                <span class="font-bold text-blue-400 tracking-wider">010-9287-2656</span>
+                            </div>
+                            <div class="flex justify-between items-center text-slate-400">
+                                <span>물리 보안 <span class="text-xs text-slate-500 ml-1">(관제센터)</span></span>
+                                <span class="font-bold text-white tracking-wider">1588-3112</span>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -278,7 +265,7 @@
         // =====================================================================
         // 🔴 [중요] 구글 앱스 스크립트 배포 URL (아래 큰따옴표 안에 입력) 🔴
         // =====================================================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
+        const GOOGLE_SCRIPT_URL = "여기에_주소를_붙여넣으세요"; 
         
         const ADMIN_PW = "admin1234";
 
@@ -338,7 +325,7 @@
             const content = inputContent.value.trim();
 
             if (!name || !content) {
-                alert("신고자 성명과 문의/장애 내용을 모두 입력해 주세요.");
+                alert("신고자 성명과 문의 내용을 모두 입력해 주세요.");
                 return;
             }
 
