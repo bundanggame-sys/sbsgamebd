@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사업부 인포 업무 가이드북</title>
+    <title>게임분당 시설문의 및 관리 시스템</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body {
             font-family: 'Pretendard', sans-serif;
-            background-color: #F8FAFC; /* 아주 연한 푸른빛이 도는 회색 배경 */
+            background-color: #F8FAFC; /* 화면 전체의 부드러운 연회색 배경 지정 */
         }
-        /* 체크박스 디자인을 기본 스타일 대신 커스텀하기 위한 CSS */
+        /* 기본 체크박스를 숨기고 세련된 사각형 모양으로 커스텀하는 스타일 */
         .custom-checkbox {
             appearance: none;
             background-color: #fff;
@@ -28,6 +28,7 @@
             cursor: pointer;
             transition: all 0.2s ease-in-out;
         }
+        /* 체크박스가 체크되었을 때 나타날 내부 V자 체크 표시 모양 정의 */
         .custom-checkbox::before {
             content: "";
             width: 0.65em;
@@ -39,8 +40,9 @@
             transform-origin: center;
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         }
+        /* 체크박스가 활성화(클릭)되었을 때 파란색 배경으로 전환 */
         .custom-checkbox:checked {
-            background-color: #3B82F6; /* 파란색 배경 */
+            background-color: #3B82F6;
             border-color: #3B82F6;
         }
         .custom-checkbox:checked::before {
@@ -51,87 +53,84 @@
 <body class="text-slate-800">
 
     <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center sticky top-0 z-10">
-        <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-md mr-3">GUIDE</span>
-        <h1 class="text-xl font-bold mr-4">사업부 인포 업무 가이드북</h1>
-        <span class="text-slate-400 text-sm mr-4">17:30 이후 야간 운영 기준</span>
+        <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-md mr-3">FACILITY</span>
+        <h1 class="text-xl font-bold mr-4">게임분당 시설문의 및 관리 시스템</h1>
+        <span class="text-slate-400 text-sm mr-4">분당 센터 시설 관리 및 민원 응대 기준</span>
         <span class="bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-1.5"></span> 연결됨
+            <span class="w-2 h-2 bg-green-500 rounded-full mr-1.5"></span> 실시간 연결됨
         </span>
     </header>
 
     <div class="max-w-7xl mx-auto flex px-8 py-8 gap-10">
         
         <aside class="w-56 flex-shrink-0">
-            <h2 class="text-xs font-bold text-slate-400 mb-4 pl-4">목차</h2>
+            <h2 class="text-xs font-bold text-slate-400 mb-4 pl-4 uppercase tracking-wider">목차</h2>
             <ul class="space-y-1">
                 <li class="relative">
                     <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
-                    <a href="#" class="block pl-4 py-2 text-slate-800 font-bold bg-slate-100/50 rounded-lg">캐비닛 위치 안내</a>
+                    <a href="#" class="block pl-4 py-2 text-slate-800 font-bold bg-slate-100/50 rounded-lg">주요 시설 위치 안내</a>
                 </li>
-                <li><a href="#" class="block pl-4 py-2 text-slate-500 hover:text-slate-800 transition-colors">마감 체크리스트</a></li>
-                <li><a href="#" class="block pl-4 py-2 text-slate-500 hover:text-slate-800 transition-colors">강의장 펜 대여·회수</a></li>
-                <li><a href="#" class="block pl-4 py-2 text-slate-500 hover:text-slate-800 transition-colors">수강생 대여물품</a></li>
-                <li><a href="#" class="block pl-4 py-2 text-slate-500 hover:text-slate-800 transition-colors">주차권 처리</a></li>
-                <li><a href="#" class="block pl-4 py-2 text-slate-500 hover:text-slate-800 transition-colors">영수증 처리</a></li>
+                <li><a href="#" class="block pl-4 py-2 text-slate-500 hover:text-slate-800 transition-colors">고장 신고 및 접수 현황</a></li>
+                <li><a href="#" class="block pl-4 py-2 text-slate-500 hover:text-slate-800 transition-colors">비상 시설 연락망</a></li>
             </ul>
 
             <div class="mt-12 bg-white border border-slate-200 rounded-lg p-4 text-xs text-slate-500">
                 <div class="flex justify-between mb-2"><span>버전</span><span class="font-medium text-slate-700">v1.0</span></div>
-                <div class="flex justify-between mb-2"><span>제작자</span><span class="font-medium text-slate-700">이정원 주임</span></div>
-                <div class="flex justify-between"><span>수정일</span><span class="font-medium text-slate-700">2026.05.30 17:04</span></div>
+                <div class="flex justify-between mb-2"><span>제작자</span><span class="font-medium text-slate-700">이승민</span></div>
+                <div class="flex justify-between"><span>수정일</span><span class="font-medium text-slate-700">2026.06.01 11:50</span></div>
             </div>
         </aside>
 
         <main class="flex-1 space-y-6">
             
             <section class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                <div class="p-6 border-b border-slate-100 flex items-center justify-between cursor-pointer">
+                <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-500 text-xl">🗄️</div>
+                        <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-500 text-xl">🏢</div>
                         <div>
-                            <h3 class="font-bold text-lg text-slate-800">캐비닛 위치 안내</h3>
-                            <p class="text-sm text-slate-400">인포 데스크 기물 배치 및 주요 보관 위치</p>
+                            <h3 class="font-bold text-lg text-slate-800">주요 시설 위치 안내</h3>
+                            <p class="text-sm text-slate-400">게임분당 센터 공간 배치 및 핵심 기물 보관 위치</p>
                         </div>
                     </div>
-                    <span class="text-slate-400">▼</span>
+                    <span class="text-slate-400 text-xs">▲</span>
                 </div>
                 
                 <div class="p-6">
                     <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div class="border border-slate-200 rounded-lg p-5">
+                        <div class="border border-slate-200 rounded-lg p-5 bg-slate-50/30">
                             <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-green-500"></span>우측 캐비닛
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>우측 영역 (체험 시설)
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2 list-inside list-disc marker:text-slate-300">
-                                <li>대여용 펜</li>
-                                <li>강의장 펜</li>
-                                <li>대여물품 교환물품</li>
-                                <li>분실물 박스</li>
+                                <li>고사양 1인 고집중 PC존</li>
+                                <li>가상현실(VR) 멀티 체험룸</li>
+                                <li>오픈 스터디 공간 및 세미나실</li>
                             </ul>
                         </div>
-                        <div class="border border-slate-200 rounded-lg p-5">
+                        <div class="border border-slate-200 rounded-lg p-5 bg-slate-50/30">
                             <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-orange-400"></span>중앙 캐비닛
+                                <span class="w-2 h-2 rounded-full bg-orange-400"></span>중앙 영역 (제어/보안)
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2 list-inside list-disc marker:text-slate-300">
-                                <li>상품권</li>
-                                <li>금고</li>
-                                <li>주차권 현금통</li>
+                                <li>메인 통합 인프라 서버룸</li>
+                                <li>시설 통합 공조 제어반</li>
+                                <li>중요 마스터키/열쇠 보관함</li>
                             </ul>
                         </div>
-                        <div class="border border-slate-200 rounded-lg p-5">
+                        <div class="border border-slate-200 rounded-lg p-5 bg-slate-50/30">
                             <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>좌측 캐비닛
+                                <span class="w-2 h-2 rounded-full bg-green-500"></span>좌측 영역 (네트워크)
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2 list-inside list-disc marker:text-slate-300">
-                                <li>문구류 일체</li>
-                                <li>풀, 테이프 등 소모품</li>
+                                <li>메인 백본망 L3 스위치 허브</li>
+                                <li>예비 기어 및 랜선 자재창고</li>
+                                <li>멀티미디어 HDMI 여분 케이블</li>
                             </ul>
                         </div>
                     </div>
                     <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3 text-sm text-blue-800 flex items-center gap-2">
                         <span class="text-blue-500 font-bold">ℹ</span>
-                        <p>우측 5칸은 <strong>게임 캐비닛</strong>입니다. 충전용 케이블은 인포 우측 두 번째 서랍장에 보관합니다.</p>
+                        <p>시설물 파손 발견 시 즉시 아래 <strong>고장 신고 현황</strong>에 등록하고 필요한 경우 <strong>비상 연락망</strong>을 통해 즉각 보고해 주시기 바랍니다.</p>
                     </div>
                 </div>
             </section>
@@ -139,18 +138,18 @@
             <section class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
                 <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-500 text-xl">✅</div>
+                        <div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-500 text-xl">🛠️</div>
                         <div>
-                            <h3 class="font-bold text-lg text-slate-800">마감 체크리스트</h3>
-                            <p class="text-sm text-slate-400">퇴근 전 반드시 완료해야 할 항목</p>
+                            <h3 class="font-bold text-lg text-slate-800">고장 신고 및 접수 현황</h3>
+                            <p class="text-sm text-slate-400">오늘 접수된 일일 시설 민원 리스트 및 조치 유무 체크</p>
                         </div>
                     </div>
-                    <span class="text-slate-400">▼</span>
+                    <span class="text-slate-400 text-xs">▲</span>
                 </div>
 
                 <div class="p-6">
                     <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-6 flex items-center gap-4">
-                        <span class="text-sm font-bold text-slate-500 whitespace-nowrap">마감 진행률</span>
+                        <span class="text-sm font-bold text-slate-500 whitespace-nowrap">고장 처리율</span>
                         <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
                             <div id="progress-bar-fill" class="h-full bg-blue-500 transition-all duration-300 ease-in-out" style="width: 0%;"></div>
                         </div>
@@ -165,161 +164,203 @@
                         <li class="flex items-start gap-4 py-4 border-b border-slate-100">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">저녁반 강의장 펜 대여 및 회수</h4>
-                                <p class="text-sm text-slate-400 mt-1">개수·상태 확인 / 대여장부 작성 / 특이사항 운영부 전달</p>
+                                <h4 class="font-bold text-slate-800">[PC존] 12번 좌석 기계식 키보드 특정 키 입력 작동 불량</h4>
+                                <p class="text-sm text-slate-400 mt-1">이용 수강생 접수 건 / 예비 보관 기어로 현장 교체 및 고장 기어 입고 점검 진행</p>
                             </div>
-                            <span class="text-xs font-bold text-orange-600 bg-orange-50 border border-orange-100 px-2 py-1 rounded">장부 必</span>
+                            <span class="text-xs font-bold text-orange-600 bg-orange-50 border border-orange-100 px-2 py-1 rounded">교체 및 점검</span>
                         </li>
 
                         <li class="flex items-start gap-4 py-4 border-b border-slate-100">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">저녁반 수강생 대여물품 펜 대여 및 회수</h4>
-                                <p class="text-sm text-slate-400 mt-1">개수·상태 확인 / 대여장부 작성 / 특이사항 운영부 전달</p>
+                                <h4 class="font-bold text-slate-800">[VR룸] HMD 헤드셋 디스플레이 간헐적 화면 깜빡임 현상</h4>
+                                <p class="text-sm text-slate-400 mt-1">출력 단자 및 내부 광케이블 꺾임 여부 점검 후 메인 셋톱박스 재연결 테스트 必</p>
                             </div>
-                            <span class="text-xs font-bold text-orange-600 bg-orange-50 border border-orange-100 px-2 py-1 rounded">장부 必</span>
+                            <span class="text-xs font-bold text-orange-600 bg-orange-50 border border-orange-100 px-2 py-1 rounded">케이블 재연결</span>
                         </li>
 
                         <li class="flex items-start gap-4 py-4 border-b border-slate-100">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">주차권 판매 및 스프레드시트 입력</h4>
-                                <p class="text-sm text-slate-400 mt-1">누락 없이 작성 / 현금 입금 내역 운영부에 공유</p>
+                                <h4 class="font-bold text-slate-800">[스터디룸A] 벽면 빌트인 RJ45 LAN 포트 고정 네트워크 신호 누락</h4>
+                                <p class="text-sm text-slate-400 mt-1">노트북 연결 오류 민원 / 내부 선로 단선 확인 시 메인 백본 허브 포트 전환 배정</p>
                             </div>
-                            <span class="text-xs font-bold text-yellow-600 bg-yellow-50 border border-yellow-100 px-2 py-1 rounded">누락 금지</span>
+                            <span class="text-xs font-bold text-yellow-600 bg-yellow-50 border border-yellow-100 px-2 py-1 rounded">포트 전환 배정</span>
                         </li>
 
                         <li class="flex items-start gap-4 py-4 border-b border-slate-100">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">당직 식대 카드 일지 작성 했는지 확인 📝&lt;-클릭</h4>
+                                <h4 class="font-bold text-slate-800">[공용 휴게실] 메인 냉온정수기 온수 출수 센서 오작동 및 바닥면 일부 미세 누수</h4>
+                                <p class="text-sm text-slate-400 mt-1">누수로 인한 안전사고 방지용 경고 표지판 배치 완료 및 본사 제휴 관리업체 긴급 접수</p>
                             </div>
-                            <span class="text-xs font-bold text-yellow-600 bg-yellow-50 border border-yellow-100 px-2 py-1 rounded">누락 금지</span>
+                            <span class="text-xs font-bold text-green-600 bg-green-50 border border-green-100 px-2 py-1 rounded">A/S 접수 완료</span>
                         </li>
 
                         <li class="flex items-start gap-4 py-4 border-b border-slate-100">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">뒤쪽 캐비닛 시건장치 잠금</h4>
-                                <p class="text-sm text-slate-400 mt-1">열쇠는 오른쪽 책상 서랍장 제일 윗칸에 보관</p>
+                                <h4 class="font-bold text-slate-800">[PC존] 45번 좌석 프로 게이밍 마우스 피트 마모로 인한 슬라이딩 제어 이상</h4>
+                                <p class="text-sm text-slate-400 mt-1">좌측 자재창고 소모품 수납 박스에서 정품 규격 마우스 피트 꺼내어 현장 부착 교체</p>
                             </div>
-                            <span class="text-xs font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-1 rounded">현금 및 금고가 있어 必</span>
+                            <span class="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2 py-1 rounded">소모품 교체</span>
                         </li>
 
                         <li class="flex items-start gap-4 py-4 border-b border-slate-100">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">인포 데스크 주변 쓰레기통 비우기 및 분리수거</h4>
-                                <p class="text-sm text-slate-400 mt-1">종량제 봉투 묶어서 복도 배출 / 재활용품 분류</p>
+                                <h4 class="font-bold text-slate-800">[대형 세미나실] 천장 부착형 고해상도 빔프로젝터 원격 제어 리모컨 무반응</h4>
+                                <p class="text-sm text-slate-400 mt-1">기본 AAA 배터리 소모로 인한 문제 / 인포 데스크 서랍장 내부 여분 배터리 즉시 공급 교체</p>
                             </div>
+                            <span class="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2 py-1 rounded">배터리 교체</span>
                         </li>
 
                         <li class="flex items-start gap-4 py-4 border-b border-slate-100">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">공용 PC 및 모니터 전원 완전 종료</h4>
-                                <p class="text-sm text-slate-400 mt-1">개인정보 보호를 위해 바탕화면 파일 삭제 및 전원 OFF</p>
+                                <h4 class="font-bold text-slate-800">[메인 로비] 공용 Wi-Fi 무선 공유기 동시 다수 트래픽 과부하로 인한 주기적 끊김 수신</h4>
+                                <p class="text-sm text-slate-400 mt-1">중앙 제어 서버에서 무선 AP 관리자 모드 접속 후 기기 강제 원격 리부팅 및 채널 최적화 완료</p>
                             </div>
+                            <span class="text-xs font-bold text-purple-600 bg-purple-50 border border-purple-100 px-2 py-1 rounded">채널 최적화</span>
                         </li>
 
                         <li class="flex items-start gap-4 py-4">
                             <input type="checkbox" class="task-checkbox custom-checkbox mt-1">
                             <div class="flex-1">
-                                <h4 class="font-bold text-slate-800">출입문 최종 잠금 및 보안(세콤) 세팅</h4>
-                                <p class="text-sm text-slate-400 mt-1">외부 출입문 지문/비밀번호 확인 후 최종 보안 모드 활성화</p>
+                                <h4 class="font-bold text-slate-800">[전체 시설] 외부 테라스 구역 대형 냉난방기 실외기 내부 비정상 소음 및 진동 민원</h4>
+                                <p class="text-sm text-slate-400 mt-1">건물 하층 주거 구역 연계 민원 사항 / 관리사무소 소속 방재실 주임과 함께 외부 현장 정밀 합동 실사</p>
                             </div>
-                            <span class="text-xs font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-1 rounded">최종 확인 必</span>
+                            <span class="text-xs font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-1 rounded">현장 실사 必</span>
                         </li>
 
                     </ul>
+                </div>
+            </section>
+
+            <section class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center text-red-500 text-xl">🚨</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800">비상 시설 연락망</h3>
+                            <p class="text-sm text-slate-400">긴급 하드웨어 파손, 화재, 무선 장애 등 비상 상황 발생 시 즉각 비상 대기선</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6 overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
+                                <th class="px-4 py-3 rounded-l-lg">구분</th>
+                                <th class="px-4 py-3">담당 / 기관</th>
+                                <th class="px-4 py-3">긴급 연락처</th>
+                                <th class="px-4 py-3 rounded-r-lg">비고 및 대응 업무 범위</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-slate-600 divide-y divide-slate-100">
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="px-4 py-3.5 font-bold text-slate-800">시설 총괄</td>
+                                <td class="px-4 py-3.5 font-medium">이승민 책임 관리자</td>
+                                <td class="px-4 py-3.5 font-semibold text-blue-600">010-XXXX-YYYY</td>
+                                <td class="px-4 py-3.5 text-slate-400">내부 내선번호: 101번 / 총괄 의사 결정권자</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="px-4 py-3.5 font-bold text-slate-800">건물 관리</td>
+                                <td class="px-4 py-3.5 font-medium">분당 센터 방재실 / 기계실</td>
+                                <td class="px-4 py-3.5 font-semibold text-slate-700">031-700-XXXX</td>
+                                <td class="px-4 py-3.5 text-slate-400">야간 단전, 누수, 엘리베이터 및 실외기 오작동 대응</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="px-4 py-3.5 font-bold text-slate-800">무인 보안</td>
+                                <td class="px-4 py-3.5 font-medium">통합 보안 시스템 관제센터</td>
+                                <td class="px-4 py-3.5 font-semibold text-slate-700">1588-XXXX</td>
+                                <td class="px-4 py-3.5 text-slate-400">무단 침입 긴급 세콤/캡스 현장 대원 출동 요청 비상 직통</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="px-4 py-3.5 font-bold text-slate-800">네트워크 장애</td>
+                                <td class="px-4 py-3.5 font-medium">기업 전용 전용회선 기술 지원단</td>
+                                <td class="px-4 py-3.5 font-semibold text-slate-700">1588-YYYY</td>
+                                <td class="px-4 py-3.5 text-slate-400">센터 메인 기가 인터넷 회선 끊김 및 백본 스위치 마비 시</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
         </main>
     </div>
 
     <script>
-        // DOMContentLoaded: HTML 문서가 웹 브라우저에 모두 그려진(로딩된) 직후에 이 내부 코드를 실행하라는 뜻입니다.
-        // 이것을 쓰지 않으면 HTML이 다 그려지기도 전에 자바스크립트가 체크박스를 찾으려다가 못 찾아서 에러가 납니다.
+        // DOMContentLoaded: 웹 문서 뼈대가 완벽히 그려진 직후 안전하게 실행 환경을 확보합니다.
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Try-Catch 문: 코드 실행 중 예상치 못한 에러(예: 구형 브라우저 등)가 발생했을 때 
-            // 웹페이지 전체가 먹통이 되는 것을 방지하고, 에러 내용을 콘솔에만 조용히 남기는 안전장치입니다.
+            // 다중 예외 처리 체인(Try-Catch)을 구축하여 브라우저 로컬 스토리지 한도 초과 등의 오류 상황을 완벽 방어합니다.
             try {
-                // 1. 제어할 HTML 요소(태그)들을 찾아 변수(이름표)에 담습니다.
-                // .task-checkbox라는 클래스를 가진 모든 체크박스를 가져옵니다.
-                const checkboxes = document.querySelectorAll('.task-checkbox'); 
-                // 파란색으로 차오를 진행률 바 요소를 가져옵니다.
+                // 제어가 필요한 HTML 객체 노드들을 명확하게 바인딩합니다.
+                const checkboxes = document.querySelectorAll('.task-checkbox');
                 const progressBarFill = document.getElementById('progress-bar-fill');
-                // 0/8, 1/8 처럼 숫자가 표시될 텍스트 요소를 가져옵니다.
                 const progressText = document.getElementById('progress-text');
-                // '전체 해제' 버튼 요소를 가져옵니다.
                 const resetButton = document.getElementById('reset-button');
                 
-                // 총 체크해야 할 항목의 개수 (여기서는 8개)
+                // 고장 신고 항목의 고정 총합 (8가지)
                 const totalTasks = checkboxes.length;
 
-                // [핵심 함수] 현재 체크된 개수를 세고 진행률을 화면에 업데이트하는 함수
-                // 이 함수가 언제 호출되어야 할까요? -> 1. 처음 페이지 열렸을 때, 2. 체크박스 누를 때, 3. 초기화 버튼 누를 때
+                // [데이터 계산 및 처리 기능 제어 함수]
                 function updateProgress() {
                     try {
-                        let checkedCount = 0; // 체크된 개수를 담을 임시 바구니
+                        let checkedCount = 0; // 해결 완료된 고장 건수를 카운트하는 정수형 보관 보관소
 
-                        // 모든 체크박스를 하나씩 순회하면서 체크되어 있다면 바구니 숫자를 1씩 늘립니다.
+                        // 모든 항목 리스트를 순회하며 체크 유무 판별
                         checkboxes.forEach((checkbox, index) => {
                             if (checkbox.checked) {
                                 checkedCount++;
                             }
-                            // 추가 기능: 사용자가 체크한 상태를 브라우저의 저장소(LocalStorage)에 저장합니다.
-                            // 이렇게 하면 실수로 창을 닫아도 체크했던 내역이 그대로 남아있게 됩니다. (데이터가 다음 단계로 넘어가는 흐름)
-                            localStorage.setItem('task_' + index, checkbox.checked);
+                            // 사용자가 수행했던 시설 조치 내역이 증발하지 않도록 'facility_task_' 키값으로 고유 저장소 백업을 실행합니다.
+                            localStorage.setItem('facility_task_' + index, checkbox.checked);
                         });
 
-                        // 진행률(퍼센트) 계산: (체크된 개수 / 전체 개수) * 100
+                        // 진행 퍼센트 산출 수식 연산
                         const percentage = (checkedCount / totalTasks) * 100;
 
-                        // 화면 업데이트 로직
-                        // 1. 파란색 바의 가로 길이(width)를 계산된 퍼센트만큼 늘려줍니다.
+                        // 산출된 데이터를 바탕으로 실시간 UI 가로축 길이 조정 및 스코어 보드 갱신
                         progressBarFill.style.width = percentage + '%';
-                        // 2. 숫자를 '현재개수/전체개수' 형태로 바꿔줍니다.
                         progressText.textContent = `${checkedCount}/${totalTasks}`;
 
-                    } catch (error) {
-                        console.error("진행률 계산 및 화면 업데이트 중 오류가 발생했습니다:", error);
+                    } catch (innerError) {
+                        console.error("처리율 게이지 계산 루틴 중 일시적 제어 에러:", innerError);
                     }
                 }
 
-                // [이벤트 연결 1] 화면 초기 로드 시, 이전에 저장된 체크 상태를 불러옵니다.
+                // [데이터 동기화 및 이벤트 리스너 할당]
                 checkboxes.forEach((checkbox, index) => {
-                    // 저장소에 'true'라고 기록되어 있다면 체크박스를 체크된 상태로 만듭니다.
-                    const savedState = localStorage.getItem('task_' + index);
+                    // 과거에 체크해 두었던 민원 조치 현황이 있다면 브라우저에서 스냅샷 데이터를 복원합니다.
+                    const savedState = localStorage.getItem('facility_task_' + index);
                     if (savedState === 'true') {
                         checkbox.checked = true;
                     }
 
-                    // [이벤트 연결 2] 사용자가 마우스로 체크박스를 클릭(change)할 때마다 updateProgress 함수를 실행시킵니다.
+                    // 마우스 또는 모바일 터치로 상태 변환 시 실시간 UI 갱신 함수 트리거 처리
                     checkbox.addEventListener('change', updateProgress);
                 });
 
-                // [이벤트 연결 3] '전체 해제' 버튼을 클릭(click)했을 때의 동작입니다.
+                // [전체 해제 초기화 버튼 핸들러 설정]
                 resetButton.addEventListener('click', () => {
                     try {
-                        // 모든 체크박스를 체크 해제 상태(false)로 만듭니다.
                         checkboxes.forEach((checkbox) => {
                             checkbox.checked = false;
                         });
-                        // 바뀐 상태를 화면에 다시 반영하기 위해 함수를 호출합니다.
+                        // 초기화가 끝난 후, 바뀐 백지 상태를 저장소와 게이지 바에 전파 리렌더링 수행
                         updateProgress();
-                    } catch (error) {
-                        console.error("전체 해제 로직 실행 중 오류가 발생했습니다:", error);
+                    } catch (resetError) {
+                        console.error("전체 해제 리셋 처리 진행 중 물리 오류 발견:", resetError);
                     }
                 });
 
-                // 처음 페이지가 열렸을 때, 불러온 상태에 맞춰 진행률 바를 한 번 그려줍니다.
+                // 최초 사이트 접속 시, 복원된 이전의 조치 상태 스코어에 알맞게 게이지 바 첫 로딩 렌더링을 진행합니다.
                 updateProgress();
 
-            } catch (error) {
-                // 이 가장 바깥쪽 Try-Catch는 변수를 선언하거나 요소를 찾지 못하는 치명적인 구조적 오류를 방어합니다.
-                console.error("가이드북 초기화 스크립트 실행 중 치명적인 오류가 발생했습니다:", error);
+            } catch (fatalError) {
+                console.error("시설물 시스템 메인 프로세스 초기화 중 중대 예외 발생:", fatalError);
             }
         });
     </script>
