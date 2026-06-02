@@ -19,10 +19,8 @@
 </head>
 <body class="h-screen overflow-hidden flex flex-col">
 
-    <!-- PC 버전 전환 버튼 -->
     <a href="index.html" class="fixed bottom-24 right-4 bg-blue-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-50 border-2 border-blue-400">💻</a>
 
-    <!-- 상단 헤더 -->
     <header class="h-14 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-4 flex-shrink-0 z-10">
         <h2 class="font-bold text-white text-sm flex items-center gap-2">
             <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>모바일 관제 시스템
@@ -30,16 +28,13 @@
         <button id="admin-login-btn" class="text-[10px] font-bold text-slate-400 bg-slate-800 border border-slate-700 px-2.5 py-1.5 rounded-md active:bg-slate-700">관리자</button>
     </header>
 
-    <!-- 메인 스크롤 영역 -->
     <main class="flex-1 overflow-y-auto p-4 pb-20 scroll-smooth" id="main-content">
         <div class="space-y-6">
 
-            <!-- 1. 인프라 모니터링 섹션 -->
             <section id="section-software" class="content-section fade-in">
                 <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Classroom Infrastructure</p>
                 <div class="space-y-4">
                     
-                    <!-- A 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg">
                         <div class="flex justify-between mb-3">
                             <span class="font-bold text-white text-sm">A 강의실 (21석)</span>
@@ -57,7 +52,6 @@
                         </div>
                     </div>
 
-                    <!-- B 강의실 (추가됨) -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg">
                         <div class="flex justify-between mb-3">
                             <span class="font-bold text-white text-sm">B 강의실 (20석)</span>
@@ -75,7 +69,6 @@
                         </div>
                     </div>
 
-                    <!-- C 강의실 (추가됨) -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg">
                         <div class="flex justify-between mb-3">
                             <span class="font-bold text-white text-sm">C 강의실 (15석)</span>
@@ -93,7 +86,6 @@
                         </div>
                     </div>
 
-                    <!-- D 강의실 (High-End) -->
                     <div class="bg-blue-900/20 border-2 border-blue-500/30 rounded-2xl p-4 shadow-xl">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-blue-300 text-sm">D 강의실 (19석)</span>
@@ -111,7 +103,6 @@
                         </div>
                     </div>
 
-                    <!-- E 강의실 (추가됨) -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg">
                         <div class="flex justify-between mb-3">
                             <span class="font-bold text-white text-sm">E 강의실 (13석)</span>
@@ -132,7 +123,6 @@
                 </div>
             </section>
 
-            <!-- 2. 문의 접수 섹션 -->
             <section id="section-report" class="content-section hidden fade-in">
                 <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
                     <h3 class="font-bold text-white text-sm mb-4">🛠️ 모바일 문의 접수</h3>
@@ -147,7 +137,6 @@
                 </div>
             </section>
 
-            <!-- 3. 현황/연락망 섹션 -->
             <section id="section-mobile-status" class="content-section hidden fade-in space-y-4">
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Dashboard Summary</p>
@@ -161,13 +150,12 @@
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Emergency Contact</p>
                     <div class="space-y-4 text-xs">
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span></div>
+                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민 대리)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span></div>
                         <div class="flex justify-between items-center"><span>보안 관제 센터</span><span class="font-bold text-white text-sm">1588-3112</span></div>
                     </div>
                 </div>
             </section>
 
-            <!-- 4. 관리자 패널 -->
             <section id="admin-panel" class="content-section hidden fade-in">
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
                     <div class="px-4 py-3 border-b border-slate-800 flex justify-between items-center bg-slate-950">
@@ -185,7 +173,6 @@
         </div>
     </main>
 
-    <!-- 하단 앱 바 (Bottom Navigation) -->
     <nav class="fixed bottom-0 left-0 w-full h-16 bg-slate-900 border-t border-slate-800 flex justify-around items-center z-50 pb-safe">
         <a href="#section-software" class="tab-trigger flex flex-col items-center justify-center w-full h-full text-blue-500 font-bold">
             <span class="text-xl mb-1">🖥️</span><span class="text-[9px]">인프라</span>
@@ -198,7 +185,6 @@
         </a>
     </nav>
 
-    <!-- 기능 스크립트 -->
     <script>
         // ==========================================
         // 구글 스크립트 주소를 아래에 꼭 넣어주세요!
@@ -209,26 +195,40 @@
         const tabTriggers = document.querySelectorAll('.tab-trigger');
         const contentSections = document.querySelectorAll('.content-section');
 
+        // [이벤트 리스너: 하단 탭 스위칭]
+        // 모바일 사용자가 하단 바 아이콘을 터치할 때 활성화 CSS를 변경하고 해당 화면을 표출합니다.
         tabTriggers.forEach(tab => {
             tab.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 
-                // 탭 활성화 UI 변경
-                tabTriggers.forEach(t => { t.classList.remove('text-blue-500', 'font-bold'); t.classList.add('text-slate-500'); });
-                this.classList.remove('text-slate-500'); this.classList.add('text-blue-500', 'font-bold');
+                // 기존 활성화된 파란색 스타일을 모두 끄고, 누른 메뉴에만 파란색 하이라이트를 켭니다.
+                tabTriggers.forEach(t => { 
+                    t.classList.remove('text-blue-500', 'font-bold'); 
+                    t.classList.add('text-slate-500'); 
+                });
+                this.classList.remove('text-slate-500'); 
+                this.classList.add('text-blue-500', 'font-bold');
                 
-                // 섹션 보이기/숨기기
-                contentSections.forEach(sec => { if(sec.id === targetId) sec.classList.remove('hidden'); else sec.classList.add('hidden'); });
+                // 선택한 영역만 hidden 클래스를 제거하여 노출시키고, 다른 영역은 전부 숨깁니다.
+                contentSections.forEach(sec => { 
+                    if(sec.id === targetId) sec.classList.remove('hidden'); 
+                    else sec.classList.add('hidden'); 
+                });
                 
-                // 스크롤 맨 위로
+                // 새로운 화면이 열릴 때 사용자가 스크롤의 최상단을 먼저 볼 수 있도록 메인 컨테이너 위치를 강제 리셋합니다.
                 document.getElementById('main-content').scrollTop = 0;
             });
         });
 
         const btnSubmit = document.getElementById('btn-submit');
+        
+        // [로컬 임시 데이터베이스 복구]
+        // 스마트폰 브라우저에 임시 수첩 형태로 백업되어 보관중인 문의 배열 데이터를 파싱하여 변수로 넘깁니다.
         let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
 
+        // [함수: 모바일 대시보드 스펙 연산]
+        // 복구된 localReports 배열의 각 요소에 접근하여 오늘 접수량, 전체 누적 수, 완료 처리 수를 실시간 텍스트로 치환합니다.
         function updateStats() {
             const todayStr = new Date().toLocaleDateString('ko-KR');
             const total = localReports.length;
@@ -239,16 +239,22 @@
             document.querySelector('.stat-today').innerText = todayCount + " 건";
             document.querySelector('.stat-resolved').innerText = total === 0 ? "0 건" : `${resolvedCount} 건`;
         }
-        updateStats();
+        updateStats(); // 초기 로딩 시 숫자가 0으로 멈춰있는 현상을 제거하기 위해 즉각 실행합니다.
 
+        // [이벤트 리스너: 사용자 고장문의 서버 전송]
         btnSubmit.addEventListener('click', async () => {
             const name = document.getElementById('input-name').value.trim();
             const content = document.getElementById('input-content').value.trim();
+            
+            // 데이터 무결성 체크: 내용 검증 없이 서버 메모리가 낭비되는 버그를 예방합니다.
             if(!name || !content) return alert("성함과 내용을 입력하세요.");
             
             const originalBtnText = btnSubmit.innerHTML;
-            btnSubmit.disabled = true; btnSubmit.innerText = "서버 전송 중...";
+            // 중복 클릭 오류 방지: 패킷 전송 속도로 인해 사용자가 여러 번 터치하여 동일 글이 다중 생성되는 현상을 완벽히 격리 차단합니다.
+            btnSubmit.disabled = true; 
+            btnSubmit.innerText = "서버 전송 중...";
             
+            // Try-Catch 예외 구조: 외부 인터넷이 완전히 차단되거나 망이 유실될 때 폰이 다운되는 보안 크래시 현상을 차단합니다.
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL, { 
                     method:'POST', 
@@ -259,34 +265,50 @@
                 
                 if(data.result === "success") {
                     alert("성공적으로 접수되었습니다.");
+                    // 서버 연동 완료 확인 보증서가 도착하면 그 즉시 내 스마트폰 메모리에도 고유 ID를 생성해 임시 기록으로 편입시킵니다.
                     localReports.push({ id:Date.now(), name, content, date:new Date().toLocaleString('ko-KR'), status:'pending' });
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                     
-                    document.getElementById('input-name').value=""; 
-                    document.getElementById('input-content').value=""; 
-                    updateStats();
+                    // 성공 후 양식 폼을 투명하게 초기화하여 다음 사용자가 자기 정보를 노출하지 않도록 방어합니다.
+                    document.getElementById('input-name').value = ""; 
+                    document.getElementById('input-content').value = ""; 
+                    updateStats(); // 목록에 데이터가 추가되었으므로 상단 통계 수치를 즉시 재연산 유도합니다.
                 }
-            } catch(e) { alert("통신 오류가 발생했습니다."); } 
-            finally { btnSubmit.disabled = false; btnSubmit.innerHTML = originalBtnText; }
+            } catch(e) { 
+                alert("통신 오류가 발생했습니다. 무선 네트워크 상태를 체크해 주세요."); 
+            } finally { 
+                // 어떤 통신 흐름 결과(성공/에러)를 맞이하더라도 단말 버튼 제어는 원격으로 원래대로 복원해 주어야 다음 동작이 가능해집니다.
+                btnSubmit.disabled = false; 
+                btnSubmit.innerHTML = originalBtnText; 
+            }
         });
 
+        // [관리자 보안 잠금 해제 및 목록 바인딩]
         document.getElementById('admin-login-btn').addEventListener('click', () => {
             if(prompt("보안 비밀번호를 입력하세요.") === ADMIN_PW) {
                 contentSections.forEach(sec => sec.classList.add('hidden'));
                 document.getElementById('admin-panel').classList.remove('hidden');
-                renderAdminReports();
+                renderAdminReports(); // 안전 락이 풀리는 시점에 리스트 조립 함수를 유동 호출합니다.
+            } else {
+                alert("비밀번호가 다릅니다.");
             }
         });
         
         document.getElementById('admin-close-btn').addEventListener('click', () => { 
             document.getElementById('admin-panel').classList.add('hidden'); 
-            tabTriggers[0].click(); // 첫 번째 탭으로 복귀
+            tabTriggers[0].click(); // 제어판에서 나가면 무조건 안전하게 인프라 메인 홈화면으로 자동 가이드 복귀 처리합니다.
         });
 
+        // [함수: 관리자 패널 템플릿 스트림 생성 엔진]
+        // 모바일 기기의 터치 감도와 좁은 해상도에 맞추어 조작 버튼이 포함된 문의 내역 카드를 루프(map) 돌려 동적으로 뿌려줍니다.
         function renderAdminReports() {
             const container = document.getElementById('report-list-container');
-            if(localReports.length === 0) { container.innerHTML = '<p class="text-center text-slate-600 py-10 text-xs italic">접수 내역이 없습니다.</p>'; return; }
+            if(localReports.length === 0) { 
+                container.innerHTML = '<p class="text-center text-slate-600 py-10 text-xs italic">접수 내역이 없습니다.</p>'; 
+                return; 
+            }
             
+            // 시트 타임스탬프와 로컬 데이터의 깨짐 현상을 교정하는 서브 포맷 변환 로직입니다.
             const formatDateForSheet = (dateStr) => { 
                 const d = new Date(dateStr); 
                 return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; 
@@ -297,6 +319,7 @@
                 let statusBadge = r.status === 'complete' ? '<span class="text-emerald-400">[완료]</span>' : (r.status === 'check' ? '<span class="text-blue-400">[확인]</span>' : '<span class="text-slate-400">[접수]</span>');
                 const searchTimeStr = formatDateForSheet(r.date);
                 
+                // 각각의 문의 오브젝트를 HTML 스트링 스트림으로 전환하여 데이터 바인딩을 매끄럽게 연결합니다.
                 return `
                 <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-3 shadow-inner">
                     <div class="flex items-center gap-2 mb-2">
@@ -307,33 +330,41 @@
                     <p class="text-slate-400 text-[11px] leading-relaxed mb-3">${r.content}</p>
                     
                     <div class="flex gap-1 mt-3 border-t border-slate-700/50 pt-2">
-                        <button onclick="updateSheetStatus(${r.id}, 'check', '${searchTimeStr}', '${r.name}')" class="flex-1 bg-slate-900/80 text-blue-400 text-[10px] py-2 rounded font-bold border border-slate-700">확인 기록</button>
-                        <button onclick="updateSheetStatus(${r.id}, 'complete', '${searchTimeStr}', '${r.name}')" class="flex-1 bg-slate-900/80 text-emerald-400 text-[10px] py-2 rounded font-bold border border-slate-700">처리 완료</button>
-                        <button onclick="deleteLocalReport(${r.id})" class="flex-1 bg-slate-700 text-slate-300 text-[10px] py-2 rounded border border-slate-600">로컬 삭제</button>
+                        <button onclick="updateSheetStatus(${r.id}, 'check', '${searchTimeStr}', '${r.name}')" class="flex-1 bg-slate-900/80 text-blue-400 text-[10px] py-2 rounded font-bold border border-slate-700 active:bg-slate-700">확인 기록</button>
+                        <button onclick="updateSheetStatus(${r.id}, 'complete', '${searchTimeStr}', '${r.name}')" class="flex-1 bg-slate-900/80 text-emerald-400 text-[10px] py-2 rounded font-bold border border-slate-700 active:bg-slate-700">처리 완료</button>
+                        <button onclick="deleteLocalReport(${r.id})" class="flex-1 bg-slate-700 text-slate-300 text-[10px] py-2 rounded border border-slate-600 active:bg-slate-600">로컬 삭제</button>
                     </div>
                 </div>
-            `}).reverse().join('');
+            `}).reverse().join(''); // 가독성을 극대화하기 위해 최신 고장 신호가 무조건 상단에 노출되도록 배열 스택을 뒤집어 렌더링을 끝마칩니다.
         }
 
+        // [함수: 구글 원격 스프레드시트 셀 상태 동기화 업데이트 트랜잭션]
         window.updateSheetStatus = async function(id, updateType, searchTime, searchName) {
             const reportIndex = localReports.findIndex(r => r.id === id);
+            
+            // 사용자 체감 속도를 높이기 위해 기기 로컬 데이터의 배지를 선제적으로 시각 변경해 둡니다.
             if (reportIndex > -1) { 
                 localReports[reportIndex].status = updateType; 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports(); 
                 updateStats(); 
             }
+            // 비동기로 구글 시트 백엔드에 매니저 액션 트랜잭션을 실행 요청합니다.
             try {
                 await fetch(GOOGLE_SCRIPT_URL, { 
-                    method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                     body: new URLSearchParams({ action: 'update', updateType, searchTime, searchName }) 
                 });
                 alert("구글 시트에 상태가 기록되었습니다.");
-            } catch (err) { alert("서버 통신 오류"); }
+            } catch (err) { 
+                alert("서버 원격 상태 동기화 도중 오류가 감지되었습니다."); 
+            }
         };
 
+        // [함수: 개별 데이터 로컬 스토리지 삭제]
         window.deleteLocalReport = id => { 
-            if(confirm("모바일 기기에서 이 내역을 삭제하시겠습니까?\n(구글 시트 원본은 보존됩니다.)")) { 
+            if(confirm("모바일 기기에서 이 내역을 삭제하시겠습니까?\n(구글 시트 원본은 안전하게 보존됩니다.)")) { 
                 localReports = localReports.filter(r => r.id !== id); 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports(); 
