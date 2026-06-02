@@ -13,7 +13,6 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
-        /* 태그에 hover 효과를 주어 관리자 모드 시 삭제할 수 있음을 직관적으로 알립니다 */
         .tag-item { display: inline-flex; align-items: center; background-color: #f1f5f9; border: 1px solid #e2e8f0; color: #475569; font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.5rem; border-radius: 0.3rem; margin-right: 0.3rem; margin-bottom: 0.3rem; transition: all 0.2s; }
         .tag-item:hover { border-color: #cbd5e1; }
         .hw-info { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-bottom: 4px; padding-bottom: 3px; border-bottom: 1px dashed #f1f5f9;}
@@ -34,13 +33,16 @@
             <div class="w-2.5 h-2.5 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
             <h1 class="font-bold text-white tracking-wide text-sm">G-BUNDANG <span class="text-blue-400">FACILITY</span></h1>
         </div>
-        <nav class="px-4 py-6 space-y-1">
+        <nav class="px-4 py-6 space-y-1" id="sidebar-nav">
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2">System Menu</p>
             <a href="#section-software" class="tab-trigger flex items-center px-4 py-2.5 bg-blue-600/10 text-blue-400 font-semibold rounded-lg border border-blue-500/20 transition-colors">
-                <span class="mr-3 text-lg">🖥️</span> 강의실 현황 및 상태
+                <span class="mr-3 text-lg">🖥️</span> 강의실 현황 및 관리
             </a>
             <a href="#section-report" class="tab-trigger flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 font-medium rounded-lg transition-colors border border-transparent">
                 <span class="mr-3 text-lg">🎫</span> 시설 고장 문의
+            </a>
+            <a href="#section-admin" id="menu-admin" class="admin-ui hidden tab-trigger flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 font-medium rounded-lg transition-colors border border-transparent">
+                <span class="mr-3 text-lg">⚙️</span> 문의 접수 처리판
             </a>
         </nav>
         <div class="p-4 space-y-3 border-t border-slate-800 bg-slate-900/50 flex-1 overflow-y-auto">
@@ -60,7 +62,7 @@
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Node Info</p>
                 <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 대리</span></div>
-                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v4.0 (통합 CMS)</span></div>
+                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v4.1 (로그아웃 탑재)</span></div>
             </div>
         </div>
     </aside>
@@ -71,17 +73,14 @@
                 통합 관제 대시보드 (PC) 
                 <span id="sync-status" class="ml-3 text-[10px] text-emerald-500 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full shadow-sm">클라우드 동기화 됨</span>
             </h2>
-            <button id="admin-login-btn" class="text-xs font-bold text-slate-600 bg-slate-100 border border-slate-200 px-4 py-2 rounded-md hover:bg-slate-200 transition-colors">⚙️ 관리자 로그인</button>
+            <button id="admin-login-btn" class="text-xs font-bold text-slate-600 bg-slate-100 border border-slate-200 px-4 py-2 rounded-md hover:bg-slate-200 transition-colors cursor-pointer">⚙️ 관리자 로그인</button>
         </header>
 
         <main class="flex-1 overflow-y-auto p-8 scroll-smooth" id="main-content">
             <div class="max-w-6xl mx-auto space-y-8">
                 
-                <!-- [전면 개편] 모든 강의실을 세로 스택(flex-col) 1열로 배치하여 가로형 와이드 레이아웃을 구현했습니다. -->
                 <section id="section-software" class="content-section fade-in">
                     <div class="flex flex-col gap-6">
-                        
-                        <!-- A 강의실 (가로형) -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">A 강의실 (21석)</h4>
@@ -91,19 +90,16 @@
                                 <div class="flex-1">
                                     <div class="flex items-center gap-2 mb-3">
                                         <p class="text-[10px] font-bold text-slate-400 uppercase">Software List</p>
-                                        <!-- 이 버튼은 관리자가 로그인해야만 나타납니다 (admin-ui 클래스 통제) -->
                                         <button onclick="addSoftware('A')" class="admin-ui hidden text-[9px] font-bold bg-blue-100 text-blue-600 px-2 py-0.5 rounded hover:bg-blue-200">+ SW 추가</button>
                                     </div>
-                                    <!-- 자바스크립트가 구글 시트를 읽어와 이 공간 안에 태그를 그려 넣습니다 -->
                                     <div id="sw-container-A" class="min-h-[30px] flex flex-wrap"><p class="text-xs text-slate-400">서버 데이터 로딩중...</p></div>
                                 </div>
                                 <div class="w-full lg:w-80 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner">
-                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
+                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- B 강의실 (가로형) -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">B 강의실 (20석)</h4>
@@ -118,12 +114,11 @@
                                     <div id="sw-container-B" class="min-h-[30px] flex flex-wrap"><p class="text-xs text-slate-400">서버 데이터 로딩중...</p></div>
                                 </div>
                                 <div class="w-full lg:w-80 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner">
-                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-11700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>MSI 750W</span></div></div>
+                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-11700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- C 강의실 (가로형) -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">C 강의실 (15석)</h4>
@@ -138,12 +133,11 @@
                                     <div id="sw-container-C" class="min-h-[30px] flex flex-wrap"><p class="text-xs text-slate-400">서버 데이터 로딩중...</p></div>
                                 </div>
                                 <div class="w-full lg:w-80 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner">
-                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
+                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- D 강의실 (기존 가로형 유지 및 CMS 뼈대 추가) -->
                         <div class="bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md">
                             <div class="p-4 border-b border-blue-100 bg-blue-50/50 flex justify-between items-center rounded-t-2xl">
                                 <h4 class="font-bold text-blue-800 text-sm flex items-center gap-2">D 강의실 (19석) <span class="bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded uppercase">High-End</span></h4>
@@ -158,12 +152,11 @@
                                     <div id="sw-container-D" class="min-h-[30px] flex flex-wrap"><p class="text-xs text-slate-400">서버 데이터 로딩중...</p></div>
                                 </div>
                                 <div class="w-full lg:w-80 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner">
-                                    <div class="space-y-1"><div class="hw-info font-bold text-blue-600"><span class="label">CPU</span><span>i9-14900KF</span></div><div class="hw-info"><span class="label">RAM</span><span>DDR5 64G</span></div><div class="hw-info text-blue-700"><span class="label">GPU</span><span>RTX 4070 Ti 12G</span></div><div class="hw-info"><span class="label">Disk</span><span>Crucial T500 1TB</span></div><div class="hw-info"><span class="label">PSU</span><span>900W</span></div></div>
+                                    <div class="space-y-1"><div class="hw-info font-bold text-blue-600"><span class="label">CPU</span><span>i9-14900KF</span></div><div class="hw-info"><span class="label">RAM</span><span>DDR5 64G</span></div><div class="hw-info text-blue-700"><span class="label">GPU</span><span>RTX 4070 Ti 12G</span></div><div class="hw-info"><span class="label">Disk</span><span>Crucial T500 1TB</span></div></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- E 강의실 (가로형) -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">E 강의실 (13석)</h4>
@@ -178,7 +171,7 @@
                                     <div id="sw-container-E" class="min-h-[30px] flex flex-wrap"><p class="text-xs text-slate-400">서버 데이터 로딩중...</p></div>
                                 </div>
                                 <div class="w-full lg:w-80 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner">
-                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
+                                    <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div></div>
                                 </div>
                             </div>
                         </div>
@@ -197,15 +190,16 @@
                     </div>
                 </section>
 
-                <section id="admin-panel" class="content-section hidden fade-in">
+                <section id="section-admin" class="content-section hidden fade-in">
                     <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
                         <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-                            <h3 class="font-bold text-white text-sm"><span class="text-blue-500">●</span> 관리자 보안 시스템</h3>
-                            <button id="admin-close-btn" class="text-slate-400 text-xs px-3 py-1 bg-slate-800 rounded hover:bg-slate-700">제어판 닫기</button>
+                            <h3 class="font-bold text-white text-sm"><span class="text-blue-500">●</span> 중앙 관제 센터 (관리자 전용)</h3>
                         </div>
                         <div class="p-8 bg-slate-900">
                             <p class="text-xs text-blue-400 mb-4 pb-2 border-b border-slate-800 font-bold">수신된 시설 고장/문의 내역</p>
-                            <div id="report-list-container" class="space-y-4 max-h-[500px] overflow-y-auto custom-scrollbar"><p class="text-center text-slate-600 py-10">내역 없음</p></div>
+                            <div id="report-list-container" class="space-y-4 max-h-[500px] overflow-y-auto custom-scrollbar">
+                                <p class="text-center text-slate-600 py-10">내역 없음</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -215,14 +209,12 @@
 
     <script>
         // =========================================================================
-        // [중요] 반드시 권한(모든 사용자)을 수정하여 새로 발급받은 URL을 붙여넣으세요!
+        // [중요] 반드시 새로 발급받은 URL을 붙여넣으세요!
         // =========================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
         const ADMIN_PW = "admin1234";
 
         let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
-        
-        // [전역 변수] 앱 구동의 뼈대가 되는 권한 상태와 소프트웨어 데이터 보관함입니다.
         let isAdminMode = false;
         let softwareData = { 'A': [], 'B': [], 'C': [], 'D': [], 'E': [] };
 
@@ -247,7 +239,6 @@
         }
         updateStats();
 
-        // 1. 서버 장부 데이터(고장문의) 로드
         async function loadServerData() {
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL + "?action=load", { method: 'GET' });
@@ -261,7 +252,6 @@
             } catch(e) { console.error("문의 데이터 로딩 실패", e); }
         }
         
-        // 2. 인공지능 시간표 스캐너 상태 로드
         async function loadRoomStatus() {
             const syncStatus = document.getElementById('sync-status');
             syncStatus.innerText = "클라우드 스캔 중...";
@@ -298,112 +288,76 @@
             }
         }
 
-        // 3. [신규] 구글 시트에서 최신 소프트웨어 목록을 긁어오는 엔진
         async function loadSoftwareData() {
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL + "?action=load_software", { method: 'GET' });
                 const responseData = await res.json();
-                
                 if (responseData.result === "success") {
-                    // 서버가 데이터를 성공적으로 건네주면, 빈 박스(softwareData)에 옮겨 담고 화면을 그립니다.
                     const data = responseData.data;
-                    ['A', 'B', 'C', 'D', 'E'].forEach(room => {
-                        if(data[room]) { softwareData[room] = data[room]; }
-                    });
-                    renderAllSoftware(); // 짐을 다 옮겼으니 화면에 예쁘게 포장해서 배치합니다.
+                    ['A', 'B', 'C', 'D', 'E'].forEach(room => { if(data[room]) { softwareData[room] = data[room]; } });
+                    renderAllSoftware(); 
                 }
-            } catch(e) {
-                console.error("소프트웨어 연동 실패", e);
-                // 인터넷이 끊겨서 실패했을 때 화면이 텅 비어보이지 않게 안전 안내문을 띄웁니다.
-                ['A', 'B', 'C', 'D', 'E'].forEach(room => {
-                    document.getElementById(`sw-container-${room}`).innerHTML = '<p class="text-xs text-red-400">데이터를 불러올 수 없습니다.</p>';
-                });
-            }
+            } catch(e) { console.error("소프트웨어 연동 실패"); }
         }
 
-        // [함수: 화면에 소프트웨어 태그 그리기]
         function renderAllSoftware() {
             ['A', 'B', 'C', 'D', 'E'].forEach(room => {
                 const container = document.getElementById(`sw-container-${room}`);
                 if (!container) return;
-                
                 const list = softwareData[room];
                 if (list.length === 0) {
                     container.innerHTML = '<p class="text-xs text-slate-400 italic">등록된 소프트웨어가 없습니다.</p>';
                     return;
                 }
-
-                // 배열을 순회하며 태그 모양의 HTML 코드로 조립합니다.
                 let html = '';
                 list.forEach(sw => {
-                    // 만약 관리자 모드라면 태그 오른쪽에 빨간색 [x] 삭제 버튼을 달아줍니다.
                     const deleteBtn = isAdminMode ? `<span onclick="deleteSoftware('${room}', '${sw}')" class="ml-1.5 text-[10px] text-slate-400 hover:text-red-500 cursor-pointer p-0.5 rounded hover:bg-slate-200 transition-colors" title="삭제">✕</span>` : '';
-                    // D 강의실만 색깔을 파란색 톤으로 다르게 줍니다 (디테일)
                     const colorClass = room === 'D' ? 'bg-blue-100 text-blue-700 border-blue-200' : 'bg-slate-100 text-slate-600 border-slate-200';
-                    
                     html += `<span class="tag-item ${colorClass}">${sw} ${deleteBtn}</span>`;
                 });
                 container.innerHTML = html;
             });
         }
 
-        // 앱 시작점: 브라우저가 열리면 세 가지 스레드를 동시에 백그라운드로 돌려 데이터를 풀-동기화시킵니다.
         window.addEventListener('load', () => {
             loadServerData();
             loadRoomStatus();
             loadSoftwareData();
         });
 
-        // ---------------------------------------------------------------------
-        // [신규] 관리자 전용 기능 로직: 소프트웨어 추가 (Create)
-        // ---------------------------------------------------------------------
         window.addSoftware = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
-            
-            // 매니저에게 추가할 프로그램 이름을 물어봅니다.
             const newSw = prompt(`${room} 강의실에 추가할 소프트웨어 이름을 입력하세요.\n(예: Photoshop 2024)`);
-            if (!newSw || newSw.trim() === '') return; // 취소하거나 빈칸이면 종료
+            if (!newSw || newSw.trim() === '') return;
             
-            // 1. 빠른 체감을 위해 화면(로컬 데이터)부터 즉시 업데이트합니다.
             softwareData[room].push(newSw.trim());
             renderAllSoftware();
             
-            // 2. 백그라운드에서 구글 시트에 업데이트 명령을 내립니다.
-            const swListStr = softwareData[room].join(','); // 배열을 다시 쉼표 문자열로 압축합니다.
+            const swListStr = softwareData[room].join(','); 
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
                 });
-            } catch(e) {
-                alert("구글 서버에 저장 중 오류가 발생했습니다.");
-            }
+            } catch(e) { alert("구글 서버에 저장 중 오류가 발생했습니다."); }
         };
 
-        // ---------------------------------------------------------------------
-        // [신규] 관리자 전용 기능 로직: 소프트웨어 삭제 (Delete)
-        // ---------------------------------------------------------------------
         window.deleteSoftware = async function(room, targetSw) {
             if (!isAdminMode) return;
             if (!confirm(`정말 '${targetSw}' 항목을 삭제하시겠습니까?`)) return;
 
-            // 1. 내가 클릭한 프로그램만 쏙 빼고(filter) 나머지만 남깁니다.
             softwareData[room] = softwareData[room].filter(sw => sw !== targetSw);
-            renderAllSoftware(); // 지워진 배열로 화면을 다시 그립니다.
+            renderAllSoftware(); 
 
-            // 2. 갱신된 배열을 구글 서버에 덮어쓰기 합니다.
             const swListStr = softwareData[room].join(',');
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
                 });
-            } catch(e) {
-                alert("구글 서버에 삭제 동기화 중 오류가 발생했습니다.");
-            }
+            } catch(e) { alert("구글 서버에 삭제 동기화 중 오류가 발생했습니다."); }
         };
 
-        // 문의 접수 (POST)
         document.getElementById('btn-submit').addEventListener('click', async () => {
             const name = document.getElementById('input-name').value.trim();
             const content = document.getElementById('input-content').value.trim();
@@ -423,7 +377,7 @@
                 const result = await res.json();
                 
                 if(result.result === "success") {
-                    alert("성공적으로 접수되었습니다.");
+                    alert("성공적으로 문의가 접수되었습니다.");
                     localReports.push({ id: newId, name, content, date: newDate, status: 'pending' });
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                     document.getElementById('input-name').value = ""; document.getElementById('input-content').value = ""; updateStats();
@@ -432,29 +386,46 @@
             } finally { submitBtn.disabled = false; submitBtn.innerText = "문의 접수"; }
         });
 
-        // [수정됨] 관리자 로그인 성공 시 권한(Auth)을 해제하고 숨겨진 UI들을 노출시킵니다.
+        // [완벽 개선] 로그인/로그아웃 만능 토글 스위치 엔진
         document.getElementById('admin-login-btn').addEventListener('click', () => { 
+            const btn = document.getElementById('admin-login-btn');
+            
+            // 1. 이미 접속된 상태에서 버튼을 누르면 로그아웃 절차를 밟습니다.
+            if (isAdminMode) { 
+                if (confirm("관리자 모드를 종료하고 일반 사용자로 돌아가시겠습니까?")) {
+                    isAdminMode = false;
+                    btn.innerText = "⚙️ 관리자 로그인";
+                    btn.classList.remove('bg-blue-100', 'text-blue-700', 'border-blue-300');
+                    btn.classList.add('bg-slate-100', 'text-slate-600', 'border-slate-200');
+                    
+                    // 숨겨진 요소들을 다시 가리고, 처리판 탭에 있었다면 쫓아냅니다.
+                    document.querySelectorAll('.admin-ui').forEach(el => el.classList.add('hidden'));
+                    if (!document.getElementById('section-admin').classList.contains('hidden')) {
+                        tabTriggers[0].click();
+                    }
+                    renderAllSoftware(); // 삭제[✕] 버튼들을 화면에서 일제히 지웁니다.
+                    alert("일반 사용자 모드로 전환되었습니다.");
+                }
+                return; 
+            }
+            
+            // 2. 접속되지 않은 상태에서 누르면 로그인 절차를 밟습니다.
             if (prompt("관리자 암호를 입력하세요.") === ADMIN_PW) { 
-                isAdminMode = true; // 전역 권한 ON
-                document.getElementById('admin-login-btn').innerText = "관리자 모드 접속됨";
-                document.getElementById('admin-login-btn').classList.add('bg-blue-100', 'text-blue-700', 'border-blue-300');
+                isAdminMode = true; 
+                btn.innerText = "🔓 관리자 (로그아웃)";
+                btn.classList.remove('bg-slate-100', 'text-slate-600', 'border-slate-200');
+                btn.classList.add('bg-blue-100', 'text-blue-700', 'border-blue-300');
                 
-                // 숨겨져 있던 [+ SW 추가] 버튼들을 일제히 보여줍니다.
                 document.querySelectorAll('.admin-ui').forEach(el => el.classList.remove('hidden'));
                 
-                contentSections.forEach(sec => sec.classList.add('hidden')); 
-                document.getElementById('admin-panel').classList.remove('hidden'); 
+                alert("✅ 관리자 모드가 활성화되었습니다.\n\n- [강의실 현황] 화면에서 소프트웨어를 추가/삭제할 수 있습니다.\n- 사이드바에 생성된 [문의 접수 처리판] 탭에서 오류 내역을 관리할 수 있습니다.");
                 
-                renderAdminReports(); // 문의 리스트 그리기
-                renderAllSoftware();  // 소프트웨어 태그도 다시 그려서 [x] 삭제 버튼을 활성화시킵니다.
+                tabTriggers[0].click(); 
+                
+                renderAdminReports(); 
+                renderAllSoftware();  
                 loadServerData();
             } else { alert("비밀번호가 일치하지 않습니다."); }
-        });
-
-        // 관리자 제어판을 닫더라도 로그아웃되는 것은 아니므로 UI 상태는 유지합니다.
-        document.getElementById('admin-close-btn').addEventListener('click', () => { 
-            document.getElementById('admin-panel').classList.add('hidden'); 
-            tabTriggers[0].click(); 
         });
 
         function renderAdminReports() {
@@ -475,16 +446,16 @@
                     <p class="text-slate-300 text-sm whitespace-pre-wrap">${report.content}</p>
                     
                     <div class="flex gap-2 mt-4 pt-3 border-t border-slate-700/50">
-                        <button onclick="updateSheetStatus(${report.id}, 'check')" class="flex-1 text-[11px] text-blue-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">확인 기록</button>
-                        <button onclick="updateSheetStatus(${report.id}, 'complete')" class="flex-1 text-[11px] text-emerald-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">완료 기록</button>
-                        <button onclick="deleteGlobalReport(${report.id})" class="flex-1 text-[11px] text-slate-400 bg-slate-900/80 px-3 py-2 rounded-lg hover:bg-slate-700 transition-colors">서버 영구 삭제</button>
+                        <button onclick="updateSheetStatus('${report.id}', 'check')" class="flex-1 text-[11px] text-blue-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">확인 기록</button>
+                        <button onclick="updateSheetStatus('${report.id}', 'complete')" class="flex-1 text-[11px] text-emerald-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">완료 기록</button>
+                        <button onclick="deleteGlobalReport('${report.id}')" class="flex-1 text-[11px] text-slate-400 bg-slate-900/80 px-3 py-2 rounded-lg hover:bg-slate-700 transition-colors">서버 영구 삭제</button>
                     </div>
                 </div>`
             }).reverse().join(''); 
         }
 
         window.updateSheetStatus = async function(id, updateType) {
-            const reportIndex = localReports.findIndex(r => r.id === id);
+            const reportIndex = localReports.findIndex(r => String(r.id) === String(id));
             if (reportIndex > -1) { 
                 localReports[reportIndex].status = updateType; 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
@@ -500,7 +471,7 @@
 
         window.deleteGlobalReport = async function(id) { 
             if (confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?\\n(삭제 후 복구할 수 없습니다)")) { 
-                localReports = localReports.filter(r => r.id !== id); 
+                localReports = localReports.filter(r => String(r.id) !== String(id)); 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports(); updateStats(); 
                 try {
