@@ -14,13 +14,12 @@
         .hw-info span.label { font-weight: 700; color: #64748B; }
         .fade-in { animation: fadeIn 0.2s ease-in-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        /* 하단 탭 바 안전 영역 */
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
     </style>
 </head>
 <body class="h-screen overflow-hidden flex flex-col">
 
-    <a href="index.html" class="fixed bottom-24 right-4 bg-blue-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-50 border-2 border-blue-400" title="PC 버전으로 보기">
+    <a href="index.html" class="fixed bottom-24 right-4 bg-blue-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-50 border-2 border-blue-400">
         <span class="text-xl">💻</span>
     </a>
 
@@ -28,9 +27,7 @@
         <h2 class="font-bold text-white text-sm flex items-center gap-2">
             <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>모바일 관제 시스템
         </h2>
-        <button id="admin-login-btn" class="text-[10px] font-bold text-slate-400 bg-slate-800 border border-slate-700 px-2.5 py-1.5 rounded-md active:bg-slate-700">
-            관리자 모드
-        </button>
+        <button id="admin-login-btn" class="text-[10px] font-bold text-slate-400 bg-slate-800 border border-slate-700 px-2.5 py-1.5 rounded-md active:bg-slate-700">관리자</button>
     </header>
 
     <main class="flex-1 overflow-y-auto p-4 pb-20 scroll-smooth" id="main-content">
@@ -42,18 +39,18 @@
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl overflow-hidden">
                         <div class="px-4 py-3 bg-slate-900/50 border-b border-slate-700/50 flex justify-between items-center">
                             <span class="font-bold text-white text-sm">A 강의실 (21석)</span>
-                            <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">운영중</span>
+                            <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">운영중</span>
                         </div>
                         <div class="p-4">
                             <div class="mb-4">
                                 <span class="tag-item">Photoshop 2022</span><span class="tag-item">VS 2022/2026</span><span class="tag-item">Unreal 5.7.4</span>
                             </div>
-                            <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800">
+                            <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800 space-y-1">
                                 <div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div>
                                 <div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div>
                                 <div class="hw-info"><span class="label">GPU</span><span>GTX 1660 SUPER</span></div>
                                 <div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div>
-                                <div class="hw-info"><span class="label">PSU</span><span>COOLMAX 600W</span></div>
+                                <div class="hw-info"><span class="label">PSU</span><span>600W</span></div>
                             </div>
                         </div>
                     </div>
@@ -67,12 +64,11 @@
                             <div class="mb-4">
                                 <span class="tag-item bg-blue-500/10 text-blue-300 border-blue-500/20">3ds Max 2023</span><span class="tag-item">Substance</span><span class="tag-item font-bold">Unreal 5.3.2</span>
                             </div>
-                            <div class="bg-slate-950/80 p-3 rounded-xl border border-blue-500/20">
+                            <div class="bg-slate-950/80 p-3 rounded-xl border border-blue-500/20 space-y-1">
                                 <div class="hw-info"><span class="label text-blue-400">CPU</span><span class="text-blue-200">i9-14900KF</span></div>
                                 <div class="hw-info"><span class="label text-blue-400">RAM</span><span class="text-blue-200">DDR5 64GB</span></div>
                                 <div class="hw-info"><span class="label text-blue-400">GPU</span><span class="text-blue-200 font-bold">RTX 4070 Ti 12G</span></div>
-                                <div class="hw-info"><span class="label text-blue-400">Disk</span><span>Crucial T500 1TB</span></div>
-                                <div class="hw-info"><span class="label text-blue-400">PSU</span><span>COOLMAX 900W</span></div>
+                                <div class="hw-info"><span class="label text-blue-400">PSU</span><span>900W</span></div>
                             </div>
                         </div>
                     </div>
@@ -87,64 +83,30 @@
                         <p class="text-[10px] text-slate-500 mt-1">입력된 데이터는 실시간으로 구글 시트에 기록됩니다.</p>
                     </div>
                     <div class="p-5 space-y-5">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-2">Reporter Name</label>
-                            <input type="text" id="input-name" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3.5 text-sm text-white outline-none focus:border-blue-500 shadow-inner" placeholder="본인 성함 입력">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-2">Issue Details</label>
-                            <textarea id="input-content" rows="6" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-4 text-sm text-white outline-none focus:border-blue-500 resize-none shadow-inner" placeholder="문의 또는 고장 내용을 상세히 적어주세요."></textarea>
-                        </div>
-                        <button id="btn-submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition-transform">
-                            문의 접수하기
-                        </button>
+                        <input type="text" id="input-name" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3.5 text-sm text-white focus:border-blue-500" placeholder="본인 성함 입력">
+                        <textarea id="input-content" rows="6" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-4 text-sm text-white focus:border-blue-500 resize-none" placeholder="문의 내용을 상세히 적어주세요."></textarea>
+                        <button id="btn-submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg">문의 접수하기</button>
                     </div>
                 </div>
             </section>
 
             <section id="section-mobile-status" class="content-section hidden fade-in space-y-4">
-                <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-xl">
+                <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Dashboard Summary</p>
                     <div class="space-y-4 text-xs">
-                        <div class="flex justify-between items-center text-slate-300 border-b border-slate-700/50 pb-3">
-                            <span>당일 문의 접수</span><span class="stat-today font-bold text-emerald-400 text-sm">0 건</span>
-                        </div>
-                        <div class="flex justify-between items-center text-slate-300 border-b border-slate-700/50 pb-3">
-                            <span>누적 문의 수</span><span class="stat-total font-bold text-blue-400 text-sm">0 건</span>
-                        </div>
-                        <div class="flex justify-between items-center text-slate-300">
-                            <span>조치 완료 건</span><span class="stat-resolved font-bold text-orange-400 text-sm">0 건</span>
-                        </div>
+                        <div class="flex justify-between border-b border-slate-700/50 pb-3"><span>당일 접수</span><span class="stat-today font-bold text-emerald-400">0 건</span></div>
+                        <div class="flex justify-between border-b border-slate-700/50 pb-3"><span>누적 문의</span><span class="stat-total font-bold text-blue-400">0 건</span></div>
+                        <div class="flex justify-between"><span>조치 완료</span><span class="stat-resolved font-bold text-orange-400">0 건</span></div>
                     </div>
                 </div>
-
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-xl">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Emergency Contact</p>
                     <div class="space-y-4 text-xs">
-                        <div class="flex justify-between items-center text-slate-300 border-b border-slate-700/50 pb-3">
-                            <span>시설 총괄 (이승민)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span>
-                        </div>
-                        <div class="flex justify-between items-center text-slate-300">
-                            <span>보안 관제 센터</span><span class="font-bold text-white text-sm">1588-3112</span>
-                        </div>
+                        <div class="flex justify-between border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민)</span><span class="font-bold text-blue-400">010-9287-2656</span></div>
+                        <div class="flex justify-between"><span>보안 관제 센터</span><span class="font-bold text-white">1588-3112</span></div>
                     </div>
                 </div>
             </section>
-
-            <section id="admin-panel" class="content-section hidden fade-in">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-                    <div class="px-4 py-3 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-                        <span class="text-white text-[10px] font-bold">● ADMIN SECURITY</span>
-                        <button id="admin-close-btn" class="text-slate-400 text-[10px] px-2 py-1 bg-slate-800 rounded">닫기</button>
-                    </div>
-                    <div class="p-4 bg-slate-900">
-                        <div id="report-list-container" class="space-y-3 max-h-[450px] overflow-y-auto custom-scrollbar">
-                            <p class="text-center text-slate-600 py-10 text-xs italic">최근 접수 내역이 없습니다.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
         </div>
     </main>
 
@@ -161,15 +123,11 @@
     </nav>
 
     <script>
-        // ==========================================
-        // 구글 스크립트 주소를 아래에 꼭 넣어주세요!
-        // ==========================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
         const ADMIN_PW = "admin1234";
 
         const tabTriggers = document.querySelectorAll('.tab-trigger');
         const contentSections = document.querySelectorAll('.content-section');
-
         tabTriggers.forEach(tab => {
             tab.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -180,63 +138,30 @@
             });
         });
 
-        const btnSubmit = document.getElementById('btn-submit');
         let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
-
         function updateStats() {
             const todayStr = new Date().toLocaleDateString('ko-KR');
-            const total = localReports.length;
-            const todayCount = localReports.filter(r => r.date && r.date.startsWith(todayStr)).length;
-            const resolvedCount = localReports.filter(r => r.status === 'complete').length;
-            document.querySelector('.stat-total').innerText = total + " 건";
-            document.querySelector('.stat-today').innerText = todayCount + " 건";
-            document.querySelector('.stat-resolved').innerText = total === 0 ? "0 건" : `${resolvedCount} 건`;
+            document.querySelector('.stat-total').innerText = localReports.length + " 건";
+            document.querySelector('.stat-today').innerText = localReports.filter(r => r.date.startsWith(todayStr)).length + " 건";
+            document.querySelector('.stat-resolved').innerText = localReports.filter(r => r.status === 'complete').length + " 건";
         }
         updateStats();
 
-        btnSubmit.addEventListener('click', async () => {
+        document.getElementById('btn-submit').addEventListener('click', async () => {
             const name = document.getElementById('input-name').value.trim();
             const content = document.getElementById('input-content').value.trim();
-            if(!name || !content) return alert("성함과 내용을 입력하세요.");
-            btnSubmit.disabled = true; btnSubmit.innerText = "서버 전송 중...";
+            if(!name || !content) return alert("입력 오류");
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams({action:'submit', name, content}) });
-                const data = await res.json();
-                if(data.result === "success") {
-                    alert("성공적으로 접수되었습니다.");
+                const result = await res.json();
+                if(result.result === "success") {
+                    alert("접수되었습니다.");
                     localReports.push({ id:Date.now(), name, content, date:new Date().toLocaleString('ko-KR'), status:'pending' });
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                     document.getElementById('input-name').value=""; document.getElementById('input-content').value=""; updateStats();
                 }
-            } catch(e) { alert("연동 오류가 발생했습니다."); } finally { btnSubmit.disabled = false; btnSubmit.innerText = "문의 접수하기"; }
+            } catch(e) { alert("연동 오류"); }
         });
-
-        document.getElementById('admin-login-btn').addEventListener('click', () => {
-            if(prompt("보안 비밀번호를 입력하세요.") === ADMIN_PW) {
-                contentSections.forEach(sec => sec.classList.add('hidden'));
-                document.getElementById('admin-panel').classList.remove('hidden');
-                renderAdminReports();
-            }
-        });
-        document.getElementById('admin-close-btn').addEventListener('click', () => { document.getElementById('admin-panel').classList.add('hidden'); contentSections[0].classList.remove('hidden'); });
-
-        function renderAdminReports() {
-            const container = document.getElementById('report-list-container');
-            if(localReports.length === 0) { container.innerHTML = '<p class="text-center text-slate-600 py-10">내역 없음</p>'; return; }
-            container.innerHTML = localReports.map(r => `
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-3 shadow-inner">
-                    <p class="text-blue-400 text-[10px] font-bold mb-1">${r.date}</p>
-                    <p class="text-white text-xs font-bold mb-1">${r.name}</p>
-                    <p class="text-slate-400 text-[11px] leading-relaxed">${r.content}</p>
-                    <div class="flex gap-1 mt-3">
-                        <button onclick="deleteLocalReport(${r.id})" class="flex-1 bg-slate-700 text-white text-[10px] py-2 rounded active:bg-red-900">내역 삭제</button>
-                    </div>
-                </div>
-            `).reverse().join('');
-        }
-        window.deleteLocalReport = id => { if(confirm("내역을 삭제하시겠습니까?")) { localReports = localReports.filter(r => r.id !== id); localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); renderAdminReports(); updateStats(); } };
     </script>
 </body>
 </html>
-
-도움이 필요하시면 언제든 말씀해 주세요!
