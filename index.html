@@ -1,362 +1,326 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게임분당 시설문의 및 관리 시스템</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        body { 
-            font-family: 'Pretendard', sans-serif; 
-            background-color: #F1F5F9; 
-        }
-        .hidden { display: none !important; }
-        .transition-all { transition: all 0.3s ease; }
+!DOCTYPE html
+html lang=ko
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    title게임분당 시설문의 (PC)title
+    script src=httpscdn.tailwindcss.comscript
+    style
+        @import url('httpscdn.jsdelivr.netghorioncactuspretendarddistwebstaticpretendard.css');
+        body { font-family 'Pretendard', sans-serif; background-color #F1F5F9; }
+        .hidden { display none !important; }
+        -webkit-scrollbar { width 6px; }
+        -webkit-scrollbar-track { background #1e293b; }
+        -webkit-scrollbar-thumb { background #475569; border-radius 10px; }
+        .tag-item { display inline-block; background-color #f1f5f9; border 1px solid #e2e8f0; color #475569; font-size 0.7rem; font-weight 500; padding 0.2rem 0.5rem; border-radius 0.3rem; margin-right 0.2rem; margin-bottom 0.3rem; }
+        .hw-info { display flex; align-items center; justify-content space-between; font-size 0.75rem; color #64748b; margin-bottom 4px; padding-bottom 3px; border-bottom 1px dashed #f1f5f9;}
+        .hw-infolast-child { border-bottom none; }
+        .hw-info span.label { font-weight 700; color #475569; min-width 45px; }
+        .hw-info span.value { text-align right; }
+        .fade-in { animation fadeIn 0.3s ease-in-out forwards; }
+        @keyframes fadeIn { from { opacity 0; transform translateY(5px); } to { opacity 1; transform translateY(0); } }
+    style
+head
+body class=bg-slate-50 h-screen overflow-hidden flex text-slate-800
+
+    !-- [PC 화면 전환 플로팅 버튼] 클릭 시 mobile_index.html 로 이동 --
+    a href=mobile_index.html class=fixed bottom-8 right-8 bg-slate-800 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hoverbg-blue-600 transition-colors z-50 group border-2 border-slate-700 hoverborder-blue-400 title=모바일 버전으로 보기
+        span class=text-2xl group-hoverscale-110 transition-transform duration-200📱span
+    a
+
+    !-- [좌측 사이드바 관제 컨트롤 패널] --
+    aside class=w-64 bg-slate-900 text-slate-300 flex flex-col h-full flex-shrink-0 shadow-2xl z-20
+        div class=h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950 flex-shrink-0
+            div class=w-2.5 h-2.5 bg-blue-500 rounded-full mr-3 animate-pulsediv
+            h1 class=font-bold text-white tracking-wide text-smG-BUNDANG span class=text-blue-400FACILITYspanh1
+        div
         
-        /* 대시보드 스크롤바 커스텀 */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #1e293b; }
-        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
-        
-        .tag-item { 
-            display: inline-block; background-color: #f1f5f9; border: 1px solid #e2e8f0; 
-            color: #475569; font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.5rem; 
-            border-radius: 0.3rem; margin-right: 0.2rem; margin-bottom: 0.3rem;
-        }
+        nav class=px-4 py-6 space-y-1
+            p class=text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2System Menup
+            a href=#section-software class=tab-trigger flex items-center px-4 py-2.5 bg-blue-60010 text-blue-400 font-semibold rounded-lg border border-blue-50020 transition-colors
+                span class=mr-3 text-lg🖥️span 강의실 프로그램 현황
+            a
+            a href=#section-report class=tab-trigger flex items-center px-4 py-2.5 hoverbg-slate-800 text-slate-400 hovertext-slate-200 font-medium rounded-lg transition-colors border border-transparent
+                span class=mr-3 text-lg🎫span 시설 문의
+            a
+        nav
 
-        .hw-info { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: #64748b; margin-bottom: 4px; }
-        .hw-info span.label { font-weight: 700; color: #475569; min-width: 45px; }
+        div class=p-4 space-y-3 border-t border-slate-800 bg-slate-90050 flex-1 overflow-y-auto
+            !-- 통계 패널 --
+            div class=bg-slate-800 rounded-lg p-4 border border-slate-70050
+                p class=text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider text-opacity-70Dashboard Statusp
+                div class=space-y-2.5 text-[11px]
+                    div class=flex justify-between items-center text-slate-400span접속자 수spanspan class=font-bold text-white1 명spandiv
+                    div class=flex justify-between items-center text-slate-400span당일 문의 수spanspan class=stat-today font-bold text-emerald-4000 건spandiv
+                    div class=flex justify-between items-center text-slate-400span누적 문의 수spanspan class=stat-total font-bold text-blue-4000 건spandiv
+                    div class=flex justify-between items-center text-slate-400span처리 현황 수spanspan class=stat-resolved font-bold text-orange-4000 건spandiv
+                div
+            div
 
-        .fade-in { animation: fadeIn 0.3s ease-in-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
-<body class="bg-slate-50 h-screen overflow-hidden flex text-slate-800">
+            !-- 비상 연락망 --
+            div class=bg-slate-800 rounded-lg p-4 border border-slate-70050
+                p class=text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider text-opacity-70Emergency Contactsp
+                div class=space-y-2.5 text-[11px]
+                    div class=flex justify-between items-center text-slate-400 border-b border-slate-70030 pb-2span시설 총괄spanspan class=font-bold text-blue-400010-9287-2656spandiv
+                    div class=flex justify-between items-center text-slate-400span보안 관제spanspan class=font-bold text-white1588-3112spandiv
+                div
+            div
 
-    <!-- [좌측 사이드바: 관제 컨트롤 패널] -->
-    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col h-full flex-shrink-0 shadow-2xl z-20">
-        <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950">
-            <div class="w-2.5 h-2.5 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
-            <h1 class="font-bold text-white tracking-wide text-sm">G-BUNDANG <span class="text-blue-400">FACILITY</span></h1>
-        </div>
-        
-        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2">System Menu</p>
-            <a href="#section-software" class="menu-tab flex items-center px-4 py-2.5 bg-blue-600/10 text-blue-400 font-semibold rounded-lg border border-blue-500/20 transition-colors">
-                <span class="mr-3 text-lg">🖥️</span> 강의실 프로그램 현황
-            </a>
-            <a href="#section-report" class="menu-tab flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-medium rounded-lg transition-colors border border-transparent">
-                <span class="mr-3 text-lg">🎫</span> 시설 문의
-            </a>
-        </nav>
+            !-- 시스템 노드 정보 --
+            div class=bg-slate-800 rounded-lg p-4 border border-slate-70050
+                p class=text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider text-opacity-70Node Infop
+                div class=space-y-2 text-[11px]
+                    div class=flex justify-between text-slate-400span관리자spanspan class=font-bold text-white text-right이승민 책임spandiv
+                    div class=flex justify-between text-slate-400span업데이트spanspan class=text-right text-slate-3002026.06spandiv
+                    div class=flex justify-between text-slate-400span버전spanspan class=font-bold text-emerald-500 text-rightv1.0 (AUTO)spandiv
+                div
+            div
+        div
+    aside
 
-        <div class="p-4 space-y-3 border-t border-slate-800 bg-slate-900/50">
-            
-            <!-- [추가] 통계 대시보드 박스 -->
-            <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
-                <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider text-opacity-70">Dashboard Status</p>
-                <div class="space-y-2.5 text-[11px]">
-                    <div class="flex justify-between items-center text-slate-400">
-                        <span>접속자 수</span>
-                        <span class="font-bold text-white">1 명</span>
-                    </div>
-                    <div class="flex justify-between items-center text-slate-400">
-                        <span>당일 문의 수</span>
-                        <span id="stat-today" class="font-bold text-emerald-400">0 건</span>
-                    </div>
-                    <div class="flex justify-between items-center text-slate-400">
-                        <span>누적 문의 수</span>
-                        <span id="stat-total" class="font-bold text-blue-400">0 건</span>
-                    </div>
-                    <div class="flex justify-between items-center text-slate-400">
-                        <span>처리 현황 수</span>
-                        <span id="stat-resolved" class="font-bold text-orange-400">0 건</span>
-                    </div>
-                </div>
-            </div>
+    !-- [우측 메인 영역] --
+    div class=flex-1 flex flex-col h-full overflow-hidden relative bg-slate-50
+        header class=h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10 shadow-sm
+            div
+                h2 class=font-bold text-slate-800 text-lg통합 관제 대시보드 (PC)h2
+                p class=text-xs text-slate-500실시간 강의실 SWHW 현황 모니터링p
+            div
+            button id=admin-login-btn class=flex items-center gap-2 text-xs font-bold text-slate-600 bg-slate-100 hoverbg-slate-200 border border-slate-200 px-4 py-2 rounded-md transition-colors
+                span⚙️ 시스템 관리자 모드span
+            button
+        header
 
-            <!-- 비상 연락망 -->
-            <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
-                <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider text-opacity-70">Emergency Contacts</p>
-                <div class="space-y-2.5 text-[11px]">
-                    <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/30 pb-2">
-                        <span>시설 총괄</span>
-                        <span class="font-bold text-blue-400">010-9287-2656</span>
-                    </div>
-                    <div class="flex justify-between items-center text-slate-400">
-                        <span>보안 관제</span>
-                        <span class="font-bold text-white">1588-3112</span>
-                    </div>
-                </div>
-            </div>
+        main class=flex-1 overflow-y-auto p-8 scroll-smooth bg-slate-50 id=main-content
+            div class=max-w-7xl mx-auto space-y-8
 
-            <!-- 시스템 노드 정보 -->
-            <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
-                <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider text-opacity-70">Node Info</p>
-                <div class="space-y-2 text-[11px]">
-                    <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white">이승민 책임</span></div>
-                    <div class="flex justify-between text-slate-400"><span>업데이트</span><span class="text-slate-300">2026.06</span></div>
-                    <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v1.0 (AUTO)</span></div>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- [우측 메인 영역] -->
-    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10 shadow-sm">
-            <div>
-                <h2 class="font-bold text-slate-800 text-lg">통합 관제 대시보드</h2>
-                <p class="text-xs text-slate-500">실시간 강의실 SW/HW 현황 모니터링</p>
-            </div>
-            <button id="admin-login-btn" class="flex items-center gap-2 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-4 py-2 rounded-md transition-all">
-                <span>⚙️ 시스템 관리자 모드</span>
-            </button>
-        </header>
-
-        <main class="flex-1 overflow-y-auto p-8 scroll-smooth bg-slate-50" id="main-content">
-            <div class="max-w-7xl mx-auto space-y-8">
-
-                <!-- 1. 강의실 인프라 모니터링 섹션 -->
-                <section id="section-software" class="content-section fade-in">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                            <span class="w-1.5 h-6 bg-blue-600 rounded-full inline-block"></span>
+                !-- 1. 인프라 섹션 --
+                section id=section-software class=content-section fade-in
+                    div class=flex items-center justify-between mb-6
+                        h3 class=text-lg font-bold text-slate-800 flex items-center gap-2
+                            span class=w-1.5 h-6 bg-blue-600 rounded-full inline-blockspan
                             강의실별 상세 인프라 현황
-                        </h3>
-                    </div>
+                        h3
+                    div
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                        
-                        <!-- A 강의실 -->
-                        <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hover:shadow-md transition-all">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800">A 강의실</h4>
-                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
-                                </div>
-                            </div>
-                            <div class="p-5 flex-1">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Software Stack</p>
-                                <div class="mb-6">
-                                    <span class="tag-item">Photoshop 2022</span><span class="tag-item">VS 2022/2026</span><span class="tag-item">한글 2024</span><span class="tag-item">Office 2021</span><span class="tag-item">Unreal 5.7.4</span><span class="tag-item">Unity 6000.3.9f1</span>
-                                </div>
-                                <hr class="border-dashed mb-4 border-slate-200">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Hardware Spec</p>
-                                <div class="space-y-1">
-                                    <div class="hw-info"><span class="label">Seats</span> 21석 (Standard)</div>
-                                    <div class="hw-info"><span class="label">CPU</span> i7-10700</div>
-                                    <div class="hw-info"><span class="label">RAM</span> 삼성전자 DDR4 16G</div>
-                                    <div class="hw-info"><span class="label">Disk</span> SSD 250GB / 500GB</div>
-                                    <div class="hw-info"><span class="label">GPU</span> 지포스 GTX 1660 SUPER 6GB</div>
-                                    <div class="hw-info"><span class="label">PSU</span> 마이크로닉스 COOLMAX 600W</div>
-                                </div>
-                            </div>
-                        </div>
+                    div class=grid grid-cols-1 mdgrid-cols-2 lggrid-cols-3 gap-6 items-stretch
+                        !-- A 강의실 --
+                        div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hovershadow-md transition-all
+                            div class=p-5 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                                h4 class=font-bold text-slate-800A 강의실h4
+                                div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100
+                                    span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                                div
+                            div
+                            div class=p-5 flex-1 flex flex-col
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Software Stackp
+                                div class=mb-6 flex-1
+                                    span class=tag-itemPhotoshop 2022spanspan class=tag-itemVS 20222026spanspan class=tag-item한글 2024spanspan class=tag-itemOffice 2021spanspan class=tag-itemUnreal 5.7.4spanspan class=tag-item border-indigo-200 bg-indigo-50 text-indigo-700Unity 6000.3.9f1span
+                                div
+                                hr class=border-dashed mb-4 border-slate-200
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Hardware Specp
+                                div class=space-y-1
+                                    div class=hw-infospan class=labelSeatsspan span class=value21석 (Standard)spandiv
+                                    div class=hw-infospan class=labelCPUspan span class=valuei7-10700spandiv
+                                    div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                    div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                    div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                    div class=hw-infospan class=labelPSUspan span class=value마이크로닉스 COOLMAX 600Wspandiv
+                                div
+                            div
+                        div
 
-                        <!-- B 강의실 -->
-                        <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hover:shadow-md transition-all">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800">B 강의실</h4>
-                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
-                                </div>
-                            </div>
-                            <div class="p-5 flex-1">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Software Stack</p>
-                                <div class="mb-6">
-                                    <span class="tag-item">Photoshop 2021</span><span class="tag-item">VS 2019/2022</span><span class="tag-item">Office 2021</span><span class="tag-item">Unreal 5.1/5.2/5.5</span><span class="tag-item">Unity 21.3/22.3/6000</span>
-                                </div>
-                                <hr class="border-dashed mb-4 border-slate-200">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Hardware Spec</p>
-                                <div class="space-y-1">
-                                    <div class="hw-info"><span class="label">Seats</span> 20석 (Standard)</div>
-                                    <div class="hw-info"><span class="label">CPU</span> i7-11700</div>
-                                    <div class="hw-info"><span class="label">RAM</span> 삼성전자 DDR4 16G</div>
-                                    <div class="hw-info"><span class="label">Disk</span> SSD 250GB / 500GB</div>
-                                    <div class="hw-info"><span class="label">GPU</span> 지포스 GTX 1660 SUPER 6GB</div>
-                                    <div class="hw-info"><span class="label">PSU</span> MSI MAG A650BN 750W</div>
-                                </div>
-                            </div>
-                        </div>
+                        !-- B 강의실 --
+                        div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hovershadow-md transition-all
+                            div class=p-5 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                                h4 class=font-bold text-slate-800B 강의실h4
+                                div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100
+                                    span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                                div
+                            div
+                            div class=p-5 flex-1 flex flex-col
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Software Stackp
+                                div class=mb-6 flex-1
+                                    span class=tag-itemPhotoshop 2021spanspan class=tag-itemVS 20192022spanspan class=tag-itemOffice 2021spanspan class=tag-itemUnreal 5.15.25.5spanspan class=tag-item border-indigo-200 bg-indigo-50 text-indigo-700Unity 21.322.36000span
+                                div
+                                hr class=border-dashed mb-4 border-slate-200
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Hardware Specp
+                                div class=space-y-1
+                                    div class=hw-infospan class=labelSeatsspan span class=value20석 (Standard)spandiv
+                                    div class=hw-infospan class=labelCPUspan span class=valuei7-11700spandiv
+                                    div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                    div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                    div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                    div class=hw-infospan class=labelPSUspan span class=valueMSI MAG A650BN 750Wspandiv
+                                div
+                            div
+                        div
 
-                        <!-- C 강의실 -->
-                        <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hover:shadow-md transition-all">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800">C 강의실</h4>
-                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
-                                </div>
-                            </div>
-                            <div class="p-5 flex-1">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Software Stack</p>
-                                <div class="mb-6">
-                                    <span class="tag-item">Photoshop 2022</span><span class="tag-item border-pink-200 bg-pink-50 text-pink-700">CLIP STUDIO 3.0</span><span class="tag-item">Sketchup 2022</span><span class="tag-item">Office 2021</span>
-                                </div>
-                                <hr class="border-dashed mb-4 border-slate-200">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Hardware Spec</p>
-                                <div class="space-y-1">
-                                    <div class="hw-info"><span class="label">Seats</span> 15석 (Economy)</div>
-                                    <div class="hw-info"><span class="label">CPU</span> i7-10700</div>
-                                    <div class="hw-info"><span class="label">RAM</span> 삼성전자 DDR4 16G</div>
-                                    <div class="hw-info"><span class="label">Disk</span> SSD 250GB / 500GB</div>
-                                    <div class="hw-info"><span class="label">GPU</span> 지포스 GTX 1660 SUPER 6GB</div>
-                                    <div class="hw-info"><span class="label">PSU</span> 마이크로닉스 COOLMAX 600W</div>
-                                </div>
-                            </div>
-                        </div>
+                        !-- C 강의실 --
+                        div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hovershadow-md transition-all
+                            div class=p-5 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                                h4 class=font-bold text-slate-800C 강의실h4
+                                div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100
+                                    span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                                div
+                            div
+                            div class=p-5 flex-1 flex flex-col
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Software Stackp
+                                div class=mb-6 flex-1
+                                    span class=tag-itemPhotoshop 2022spanspan class=tag-item border-pink-200 bg-pink-50 text-pink-700CLIP STUDIO 3.0spanspan class=tag-itemSketchup 2022spanspan class=tag-itemOffice 2021span
+                                div
+                                hr class=border-dashed mb-4 border-slate-200
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Hardware Specp
+                                div class=space-y-1
+                                    div class=hw-infospan class=labelSeatsspan span class=value15석 (Economy)spandiv
+                                    div class=hw-infospan class=labelCPUspan span class=valuei7-10700spandiv
+                                    div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                    div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                    div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                    div class=hw-infospan class=labelPSUspan span class=value마이크로닉스 COOLMAX 600Wspandiv
+                                div
+                            div
+                        div
 
-                        <!-- D 강의실 -->
-                        <div class="bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md md:col-span-2 hover:border-blue-400 transition-all">
-                            <div class="p-5 border-b border-blue-100 flex justify-between items-center bg-blue-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-blue-800 flex items-center gap-2">D 강의실 <span class="bg-blue-600 text-white text-[9px] px-2 py-0.5 rounded-full">High-End Suite</span></h4>
-                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
-                                </div>
-                            </div>
-                            <div class="p-6 flex-1 flex flex-col md:flex-row gap-8 items-start">
-                                <div class="flex-1 w-full">
-                                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Specialist Software</p>
-                                    <div class="flex flex-wrap">
-                                        <span class="tag-item bg-blue-100 border-blue-200 text-blue-700">3ds Max 2023</span><span class="tag-item">TopoGun2</span><span class="tag-item bg-green-100 border-green-200 text-green-700">Substance Painter</span><span class="tag-item">Marmoset 4</span><span class="tag-item">Marvelous Designer 2025</span><span class="tag-item">Photoshop 2022</span><span class="tag-item">Unreal 5.3.2</span>
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-80 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner">
-                                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Extreme Hardware</p>
-                                    <div class="space-y-1">
-                                        <div class="hw-info font-bold text-blue-600"><span class="label">Seats</span> 19석 (Pro Zone)</div>
-                                        <div class="hw-info"><span class="label">CPU</span> i9-14900KF</div>
-                                        <div class="hw-info"><span class="label">RAM</span> 삼성전자 DDR5-5600 32G*2</div>
-                                        <div class="hw-info"><span class="label">Disk</span> M.2 Crucial T500 1TB 히트싱크</div>
-                                        <div class="hw-info text-blue-700"><span class="label">GPU</span> 지포스 RTX 4070 TI 12GB</div>
-                                        <div class="hw-info"><span class="label">PSU</span> 마이크로닉스 COOLMAX 900W</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        !-- D 강의실 --
+                        div class=bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md mdcol-span-2 hoverborder-blue-400 transition-all
+                            div class=p-5 border-b border-blue-100 flex flex-wrap justify-between items-center bg-blue-5050 rounded-t-2xl gap-2
+                                h4 class=font-bold text-blue-800 flex items-center gap-2 text-baseD 강의실 span class=bg-blue-600 text-white text-[9px] px-2 py-0.5 rounded-full whitespace-nowrapHigh-End Suitespanh4
+                                div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100
+                                    span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                                div
+                            div
+                            div class=p-6 flex-1 flex flex-row gap-8 items-start
+                                div class=flex-1 w-full
+                                    p class=text-[10px] font-bold text-slate-400 uppercase mb-3Specialist Softwarep
+                                    div class=flex flex-wrap
+                                        span class=tag-item bg-blue-100 border-blue-200 text-blue-7003ds Max 2023spanspan class=tag-itemTopoGun2spanspan class=tag-item bg-green-100 border-green-200 text-green-700Substance Painterspanspan class=tag-itemMarmoset 4spanspan class=tag-item bg-yellow-50 border-yellow-200 text-yellow-700Marvelous Designerspanspan class=tag-itemPhotoshop 2022spanspan class=tag-item font-boldUnreal 5.3.2span
+                                    div
+                                div
+                                div class=w-80 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner
+                                    p class=text-[10px] font-bold text-slate-400 uppercase mb-3Extreme Hardwarep
+                                    div class=space-y-1
+                                        div class=hw-info font-bold text-blue-600span class=labelSeatsspan span class=value19석 (Pro Zone)spandiv
+                                        div class=hw-infospan class=labelCPUspan span class=valuei9-14900KFspandiv
+                                        div class=hw-infospan class=labelRAMspan span class=valueDDR5-5600 32G2spandiv
+                                        div class=hw-info text-blue-700span class=labelGPUspan span class=valueRTX 4070 Ti 12GBspandiv
+                                        div class=hw-infospan class=labelDiskspan span class=valueCrucial T500 1TB 방열판spandiv
+                                        div class=hw-infospan class=labelPSUspan span class=valueCOOLMAX 900Wspandiv
+                                    div
+                                div
+                            div
+                        div
 
-                        <!-- E 강의실 -->
-                        <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hover:shadow-md transition-all">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800">E 강의실</h4>
-                                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>운영중
-                                </div>
-                            </div>
-                            <div class="p-5 flex-1">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Software Stack</p>
-                                <div class="mb-6">
-                                    <span class="tag-item">Photoshop 2020</span><span class="tag-item">한글 2024</span><span class="tag-item">Office 2021</span>
-                                </div>
-                                <hr class="border-dashed mb-4 border-slate-200">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Hardware Spec</p>
-                                <div class="space-y-1">
-                                    <div class="hw-info"><span class="label">Seats</span> 13석 (Compact)</div>
-                                    <div class="hw-info"><span class="label">CPU</span> i7-10700</div>
-                                    <div class="hw-info"><span class="label">RAM</span> 삼성전자 DDR4 16G</div>
-                                    <div class="hw-info"><span class="label">Disk</span> SSD 250GB / 500GB</div>
-                                    <div class="hw-info"><span class="label">GPU</span> 지포스 GTX 1660 SUPER 6GB</div>
-                                    <div class="hw-info"><span class="label">PSU</span> 마이크로닉스 COOLMAX 600W</div>
-                                </div>
-                            </div>
-                        </div>
+                        !-- E 강의실 --
+                        div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm hovershadow-md transition-all
+                            div class=p-5 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                                h4 class=font-bold text-slate-800E 강의실h4
+                                div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100
+                                    span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                                div
+                            div
+                            div class=p-5 flex-1 flex flex-col
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Software Stackp
+                                div class=mb-6 flex-1
+                                    span class=tag-itemPhotoshop 2020spanspan class=tag-item한글 2024spanspan class=tag-itemOffice 2021span
+                                div
+                                hr class=border-dashed mb-4 border-slate-200
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-3Hardware Specp
+                                div class=space-y-1
+                                    div class=hw-infospan class=labelSeatsspan span class=value13석 (Compact)spandiv
+                                    div class=hw-infospan class=labelCPUspan span class=valuei7-10700spandiv
+                                    div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                    div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                    div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                    div class=hw-infospan class=labelPSUspan span class=value마이크로닉스 COOLMAX 600Wspandiv
+                                div
+                            div
+                        div
+                    div
+                section
 
-                    </div>
-                </section>
+                !-- 2. 문의 폼 섹션 --
+                section id=section-report class=content-section hidden fade-in
+                    div class=bg-white border-2 border-blue-100 rounded-3xl shadow-xl shadow-blue-50 overflow-hidden
+                        div class=p-8 border-b border-blue-50 bg-blue-5030
+                            h3 class=text-xl font-bold text-slate-900 flex items-center gap-2🛠️ 시설 고장 신고 및 문의 접수 (PC)h3
+                            p class=text-sm text-slate-500 mt-2입력하신 내용은 관리자의 구글 시트에 즉시 기록되며 이메일 알림이 전송됩니다.p
+                        div
+                        div class=p-8 space-y-6
+                            div class=grid grid-cols-2 gap-4
+                                div
+                                    label class=block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide신고자 성명label
+                                    input type=text id=input-name class=w-full bg-white border-2 border-slate-100 rounded-xl p-3.5 text-sm focusborder-blue-500 outline-none transition-all shadow-inner placeholder=이름을 입력하세요
+                                div
+                            div
+                            div
+                                label class=block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide장애 상세 내용 및 시설 문의사항label
+                                textarea id=input-content rows=6 class=w-full bg-white border-2 border-slate-100 rounded-xl p-4 text-sm focusborder-blue-500 outline-none transition-all resize-none shadow-inner placeholder=상세 내용을 작성해주세요.textarea
+                            div
+                            button id=btn-submit class=w-auto bg-slate-900 text-white font-bold py-4 px-10 rounded-xl hoverbg-blue-600 transition-all shadow-lg flex justify-center items-center gap-2
+                                span문의 접수span
+                            button
+                        div
+                    div
+                section
 
-                <!-- 2. 시설 문의 폼 (숨김 상태) -->
-                <section id="section-report" class="content-section hidden fade-in">
-                    <div class="bg-white border-2 border-blue-100 rounded-3xl shadow-xl shadow-blue-50 overflow-hidden">
-                        <div class="p-8 border-b border-blue-50 bg-blue-50/30">
-                            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">🛠️ 시설 고장 신고 및 문의 접수</h3>
-                            <p class="text-sm text-slate-500 mt-2">입력하신 내용은 관리자의 구글 시트에 즉시 기록되며 이메일 알림이 전송됩니다.</p>
-                        </div>
-                        <div class="p-8 space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">신고자 성명 (Reporter)</label>
-                                    <input type="text" id="input-name" class="w-full bg-white border-2 border-slate-100 rounded-xl p-3.5 text-sm focus:border-blue-500 outline-none transition-all shadow-inner" placeholder="이름을 입력하세요">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">장애 상세 내용 및 시설 문의사항 (Details)</label>
-                                <textarea id="input-content" rows="6" class="w-full bg-white border-2 border-slate-100 rounded-xl p-4 text-sm focus:border-blue-500 outline-none transition-all resize-none shadow-inner" placeholder="예: C강의실 10번 좌석 클립스튜디오 라이선스 만료 건 또는 에어컨 작동 문의"></textarea>
-                            </div>
-                            <button id="btn-submit" class="w-full md:w-auto bg-slate-900 text-white font-bold py-4 px-10 rounded-xl hover:bg-blue-600 transition-all shadow-lg flex justify-center items-center gap-2">
-                                <span>문의 접수</span>
-                            </button>
-                        </div>
-                    </div>
-                </section>
+                !-- 3. 관리자 패널 --
+                section id=admin-panel class=content-section hidden fade-in
+                    div class=bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl
+                        div class=px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950
+                            h3 class=font-bold text-white flex items-center gap-2 text-sm
+                                span class=text-red-500●span 관리자 보안 시스템
+                            h3
+                            button id=admin-close-btn class=text-slate-400 hovertext-white text-xs font-bold px-3 py-1.5 rounded bg-slate-800 hoverbg-slate-700 transition-colors패널 닫기button
+                        div
+                        div class=p-8 bg-slate-900
+                            div id=report-list-container class=space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar text-sm
+                                p class=text-center text-slate-500 py-10 text-xs접수된 문의 내역이 없습니다.p
+                            div
+                        div
+                    div
+                section
+                div class=h-10div
+            div
+        main
+    div
 
-                <!-- 관리자 패널 (숨김 상태) -->
-                <section id="admin-panel" class="content-section hidden fade-in">
-                    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-                        <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-                            <h3 class="font-bold text-white flex items-center gap-2 text-sm">
-                                <span class="text-red-500">●</span> 관리자 보안 시스템 (이승민 책임 전용)
-                            </h3>
-                            <button id="admin-close-btn" class="text-slate-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 transition-colors">패널 닫기</button>
-                        </div>
-                        <div class="p-8 bg-slate-900">
-                            <div class="flex justify-between items-end mb-6">
-                                <p class="text-xs text-slate-400 italic">구글 시트 연동 데이터베이스 로컬 백업 제어판입니다.</p>
-                            </div>
-                            <div id="report-list-container" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar text-sm">
-                                <p class="text-center text-slate-500 py-10 text-xs">접수된 문의/장애 내역이 없습니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    !-- 스크립트 로직 --
+    script
+        const GOOGLE_SCRIPT_URL = 여기에_주소를_붙여넣으세요; 
+        const ADMIN_PW = admin1234;
 
-                <div class="h-10"></div>
-            </div>
-        </main>
-    </div>
-
-    <!-- [자바스크립트 로직] -->
-    <script>
-        // =====================================================================
-        // 🔴 [수정 필수] 구글 앱스 스크립트 배포 후 발급받은 URL을 여기에 넣으세요 🔴
-        // =====================================================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
-        
-        const ADMIN_PW = "admin1234";
-
-        // [구글 시트용 날짜 포맷 함수 (YYYY-MM-DD HH:mm)]
         function getFormattedTime(dateObj) {
             const year = dateObj.getFullYear();
             const month = String(dateObj.getMonth() + 1).padStart(2, '0');
             const day = String(dateObj.getDate()).padStart(2, '0');
             const hours = String(dateObj.getHours()).padStart(2, '0');
             const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-            return `${year}-${month}-${day} ${hours}:${minutes}`;
+            return `${year}-${month}-${day} ${hours}${minutes}`;
         }
 
-        // [탭 메뉴 UI 제어 로직]
-        const menuTabs = document.querySelectorAll('.menu-tab');
+        const tabTriggers = document.querySelectorAll('.tab-trigger');
         const contentSections = document.querySelectorAll('.content-section');
 
-        menuTabs.forEach(tab => {
+        tabTriggers.forEach(tab = {
             tab.addEventListener('click', function(e) {
                 e.preventDefault();
-                menuTabs.forEach(t => {
-                    t.classList.remove('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                    t.classList.add('text-slate-400', 'hover:bg-slate-800', 'hover:text-slate-200', 'border-transparent');
-                });
-                this.classList.remove('text-slate-400', 'hover:bg-slate-800', 'hover:text-slate-200', 'border-transparent');
-                this.classList.add('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-
                 const targetId = this.getAttribute('href').substring(1);
-                contentSections.forEach(section => {
+
+                tabTriggers.forEach(t = {
+                    t.classList.remove('bg-blue-60010', 'text-blue-400', 'border-blue-50020');
+                    t.classList.add('hoverbg-slate-800', 'text-slate-400', 'border-transparent');
+                });
+                
+                this.classList.remove('hoverbg-slate-800', 'text-slate-400', 'border-transparent');
+                this.classList.add('bg-blue-60010', 'text-blue-400', 'border-blue-50020');
+
+                contentSections.forEach(section = {
                     if (section.id === targetId) section.classList.remove('hidden');
                     else section.classList.add('hidden');
                 });
             });
         });
 
-        // DOM 요소
         const inputName = document.getElementById('input-name');
         const inputContent = document.getElementById('input-content');
         const btnSubmit = document.getElementById('btn-submit');
@@ -364,177 +328,484 @@
         const adminLoginBtn = document.getElementById('admin-login-btn');
         const adminCloseBtn = document.getElementById('admin-close-btn');
         const reportListContainer = document.getElementById('report-list-container');
+        let localReports = JSON.parse(localStorage.getItem('g_bundang_reports'))  [];
 
-        let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
-
-        // 통계 업데이트 함수
         function updateStats() {
-            const todayStr = getFormattedTime(new Date()).split(' ')[0];
+            const todayStr = new Date().toLocaleDateString('ko-KR');
             const total = localReports.length;
-            const todayCount = localReports.filter(r => r.date.startsWith(todayStr)).length;
-            const resolvedCount = localReports.filter(r => r.status === 'complete').length;
+            const todayCount = localReports.filter(r = r.date && r.date.startsWith(todayStr)).length;
+            const resolvedCount = localReports.filter(r = r.status === 'complete').length;
 
-            document.getElementById('stat-total').innerText = total + " 건";
-            document.getElementById('stat-today').innerText = todayCount + " 건";
-            document.getElementById('stat-resolved').innerText = total === 0 ? "0 건" : `${resolvedCount} 건`;
+            document.querySelectorAll('.stat-total').forEach(el = el.innerText = total +  건);
+            document.querySelectorAll('.stat-today').forEach(el = el.innerText = todayCount +  건);
+            document.querySelectorAll('.stat-resolved').forEach(el = el.innerText = total === 0  0 건  `${resolvedCount} 건`);
         }
-        updateStats(); // 초기 1회 실행
+        updateStats(); 
 
-        // [문의 접수 (구글 시트 전송)]
-        btnSubmit.addEventListener('click', async () => {
+        btnSubmit.addEventListener('click', async () = {
             const name = inputName.value.trim();
             const content = inputContent.value.trim();
-
-            if (!name || !content) { alert("신고자 성명과 문의 내용을 모두 입력해 주세요."); return; }
-            if (GOOGLE_SCRIPT_URL.includes("여기에")) { alert("경고: 구글 스크립트 주소가 연동되지 않았습니다."); return; }
+            if (!name  !content) { alert(입력해 주세요.); return; }
+            if (GOOGLE_SCRIPT_URL.includes(여기에)) alert(구글 시트 연동 전입니다.);
 
             const originalBtnText = btnSubmit.innerHTML;
             btnSubmit.disabled = true;
-            btnSubmit.innerHTML = `<span class="animate-pulse">데이터베이스 기록 중...</span>`;
-            btnSubmit.classList.replace('bg-slate-900', 'bg-blue-600');
+            btnSubmit.innerHTML = `데이터베이스 기록 중...`;
 
             try {
-                // action: 'submit' 추가
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ action: 'submit', name: name, content: content })
+                    method 'POST',
+                    headers { 'Content-Type' 'applicationx-www-form-urlencoded' },
+                    body new URLSearchParams({ action 'submit', name name, content content })
                 });
-
                 const result = await response.json();
-
-                if (result.result === "success") {
-                    alert(`정상적으로 접수되었습니다.\n관리자(이승민)에게 즉시 통보됩니다.`);
-                    const newReport = {
-                        id: Date.now(),
-                        name: name,
-                        content: content,
-                        date: getFormattedTime(new Date()), // 구글 시트 포맷과 완벽 일치시킴
-                        status: 'pending' // 초기 상태
-                    };
-                    localReports.push(newReport);
+                if (result.result === success) {
+                    alert(`접수되었습니다.`);
+                    localReports.push({ id Date.now(), name, content, date new Date().toLocaleString('ko-KR'), status 'pending' });
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
-                    
-                    inputName.value = ""; inputContent.value = "";
-                    updateStats();
+                    inputName.value = ; inputContent.value = ; updateStats();
                     if (!adminPanel.classList.contains('hidden')) renderAdminReports();
-                } else {
-                    alert("구글 서버 통신 오류: " + result.message);
                 }
-            } catch (err) {
-                alert("통신 오류 발생: 인터넷 연결을 확인하거나 앱스 스크립트 배포 설정을 점검해 주세요.");
-            } finally {
-                btnSubmit.disabled = false;
-                btnSubmit.innerHTML = originalBtnText;
-                btnSubmit.classList.replace('bg-blue-600', 'bg-slate-900');
-            }
+            } catch (err) { alert(오류 발생); } 
+            finally { btnSubmit.disabled = false; btnSubmit.innerHTML = originalBtnText; }
         });
 
-        // [구글 시트 상태 업데이트 (확인/완료)]
         window.updateSheetStatus = async function(id, updateType, searchTime, searchName) {
-            // UI를 먼저 낙관적(Optimistic)으로 업데이트
-            const reportIndex = localReports.findIndex(r => r.id === id);
-            if (reportIndex > -1) {
+            const reportIndex = localReports.findIndex(r = r.id === id);
+            if (reportIndex  -1) {
                 localReports[reportIndex].status = updateType;
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
-                renderAdminReports();
-                updateStats();
+                renderAdminReports(); updateStats();
             }
-
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({
-                        action: 'update',
-                        updateType: updateType, // 'check' 또는 'complete'
-                        searchTime: searchTime,
-                        searchName: searchName
-                    })
+                    method 'POST',
+                    headers { 'Content-Type' 'applicationx-www-form-urlencoded' },
+                    body new URLSearchParams({ action 'update', updateType, searchTime, searchName })
                 });
-                
                 const result = await response.json();
-                if (result.result === "success") {
-                    alert(updateType === 'check' ? "✅ 구글 시트의 [확인일자]가 오늘 날짜로 기록되었습니다." : "✅ 구글 시트의 [처리일자]가 오늘 날짜로 기록되었습니다.");
-                } else {
-                    alert("구글 시트 업데이트 실패: " + result.message);
-                }
-            } catch (err) {
-                alert("구글 시트 통신 오류가 발생했습니다.");
-            }
+                if (result.result === success) alert(updateType === 'check'  확인일자 기록  처리일자 기록);
+            } catch (err) { alert(구글 시트 통신 오류); }
         };
 
-        // 관리자 모드 접속
-        adminLoginBtn.addEventListener('click', () => {
-            const pw = prompt("관리자 보안 코드를 입력하세요.");
-            if (pw === ADMIN_PW) {
-                contentSections.forEach(sec => sec.classList.add('hidden'));
-                menuTabs.forEach(t => {
-                    t.classList.remove('bg-blue-600/10', 'text-blue-400', 'border-blue-500/20');
-                    t.classList.add('text-slate-400', 'hover:bg-slate-800', 'hover:text-slate-200', 'border-transparent');
-                });
-                adminPanel.classList.remove('hidden');
-                renderAdminReports();
-            } else if (pw !== null) {
-                alert("보안 코드가 일치하지 않습니다.");
+        adminLoginBtn.addEventListener('click', () = {
+            if (prompt(보안 코드) === ADMIN_PW) {
+                contentSections.forEach(sec = sec.classList.add('hidden'));
+                tabTriggers.forEach(t = t.classList.remove('bg-blue-60010', 'text-blue-400', 'border-blue-50020'));
+                adminPanel.classList.remove('hidden'); renderAdminReports();
             }
         });
 
-        adminCloseBtn.addEventListener('click', () => {
-            adminPanel.classList.add('hidden');
-            menuTabs[0].click(); 
-        });
+        adminCloseBtn.addEventListener('click', () = { adminPanel.classList.add('hidden'); tabTriggers[0].click(); });
 
-        // 관리자 내역 렌더링 (확인/완료/삭제 버튼 분리)
         function renderAdminReports() {
-            if (localReports.length === 0) {
-                reportListContainer.innerHTML = '<p class="text-center text-slate-500 py-10 italic">내역이 존재하지 않습니다.</p>';
-                return;
-            }
-
-            reportListContainer.innerHTML = localReports.map((report, idx) => {
-                // 이전 데이터 호환성 처리 (status가 없는 경우)
+            if (localReports.length === 0) { reportListContainer.innerHTML = 'p class=text-center text-slate-500 py-10내역 없음p'; return; }
+            const formatDateForSheet = (dateStr) = {
+                const d = new Date(dateStr);
+                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`;
+            };
+            reportListContainer.innerHTML = localReports.map((report, idx) = {
                 if (!report.status) report.status = 'pending';
-
-                let statusBadge = '';
-                if (report.status === 'complete') statusBadge = '<span class="text-emerald-500 font-bold ml-2">[처리완료]</span>';
-                else if (report.status === 'check') statusBadge = '<span class="text-blue-400 font-bold ml-2">[확인중]</span>';
-                else statusBadge = '<span class="text-slate-400 font-bold ml-2">[신규접수]</span>';
-
+                let statusBadge = report.status === 'complete'  'span class=text-emerald-500[완료]span'  (report.status === 'check'  'span class=text-blue-400[확인]span'  'span class=text-slate-400[접수]span');
+                const searchTimeStr = formatDateForSheet(report.date);
                 return `
-                <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl flex justify-between items-start gap-6 shadow-lg">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-4 mb-3">
-                            <span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-widest">TICKET #${localReports.length - idx}</span>
-                            <span class="text-[10px] text-slate-500 font-mono">${report.date} ${statusBadge}</span>
-                        </div>
-                        <p class="text-white text-sm mb-2 font-bold"><span class="text-slate-400 font-normal mr-3">Reporter:</span> ${report.name}</p>
-                        <p class="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed"><span class="text-slate-400 font-normal mr-3">Issue:</span> ${report.content}</p>
-                        
-                        <!-- 분리된 조작 버튼 그룹 -->
-                        <div class="flex gap-2 mt-4">
-                            ${report.status !== 'check' && report.status !== 'complete' ? 
-                              `<button onclick="updateSheetStatus(${report.id}, 'check', '${report.date}', '${report.name}')" class="text-[10px] text-blue-400 hover:text-white border border-blue-900/50 bg-slate-900 px-3 py-1.5 rounded hover:bg-blue-800 transition-colors shadow-md">확인</button>` : ''}
-                            
-                            ${report.status !== 'complete' ? 
-                              `<button onclick="updateSheetStatus(${report.id}, 'complete', '${report.date}', '${report.name}')" class="text-[10px] text-emerald-400 hover:text-white border border-emerald-900/50 bg-slate-900 px-3 py-1.5 rounded hover:bg-emerald-800 transition-colors shadow-md">조치 완료</button>` : ''}
-                            
-                            <button onclick="deleteLocalReport(${report.id})" class="text-[10px] text-red-400 hover:text-white border border-red-900/50 bg-slate-900 px-3 py-1.5 rounded hover:bg-red-900 transition-colors shadow-md">영구 삭제</button>
-                        </div>
-                    </div>
-                </div>
-            `}).reverse().join('');
+                div class=bg-slate-800 border border-slate-700 p-5 rounded-xl flex flex-col mb-4
+                    div class=flex items-center gap-3 mb-3span class=text-blue-400 text-[10px] font-boldTICKET #${localReports.length - idx}spanspan class=text-[10px] text-slate-500${report.date} ${statusBadge}spandiv
+                    p class=text-white text-sm mb-2 font-bold${report.name}pp class=text-slate-300 text-sm whitespace-pre-wrap${report.content}p
+                    div class=flex gap-2 mt-4 pt-3 border-t border-slate-70050
+                        ${report.status !== 'check' && report.status !== 'complete'  `button onclick=updateSheetStatus(${report.id}, 'check', '${searchTimeStr}', '${report.name}') class=flex-1 text-[11px] text-blue-400 bg-slate-90080 px-3 py-2 rounded-lg font-bold확인 전송button`  ''}
+                        ${report.status !== 'complete'  `button onclick=updateSheetStatus(${report.id}, 'complete', '${searchTimeStr}', '${report.name}') class=flex-1 text-[11px] text-emerald-400 bg-slate-90080 px-3 py-2 rounded-lg font-bold처리 전송button`  ''}
+                        button onclick=deleteLocalReport(${report.id}) class=flex-1 text-[11px] text-slate-400 bg-slate-90080 px-3 py-2 rounded-lg기록 삭제button
+                    div
+                div`}).reverse().join('');
         }
 
-        // 로컬 데이터 삭제 (구글 시트에서는 지워지지 않음)
         window.deleteLocalReport = function(id) {
-            if (confirm("이 기록을 화면에서 삭제하시겠습니까?\n(원본 데이터는 구글 시트에 안전하게 보관됩니다.)")) {
-                localReports = localReports.filter(r => r.id !== id);
-                localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
-                renderAdminReports();
-                updateStats(); // 통계 갱신
-            }
+            if (confirm(삭제하시겠습니까)) { localReports = localReports.filter(r = r.id !== id); localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); renderAdminReports(); updateStats(); }
         };
-    </script>
-</body>
-</html>
+    script
+body
+html
+
+---
+
+### 📱 2. 모바일 전용 소스 코드 (파일명 `mobile_index.html` 로 저장)
+
+이 코드는 하단 앱 바(Bottom Navigation)가 적용되어 스마트폰에서 터치 조작이 편리한 앱 스타일 모바일 대시보드입니다.
+
+```html
+!DOCTYPE html
+html lang=ko
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no
+    title게임분당 시설문의 (Mobile)title
+    script src=httpscdn.tailwindcss.comscript
+    style
+        @import url('httpscdn.jsdelivr.netghorioncactuspretendarddistwebstaticpretendard.css');
+        body { font-family 'Pretendard', sans-serif; background-color #F1F5F9; -webkit-tap-highlight-color transparent; }
+        .hidden { display none !important; }
+        .tag-item { display inline-block; background-color #f1f5f9; border 1px solid #e2e8f0; color #475569; font-size 0.7rem; font-weight 500; padding 0.2rem 0.5rem; border-radius 0.3rem; margin-right 0.2rem; margin-bottom 0.3rem; }
+        .hw-info { display flex; align-items center; justify-content space-between; font-size 0.75rem; color #64748b; margin-bottom 4px; padding-bottom 3px; border-bottom 1px dashed #f1f5f9;}
+        .hw-infolast-child { border-bottom none; }
+        .hw-info span.label { font-weight 700; color #475569; min-width 45px; }
+        .hw-info span.value { text-align right; }
+        .fade-in { animation fadeIn 0.2s ease-in-out forwards; }
+        @keyframes fadeIn { from { opacity 0; transform translateY(5px); } to { opacity 1; transform translateY(0); } }
+    style
+head
+body class=bg-slate-50 h-screen overflow-hidden flex flex-col text-slate-800
+
+    !-- [모바일 화면 전환 플로팅 버튼] 클릭 시 pc_index.html 로 이동 --
+    a href=pc_index.html class=fixed bottom-20 right-4 bg-slate-800 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center hoverbg-blue-600 transition-colors z-50 group border-2 border-slate-700 title=PC 버전으로 보기
+        span class=text-xl💻span
+    a
+
+    !-- 모바일 상단 헤더 --
+    header class=h-14 bg-white border-b border-slate-200 flex items-center justify-between px-4 flex-shrink-0 z-10 shadow-sm
+        h2 class=font-bold text-slate-800 text-base flex items-center gap-2
+            span class=w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulsespan관제 대시보드
+        h2
+        button id=admin-login-btn class=flex items-center text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200 px-2 py-1.5 rounded-md
+            span⚙️ 관리자span
+        button
+    header
+
+    !-- 모바일 스크롤 메인 영역 (하단 탭 높이 확보 pb-20) --
+    main class=flex-1 overflow-y-auto p-4 pb-20 scroll-smooth bg-slate-50 id=main-content
+        div class=space-y-6
+
+            !-- 1. 인프라 섹션 --
+            section id=section-software class=content-section fade-in
+                div class=mb-4
+                    h3 class=text-base font-bold text-slate-800 flex items-center gap-2
+                        span class=w-1 h-5 bg-blue-600 rounded-full inline-blockspan
+                        상세 인프라 현황
+                    h3
+                div
+
+                div class=grid grid-cols-1 gap-4
+                    !-- A 강의실 --
+                    div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm
+                        div class=p-4 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                            h4 class=font-bold text-slate-800 text-smA 강의실h4
+                            div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[9px] font-bold text-emerald-600
+                                span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                            div
+                        div
+                        div class=p-4 flex-1
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Software Stackp
+                            div class=mb-4
+                                span class=tag-itemPhotoshop 2022spanspan class=tag-itemVS 20222026spanspan class=tag-item한글 2024spanspan class=tag-itemOffice 2021spanspan class=tag-itemUnreal 5.7.4spanspan class=tag-itemUnity 6000.3.9f1span
+                            div
+                            hr class=border-dashed mb-3 border-slate-200
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Hardware Specp
+                            div class=space-y-0.5
+                                div class=hw-infospan class=labelSeatsspan span class=value21석 (Standard)spandiv
+                                div class=hw-infospan class=labelCPUspan span class=valuei7-10700spandiv
+                                div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                div class=hw-infospan class=labelPSUspan span class=valueCOOLMAX 600Wspandiv
+                            div
+                        div
+                    div
+
+                    !-- B 강의실 --
+                    div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm
+                        div class=p-4 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                            h4 class=font-bold text-slate-800 text-smB 강의실h4
+                            div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[9px] font-bold text-emerald-600
+                                span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                            div
+                        div
+                        div class=p-4 flex-1
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Software Stackp
+                            div class=mb-4
+                                span class=tag-itemPhotoshop 2021spanspan class=tag-itemVS 20192022spanspan class=tag-itemOffice 2021spanspan class=tag-itemUnreal 5.15.25.5spanspan class=tag-itemUnity 21.322.36000span
+                            div
+                            hr class=border-dashed mb-3 border-slate-200
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Hardware Specp
+                            div class=space-y-0.5
+                                div class=hw-infospan class=labelSeatsspan span class=value20석 (Standard)spandiv
+                                div class=hw-infospan class=labelCPUspan span class=valuei7-11700spandiv
+                                div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                div class=hw-infospan class=labelPSUspan span class=valueMSI MAG 750Wspandiv
+                            div
+                        div
+                    div
+
+                    !-- C 강의실 --
+                    div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm
+                        div class=p-4 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                            h4 class=font-bold text-slate-800 text-smC 강의실h4
+                            div class=flex items-center gap-1.5 px-2 py-1 rounded bg-emerald-50 text-[9px] font-bold text-emerald-600
+                                span class=w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsespan운영중
+                            div
+                        div
+                        div class=p-4 flex-1
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Software Stackp
+                            div class=mb-4
+                                span class=tag-itemPhotoshop 2022spanspan class=tag-itemCLIP STUDIO 3.0spanspan class=tag-itemSketchup 2022spanspan class=tag-itemOffice 2021span
+                            div
+                            hr class=border-dashed mb-3 border-slate-200
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Hardware Specp
+                            div class=space-y-0.5
+                                div class=hw-infospan class=labelSeatsspan span class=value15석 (Economy)spandiv
+                                div class=hw-infospan class=labelCPUspan span class=valuei7-10700spandiv
+                                div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                div class=hw-infospan class=labelPSUspan span class=valueCOOLMAX 600Wspandiv
+                            div
+                        div
+                    div
+
+                    !-- D 강의실 --
+                    div class=bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md
+                        div class=p-4 border-b border-blue-100 flex flex-wrap justify-between items-center bg-blue-5050 rounded-t-2xl gap-2
+                            h4 class=font-bold text-blue-800 flex items-center gap-2 text-smD 강의실 span class=bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded-full whitespace-nowrapHigh-Endspanh4
+                        div
+                        div class=p-4 flex-1 flex flex-col gap-4
+                            div
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-2Softwarep
+                                divspan class=tag-item bg-blue-100 text-blue-7003ds Max 2023spanspan class=tag-itemTopoGun2spanspan class=tag-itemMarmoset 4spanspan class=tag-itemPhotoshop 2022spanspan class=tag-item font-boldUnreal 5.3.2spandiv
+                            div
+                            div class=bg-slate-50 p-3 rounded-lg border border-slate-100 shadow-inner
+                                p class=text-[10px] font-bold text-slate-400 uppercase mb-2Hardware Specp
+                                div class=space-y-0.5
+                                    div class=hw-info font-bold text-blue-600span class=labelSeatsspan span class=value19석 (Pro Zone)spandiv
+                                    div class=hw-infospan class=labelCPUspan span class=valuei9-14900KFspandiv
+                                    div class=hw-infospan class=labelRAMspan span class=valueDDR5-5600 32G2spandiv
+                                    div class=hw-info text-blue-700span class=labelGPUspan span class=valueRTX 4070 Ti 12GBspandiv
+                                    div class=hw-infospan class=labelDiskspan span class=valueCrucial T500 1TB 방열판spandiv
+                                    div class=hw-infospan class=labelPSUspan span class=valueCOOLMAX 900Wspandiv
+                                div
+                            div
+                        div
+                    div
+
+                    !-- E 강의실 --
+                    div class=bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm
+                        div class=p-4 border-b border-slate-100 flex justify-between items-center bg-slate-5050 rounded-t-2xl
+                            h4 class=font-bold text-slate-800 text-smE 강의실h4
+                        div
+                        div class=p-4 flex-1
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Software Stackp
+                            div class=mb-4
+                                span class=tag-itemPhotoshop 2020spanspan class=tag-item한글 2024spanspan class=tag-itemOffice 2021span
+                            div
+                            hr class=border-dashed mb-3 border-slate-200
+                            p class=text-[10px] font-bold text-slate-400 uppercase mb-2Hardware Specp
+                            div class=space-y-0.5
+                                div class=hw-infospan class=labelSeatsspan span class=value13석 (Compact)spandiv
+                                div class=hw-infospan class=labelCPUspan span class=valuei7-10700spandiv
+                                div class=hw-infospan class=labelRAMspan span class=value삼성전자 DDR4 16Gspandiv
+                                div class=hw-infospan class=labelGPUspan span class=valueGTX 1660 SUPER 6GBspandiv
+                                div class=hw-infospan class=labelDiskspan span class=valueSSD 250GB  500GBspandiv
+                                div class=hw-infospan class=labelPSUspan span class=valueCOOLMAX 600Wspandiv
+                            div
+                        div
+                    div
+                div
+            section
+
+            !-- 2. 모바일 문의 폼 --
+            section id=section-report class=content-section hidden fade-in
+                div class=bg-white border-2 border-blue-100 rounded-2xl shadow-xl overflow-hidden
+                    div class=p-5 border-b border-blue-50 bg-blue-5030
+                        h3 class=text-base font-bold text-slate-900🛠️ 시설 문의 접수 (Mobile)h3
+                    div
+                    div class=p-5 space-y-4
+                        div
+                            label class=block text-xs font-bold text-slate-700 mb-1.5신고자 성명label
+                            input type=text id=input-name class=w-full bg-white border-2 border-slate-100 rounded-lg p-3 text-sm outline-none placeholder=이름 입력
+                        div
+                        div
+                            label class=block text-xs font-bold text-slate-700 mb-1.5문의 상세 내용label
+                            textarea id=input-content rows=6 class=w-full bg-white border-2 border-slate-100 rounded-lg p-3 text-sm outline-none resize-none placeholder=상세 내용 작성textarea
+                        div
+                        button id=btn-submit class=w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl text-sm
+                            문의 접수
+                        button
+                    div
+                div
+            section
+
+            !-- 3. 모바일 통계비상망 --
+            section id=section-mobile-status class=content-section hidden fade-in space-y-4
+                div class=bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-lg
+                    p class=text-[10px] text-slate-400 font-bold uppercase mb-3Dashboard Statusp
+                    div class=space-y-3 text-sm
+                        div class=flex justify-between items-center text-slate-400 border-b border-slate-70050 pb-2
+                            span당일 접수 건spanspan class=stat-today font-bold text-emerald-4000 건span
+                        div
+                        div class=flex justify-between items-center text-slate-400 border-b border-slate-70050 pb-2
+                            span누적 문의 수spanspan class=stat-total font-bold text-blue-4000 건span
+                        div
+                        div class=flex justify-between items-center text-slate-400
+                            span조치 완료 수spanspan class=stat-resolved font-bold text-orange-4000 건span
+                        div
+                    div
+                div
+                div class=bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-lg
+                    p class=text-[10px] text-slate-400 font-bold uppercase mb-3Emergency Contactsp
+                    div class=space-y-3 text-sm
+                        div class=flex justify-between items-center text-slate-400 border-b border-slate-70050 pb-2
+                            span시설 총괄spanspan class=font-bold text-blue-400010-9287-2656span
+                        div
+                        div class=flex justify-between items-center text-slate-400
+                            span보안 관제spanspan class=font-bold text-white1588-3112span
+                        div
+                    div
+                div
+            section
+
+            !-- 4. 관리자 패널 --
+            section id=admin-panel class=content-section hidden fade-in
+                div class=bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl
+                    div class=px-4 py-3 border-b border-slate-800 flex justify-between items-center bg-slate-950
+                        h3 class=font-bold text-white text-xs● 보안 시스템h3
+                        button id=admin-close-btn class=text-slate-400 text-[10px] font-bold px-2 py-1 bg-slate-800 rounded닫기button
+                    div
+                    div class=p-4 bg-slate-900
+                        div id=report-list-container class=space-y-3 max-h-[500px] overflow-y-auto pr-1
+                            p class=text-center text-slate-500 py-10 text-xs내역이 없습니다.p
+                        div
+                    div
+                div
+            section
+        div
+    main
+        
+    !-- 모바일 하단 앱 바 내비게이션 --
+    nav class=fixed bottom-0 left-0 w-full h-16 bg-white border-t border-slate-200 flex justify-around items-center z-50 pb-safe
+        a href=#section-software class=tab-trigger mobile-tab flex flex-col items-center justify-center w-full h-full text-blue-600 font-bold
+            span class=text-xl mb-0.5🖥️spanspan class=text-[10px]인프라span
+        a
+        a href=#section-report class=tab-trigger mobile-tab flex flex-col items-center justify-center w-full h-full text-slate-400
+            span class=text-xl mb-0.5🎫spanspan class=text-[10px]문의 접수span
+        a
+        a href=#section-mobile-status class=tab-trigger mobile-tab flex flex-col items-center justify-center w-full h-full text-slate-400
+            span class=text-xl mb-0.5📊spanspan class=text-[10px]현황비상span
+        a
+    nav
+div
+
+!-- 기능 로직 스크립트 --
+script
+    const GOOGLE_SCRIPT_URL = 여기에_주소를_붙여넣으세요; 
+    const ADMIN_PW = admin1234;
+
+    const tabTriggers = document.querySelectorAll('.tab-trigger');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    tabTriggers.forEach(tab = {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            tabTriggers.forEach(t = { t.classList.remove('text-blue-600', 'font-bold'); t.classList.add('text-slate-400'); });
+            document.querySelectorAll(`.tab-trigger[href=#${targetId}]`).forEach(activeTab = {
+                activeTab.classList.remove('text-slate-400'); activeTab.classList.add('text-blue-600', 'font-bold');
+            });
+            contentSections.forEach(section = {
+                if (section.id === targetId) section.classList.remove('hidden'); else section.classList.add('hidden');
+            });
+            document.getElementById('main-content').scrollTop = 0;
+        });
+    });
+
+    const inputName = document.getElementById('input-name');
+    const inputContent = document.getElementById('input-content');
+    const btnSubmit = document.getElementById('btn-submit');
+    const adminPanel = document.getElementById('admin-panel');
+    const adminLoginBtn = document.getElementById('admin-login-btn');
+    const adminCloseBtn = document.getElementById('admin-close-btn');
+    const reportListContainer = document.getElementById('report-list-container');
+    let localReports = JSON.parse(localStorage.getItem('g_bundang_reports'))  [];
+
+    function updateStats() {
+        const todayStr = new Date().toLocaleDateString('ko-KR');
+        const total = localReports.length;
+        const todayCount = localReports.filter(r = r.date && r.date.startsWith(todayStr)).length;
+        const resolvedCount = localReports.filter(r = r.status === 'complete').length;
+        document.querySelectorAll('.stat-total').forEach(el = el.innerText = total +  건);
+        document.querySelectorAll('.stat-today').forEach(el = el.innerText = todayCount +  건);
+        document.querySelectorAll('.stat-resolved').forEach(el = el.innerText = total === 0  0 건  `${resolvedCount} 건`);
+    }
+    updateStats(); 
+
+    btnSubmit.addEventListener('click', async () = {
+        const name = inputName.value.trim(); const content = inputContent.value.trim();
+        if (!name  !content) { alert(모두 입력해 주세요.); return; }
+        if (GOOGLE_SCRIPT_URL.includes(여기에)) alert(구글 연동 전입니다.);
+        const originalBtnText = btnSubmit.innerHTML;
+        btnSubmit.disabled = true; btnSubmit.innerHTML = `기록 중...`;
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method 'POST', headers { 'Content-Type' 'applicationx-www-form-urlencoded' },
+                body new URLSearchParams({ action 'submit', name name, content content })
+            });
+            const result = await response.json();
+            if (result.result === success) {
+                alert(`접수되었습니다.`);
+                localReports.push({ id Date.now(), name, content, date new Date().toLocaleString('ko-KR'), status 'pending' });
+                localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
+                inputName.value = ; inputContent.value = ; updateStats();
+                if (!adminPanel.classList.contains('hidden')) renderAdminReports();
+            }
+        } catch (err) { alert(통신 오류); } finally { btnSubmit.disabled = false; btnSubmit.innerHTML = originalBtnText; }
+    });
+
+    window.updateSheetStatus = async function(id, updateType, searchTime, searchName) {
+        const reportIndex = localReports.findIndex(r = r.id === id);
+        if (reportIndex  -1) {
+            localReports[reportIndex].status = updateType;
+            localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
+            renderAdminReports(); updateStats();
+        }
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method 'POST', headers { 'Content-Type' 'applicationx-www-form-urlencoded' },
+                body new URLSearchParams({ action 'update', updateType, searchTime, searchName })
+            });
+            const result = await response.json();
+            if (result.result === success) alert(updateType === 'check'  확인 기록 완료  처리 기록 완료);
+        } catch (err) { alert(통신 오류); }
+    };
+
+    adminLoginBtn.addEventListener('click', () = {
+        if (prompt(보안 코드) === ADMIN_PW) {
+            contentSections.forEach(sec = sec.classList.add('hidden'));
+            tabTriggers.forEach(t = { t.classList.remove('text-blue-600', 'font-bold'); t.classList.add('text-slate-400'); });
+            adminPanel.classList.remove('hidden'); renderAdminReports();
+        }
+    });
+
+    adminCloseBtn.addEventListener('click', () = { adminPanel.classList.add('hidden'); document.querySelector('.mobile-tab[href=#section-software]').click(); });
+
+    function renderAdminReports() {
+        if (localReports.length === 0) { reportListContainer.innerHTML = 'p class=text-center text-slate-500 py-10 text-xs내역이 없습니다.p'; return; }
+        const formatDateForSheet = (dateStr) = { const d = new Date(dateStr); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; };
+        reportListContainer.innerHTML = localReports.map((report, idx) = {
+            if (!report.status) report.status = 'pending';
+            let statusBadge = report.status === 'complete'  'span class=text-emerald-500[완료]span'  (report.status === 'check'  'span class=text-blue-400[확인]span'  'span class=text-slate-400[신규]span');
+            const searchTimeStr = formatDateForSheet(report.date);
+            return `
+            div class=bg-slate-800 border border-slate-700 p-4 rounded-xl flex flex-col mb-4
+                div class=flex items-center gap-2 mb-2span class=text-blue-400 text-[9px] font-boldTICKET #${localReports.length - idx}spanspan class=text-[9px] text-slate-500${report.date} ${statusBadge}spandiv
+                p class=text-white text-xs mb-1 font-bold${report.name}pp class=text-slate-300 text-xs whitespace-pre-wrap${report.content}p
+                div class=flex gap-1 mt-3 pt-2 border-t border-slate-70050
+                    ${report.status !== 'check' && report.status !== 'complete'  `button onclick=updateSheetStatus(${report.id}, 'check', '${searchTimeStr}', '${report.name}') class=flex-1 text-[9px] text-blue-400 bg-slate-90080 py-1.5 rounded확인button`  ''}
+                    ${report.status !== 'complete'  `button onclick=updateSheetStatus(${report.id}, 'complete', '${searchTimeStr}', '${report.name}') class=flex-1 text-[9px] text-emerald-400 bg-slate-90080 py-1.5 rounded처리button`  ''}
+                    button onclick=deleteLocalReport(${report.id}) class=flex-1 text-[9px] text-slate-400 bg-slate-90080 py-1.5 rounded삭제button
+                div
+            div`}).reverse().join('');
+    }
+
+    window.deleteLocalReport = function(id) { if (confirm(삭제할까요)) { localReports = localReports.filter(r = r.id !== id); localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); renderAdminReports(); updateStats(); } };
+script
+body
+html
