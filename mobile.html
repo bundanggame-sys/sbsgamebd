@@ -36,6 +36,7 @@
                 <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Classroom Infrastructure</p>
                 <div class="space-y-4">
                     
+                    <!-- A 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-white text-base whitespace-nowrap">A 강의실 (21석)</span>
@@ -48,6 +49,7 @@
                             </div>
                             <div id="sw-container-A" class="min-h-[24px] flex flex-wrap"><p class="text-[10px] text-slate-500">서버 통신중...</p></div>
                         </div>
+                        <!-- [마스터 패치] 중복 코드를 모두 제거하고 완벽하게 5줄로 규격화된 블록 하나만 남겼습니다. -->
                         <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800 space-y-1">
                             <div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div>
                             <div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div>
@@ -57,6 +59,7 @@
                         </div>
                     </div>
                     
+                    <!-- B 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-white text-base whitespace-nowrap">B 강의실 (20석)</span>
@@ -78,6 +81,7 @@
                         </div>
                     </div>
                     
+                    <!-- C 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-white text-base whitespace-nowrap">C 강의실 (15석)</span>
@@ -99,6 +103,7 @@
                         </div>
                     </div>
                     
+                    <!-- D 강의실 -->
                     <div class="bg-blue-900/20 border-2 border-blue-500/30 rounded-2xl p-4 shadow-xl flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-blue-300 text-base flex items-center gap-1">D 강의실 <span class="text-[8px] font-bold text-white bg-blue-600 px-1 py-0.5 rounded uppercase">High</span></span>
@@ -120,6 +125,7 @@
                         </div>
                     </div>
                     
+                    <!-- E 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-white text-base whitespace-nowrap">E 강의실 (13석)</span>
@@ -199,7 +205,7 @@
 
     <script>
         // =========================================================================
-        // [중요] 반드시 새로 배포받은 구글 웹앱 URL을 붙여넣으세요!
+        // [중요] 반드시 새로 배포받은 구글 웹앱 URL을 겹따옴표 안에 붙여넣으세요!
         // =========================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
         const ADMIN_PW = "admin1234";
@@ -230,12 +236,24 @@
         }
         updateStats();
 
+        // [프론트엔드 안전장치] 서버에서 에러 문서(HTML)가 날아와도 JSON Parse 에러로 앱이 죽지 않게 티타늄 방어막을 칩니다.
+        async function safeFetchJSON(url, options) {
+            const res = await fetch(url, options);
+            const text = await res.text(); // 먼저 날것의 텍스트로 데이터를 받아옵니다.
+            try { 
+                return JSON.parse(text); // JSON 변환을 시도하고 성공하면 반환합니다.
+            } catch (e) { 
+                // 변환에 실패(HTML 등 찌꺼기가 섞여 있을 때)하더라도 앱이 멈추지 않고 가상의 에러 객체를 던져 우회합니다.
+                throw new Error("서버 에러 또는 구글 권한 문제 발생"); 
+            }
+        }
+
         async function loadServerData() {
             const syncDot = document.getElementById('mobile-sync-dot');
             const syncText = document.getElementById('mobile-sync-text');
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=load", { method: 'GET' });
-                const responseData = await res.json();
+                // 기존의 단순 fetch 대신 안전한 safeFetchJSON 함수를 거쳐서 통신합니다.
+                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load", { method: 'GET' });
                 if (responseData.result === "success") {
                     localReports = responseData.data;
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
@@ -252,8 +270,7 @@
         
         async function loadRoomStatus() {
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=load_status", { method: 'GET' });
-                const responseData = await res.json();
+                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_status", { method: 'GET' });
                 if (responseData.result === "success") {
                     const statusData = responseData.data;
                     ['A', 'B', 'C', 'D', 'E'].forEach(room => {
@@ -262,6 +279,7 @@
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
                             
+                            // 동적으로 색상을 칠할 때도 스케일업 된 UI 규격(text-sm, px-3, py-1.5)을 그대로 유지합니다.
                             if (status.includes('자습가능') || status.includes('운영중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                             } else if (status.includes('수업중')) {
@@ -277,8 +295,7 @@
 
         async function loadSoftwareData() {
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=load_software", { method: 'GET' });
-                const responseData = await res.json();
+                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_software", { method: 'GET' });
                 if (responseData.result === "success") {
                     const data = responseData.data;
                     ['A', 'B', 'C', 'D', 'E'].forEach(room => { if(data[room]) { softwareData[room] = data[room]; } });
@@ -319,7 +336,7 @@
             renderAllSoftware();
             const swListStr = softwareData[room].join(',');
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
+                await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
                 });
@@ -333,7 +350,7 @@
             renderAllSoftware(); 
             const swListStr = softwareData[room].join(',');
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
+                await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
                 });
@@ -357,11 +374,10 @@
             const newDate = new Date().toLocaleString('ko-KR');
 
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, { 
+                const data = await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
                     method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, 
                     body:new URLSearchParams({action:'submit', id: newId, name: name, content: content, date: newDate}) 
                 });
-                const data = await res.json();
                 if(data.result === "success") {
                     alert("접수 완료");
                     localReports.push({ id: newId, name, content, date: newDate, status:'pending' });
@@ -443,7 +459,7 @@
                 renderAdminReports(); updateStats(); 
             }
             try {
-                await fetch(GOOGLE_SCRIPT_URL, { 
+                await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
                     method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                     body: new URLSearchParams({ action: 'update', id: id, updateType: updateType }) 
                 });
@@ -457,7 +473,7 @@
                 renderAdminReports(); updateStats(); 
 
                 try {
-                    await fetch(GOOGLE_SCRIPT_URL, { 
+                    await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
                         method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                         body: new URLSearchParams({ action: 'delete', id: id }) 
                     });
