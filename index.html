@@ -21,23 +21,23 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-slate-50 h-screen overflow-hidden flex flex-col md:flex-row text-slate-800">
+<body class="bg-slate-50 h-screen overflow-hidden flex text-slate-800">
 
-    <a href="mobile.html" class="fixed bottom-8 right-8 bg-slate-800 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:bg-blue-600 transition-colors z-50 group border-2 border-slate-700" title="모바일 버전">
+    <a href="mobile.html" class="fixed bottom-8 right-8 bg-slate-800 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:bg-blue-600 transition-colors z-50 border-2 border-slate-700" title="모바일 버전">
         <span class="text-2xl">📱</span>
     </a>
 
-    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col h-full flex-shrink-0 shadow-2xl z-20 hidden md:flex">
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col h-full flex-shrink-0 shadow-2xl z-20">
         <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950 flex-shrink-0">
             <div class="w-2.5 h-2.5 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
             <h1 class="font-bold text-white tracking-wide text-sm">G-BUNDANG <span class="text-blue-400">FACILITY</span></h1>
         </div>
         <nav class="px-4 py-6 space-y-1">
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2">System Menu</p>
-            <a href="#section-software" class="tab-trigger desktop-tab flex items-center px-4 py-2.5 bg-blue-600/10 text-blue-400 font-semibold rounded-lg border border-blue-500/20 transition-colors">
+            <a href="#section-software" class="tab-trigger flex items-center px-4 py-2.5 bg-blue-600/10 text-blue-400 font-semibold rounded-lg border border-blue-500/20 transition-colors">
                 <span class="mr-3 text-lg">🖥️</span> 강의실 프로그램 현황
             </a>
-            <a href="#section-report" class="tab-trigger desktop-tab flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 font-medium rounded-lg transition-colors border border-transparent">
+            <a href="#section-report" class="tab-trigger flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 font-medium rounded-lg transition-colors border border-transparent">
                 <span class="mr-3 text-lg">🎫</span> 시설 문의
             </a>
         </nav>
@@ -58,8 +58,9 @@
             </div>
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Node Info</p>
-                <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white">이승민 책임</span></div>
-                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500">v1.0 (AUTO)</span></div>
+                <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 책임</span></div>
+                <div class="flex justify-between text-slate-400"><span>업데이트</span><span class="text-right text-slate-300">2026.06</span></div>
+                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v1.0 (AUTO)</span></div>
             </div>
         </div>
     </aside>
@@ -126,7 +127,7 @@
 
                 <section id="section-report" class="content-section hidden fade-in">
                     <div class="bg-white border-2 border-blue-100 rounded-3xl shadow-xl p-8">
-                        <h3 class="text-xl font-bold text-slate-900 mb-6">🛠️ 시설 문의 접수 (PC)</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">🛠️ 시설 문의 접수</h3>
                         <div class="space-y-4">
                             <input type="text" id="input-name" class="w-full border-2 border-slate-100 rounded-xl p-4 text-sm focus:border-blue-500 outline-none" placeholder="이름 입력">
                             <textarea id="input-content" rows="6" class="w-full border-2 border-slate-100 rounded-xl p-4 text-sm focus:border-blue-500 outline-none resize-none" placeholder="내용 입력"></textarea>
@@ -217,128 +218,6 @@
             try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ action: 'update', updateType, searchTime, searchName }) }); alert("기록 완료"); } catch (err) { alert("통신 오류"); }
         };
         window.deleteLocalReport = function(id) { if (confirm("삭제?")) { localReports = localReports.filter(r => r.id !== id); localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); renderAdminReports(); updateStats(); } };
-    </script>
-</body>
-</html>
-
----
-
-### 📱 2. [모바일 버전] 소스 코드 (파일명: `mobile.html`)
-
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>게임분당 시설문의 (Mobile)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        body { font-family: 'Pretendard', sans-serif; background-color: #0F172A; color: #E2E8F0; -webkit-tap-highlight-color: transparent; }
-        .hidden { display: none !important; }
-        .tag-item { display: inline-block; background-color: #1E293B; border: 1px solid #334155; color: #94A3B8; font-size: 0.65rem; font-weight: 500; padding: 0.2rem 0.5rem; border-radius: 0.25rem; margin-right: 0.15rem; margin-bottom: 0.2rem; }
-        .hw-info { display: flex; align-items: center; justify-content: space-between; font-size: 0.7rem; color: #94A3B8; margin-bottom: 5px; padding-bottom: 4px; border-bottom: 1px dashed #334155;}
-        .hw-info span.label { font-weight: 700; color: #64748B; }
-        .fade-in { animation: fadeIn 0.2s ease-in-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
-<body class="h-screen overflow-hidden flex flex-col">
-
-    <a href="index.html" class="fixed bottom-24 right-4 bg-blue-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-50 border-2 border-blue-400">💻</a>
-
-    <header class="h-14 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-4 flex-shrink-0 z-10">
-        <h2 class="font-bold text-white text-sm">G-BUNDANG Mobile</h2>
-        <button id="admin-login-btn" class="text-[10px] font-bold text-slate-400 bg-slate-800 px-2 py-1.5 rounded-md">관리자</button>
-    </header>
-
-    <main class="flex-1 overflow-y-auto p-4 pb-20" id="main-content">
-        <div class="space-y-6">
-            <section id="section-software" class="content-section fade-in">
-                <div class="space-y-4">
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4">
-                        <div class="flex justify-between mb-3"><span class="font-bold text-white text-sm">A 강의실 (21석)</span><span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">운영중</span></div>
-                        <div class="mb-3"><span class="tag-item">Photoshop 2022</span><span class="tag-item">VS 2026</span><span class="tag-item">Unreal 5.7.4</span></div>
-                        <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800 space-y-1">
-                            <div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div>
-                        </div>
-                    </div>
-                    <div class="bg-blue-900/20 border-2 border-blue-500/30 rounded-2xl p-4">
-                        <div class="flex justify-between mb-3"><span class="font-bold text-blue-300 text-sm">D 강의실 (19석)</span><span class="text-[8px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded uppercase">High-End</span></div>
-                        <div class="bg-slate-950/80 p-3 rounded-xl border border-blue-500/20 space-y-1">
-                            <div class="hw-info"><span class="label text-blue-400">CPU</span><span class="text-blue-200">i9-14900KF</span></div><div class="hw-info"><span class="label text-blue-400">RAM</span><span class="text-blue-200">DDR5 64G</span></div><div class="hw-info"><span class="label text-blue-400">GPU</span><span class="text-blue-200 font-bold">RTX 4070 Ti</span></div>
-                        </div>
-                    </div>
-                    <p class="text-center text-[10px] text-slate-600">※ B, C, E 정보는 PC 버전에서 확인 가능합니다.</p>
-                </div>
-            </section>
-
-            <section id="section-report" class="content-section hidden fade-in">
-                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5">
-                    <h3 class="font-bold text-white text-sm mb-4">🛠️ 모바일 문의 접수</h3>
-                    <div class="space-y-4">
-                        <input type="text" id="input-name" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3.5 text-sm text-white" placeholder="성함">
-                        <textarea id="input-content" rows="6" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-4 text-sm text-white resize-none" placeholder="내용"></textarea>
-                        <button id="btn-submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl">문의 접수하기</button>
-                    </div>
-                </div>
-            </section>
-
-            <section id="section-mobile-status" class="content-section hidden fade-in space-y-4">
-                <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
-                    <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Stats</p>
-                    <div class="space-y-4 text-xs">
-                        <div class="flex justify-between border-b border-slate-700/50 pb-3"><span>당일 문의</span><span class="stat-today font-bold text-emerald-400">0 건</span></div>
-                        <div class="flex justify-between border-b border-slate-700/50 pb-3"><span>누적 문의</span><span class="stat-total font-bold text-blue-400">0 건</span></div>
-                        <div class="flex justify-between"><span>조치 완료</span><span class="stat-resolved font-bold text-orange-400">0 건</span></div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <nav class="fixed bottom-0 left-0 w-full h-16 bg-slate-900 border-t border-slate-800 flex justify-around items-center z-50">
-        <a href="#section-software" class="tab-trigger flex flex-col items-center w-full h-full justify-center text-blue-500 font-bold"><span class="text-xl mb-1">🖥️</span><span class="text-[9px]">인프라</span></a>
-        <a href="#section-report" class="tab-trigger flex flex-col items-center w-full h-full justify-center text-slate-500"><span class="text-xl mb-1">🎫</span><span class="text-[9px]">문의접수</span></a>
-        <a href="#section-mobile-status" class="tab-trigger flex flex-col items-center w-full h-full justify-center text-slate-500"><span class="text-xl mb-1">📊</span><span class="text-[9px]">현황</span></a>
-    </nav>
-
-    <script>
-        const GOOGLE_SCRIPT_URL = "여기에_주소를_붙여넣으세요"; 
-        const ADMIN_PW = "admin1234";
-
-        const tabTriggers = document.querySelectorAll('.tab-trigger');
-        const contentSections = document.querySelectorAll('.content-section');
-        tabTriggers.forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                tabTriggers.forEach(t => { t.classList.remove('text-blue-500', 'font-bold'); t.classList.add('text-slate-500'); });
-                this.classList.remove('text-slate-500'); this.classList.add('text-blue-500', 'font-bold');
-                contentSections.forEach(sec => { if(sec.id === targetId) sec.classList.remove('hidden'); else sec.classList.add('hidden'); });
-            });
-        });
-
-        let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
-        function updateStats() {
-            const todayStr = new Date().toLocaleDateString('ko-KR');
-            document.querySelector('.stat-total').innerText = localReports.length + " 건";
-            document.querySelector('.stat-today').innerText = localReports.filter(r => r.date.startsWith(todayStr)).length + " 건";
-            document.querySelector('.stat-resolved').innerText = localReports.filter(r => r.status === 'complete').length + " 건";
-        }
-        updateStats();
-
-        document.getElementById('btn-submit').addEventListener('click', async () => {
-            const name = document.getElementById('input-name').value.trim();
-            const content = document.getElementById('input-content').value.trim();
-            if(!name || !content) return alert("입력 오류");
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams({action:'submit', name, content}) });
-                const result = await res.json();
-                if(result.result === "success") { alert("접수 완료"); localReports.push({ id:Date.now(), name, content, date:new Date().toLocaleString('ko-KR'), status:'pending' }); localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); updateStats(); }
-            } catch(e) { alert("오류"); }
-        });
     </script>
 </body>
 </html>
