@@ -60,7 +60,7 @@
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Node Info</p>
                 <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 대리</span></div>
                 <div class="flex justify-between text-slate-400"><span>업데이트</span><span class="text-right text-slate-300">2026.06</span></div>
-                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v2.0 (SYNC)</span></div>
+                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v2.1 (API)</span></div>
             </div>
         </div>
     </aside>
@@ -78,7 +78,7 @@
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">A 강의실 (21석)</h4>
-                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
+                                <span id="badge-A" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded">로딩중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Photoshop 2022</span><span class="tag-item">VS 2022/2026</span><span class="tag-item">Unreal 5.7.4</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
@@ -87,7 +87,7 @@
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">B 강의실 (20석)</h4>
-                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
+                                <span id="badge-B" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded">로딩중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Photoshop 2021</span><span class="tag-item">VS 2019/2022</span><span class="tag-item">Unity 21/22/6000</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-11700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>MSI 750W</span></div></div>
@@ -96,7 +96,7 @@
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">C 강의실 (15석)</h4>
-                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
+                                <span id="badge-C" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded">로딩중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Clip Studio 3.0</span><span class="tag-item">Sketchup 2022</span><span class="tag-item">Office 2021</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
@@ -105,6 +105,7 @@
                         <div class="bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md md:col-span-2">
                             <div class="p-5 border-b border-blue-100 bg-blue-50/50 flex justify-between items-center rounded-t-2xl">
                                 <h4 class="font-bold text-blue-800 text-sm">D 강의실 (19석) - High-End Suite</h4>
+                                <span id="badge-D" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded">로딩중</span>
                             </div>
                             <div class="p-6 flex flex-col lg:flex-row gap-8">
                                 <div class="flex-1"><p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Software</p><span class="tag-item bg-blue-100 text-blue-700">3ds Max 2023</span><span class="tag-item">Substance Painter</span><span class="tag-item font-bold">Unreal 5.3.2</span></div>
@@ -116,7 +117,7 @@
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <h4 class="font-bold text-slate-800 text-sm">E 강의실 (13석)</h4>
-                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
+                                <span id="badge-E" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded">로딩중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Photoshop 2020</span><span class="tag-item">한글 2024</span><span class="tag-item">Office 2021</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
@@ -167,20 +168,16 @@
             });
         });
 
-        // 1. 메모장 준비 (데이터 배열)
         let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
 
-        // 2. 통계 갱신 함수
         function updateStats() {
             const todayStr = new Date().toLocaleDateString('ko-KR');
             document.querySelectorAll('.stat-total').forEach(el => el.innerText = localReports.length + " 건");
-            // 날짜 포맷이 구글 시트를 거치며 문자열 형태가 변할 수 있으므로, includes나 startWith로 유연하게 검사합니다.
             document.querySelectorAll('.stat-today').forEach(el => el.innerText = localReports.filter(r => r.date && r.date.includes(todayStr.split('.')[0])).length + " 건");
             document.querySelectorAll('.stat-resolved').forEach(el => el.innerText = localReports.filter(r => r.status === 'complete').length + " 건");
         }
         updateStats();
 
-        // 3. [핵심 기능] 접속 즉시 구글 서버에서 진짜 전체 누적 데이터를 가져오는 글로벌 동기화 엔진입니다.
         async function loadServerData() {
             const syncStatus = document.getElementById('sync-status');
             syncStatus.innerText = "서버 불러오는 중...";
@@ -188,44 +185,69 @@
             syncStatus.classList.replace('bg-emerald-50', 'bg-orange-50');
 
             try {
-                // 구글 시트에 "전체 장부 좀 보여줘(action: 'load')" 라고 요청을 보냅니다.
                 const res = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'load' })
                 });
                 const responseData = await res.json();
                 
                 if (responseData.result === "success") {
-                    // 서버가 성공적으로 전체 장부를 건네주면, 내 기기의 수첩(localReports)을 찢어버리고 진짜 원본으로 덮어씁니다!
                     localReports = responseData.data;
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
-                    
-                    // 장부가 교체되었으니 화면의 통계 숫자도 다시 계산해서 보여줍니다.
                     updateStats();
                     
-                    // 만약 매니저가 관리자 창을 켜둔 상태에서 동기화가 일어났다면 리스트도 새로고침 해줍니다.
-                    if (!document.getElementById('admin-panel').classList.contains('hidden')) {
-                        renderAdminReports();
-                    }
-
-                    syncStatus.innerText = "서버 동기화 됨";
-                    syncStatus.classList.replace('text-orange-400', 'text-emerald-500');
-                    syncStatus.classList.replace('bg-orange-50', 'bg-emerald-50');
+                    if (!document.getElementById('admin-panel').classList.contains('hidden')) { renderAdminReports(); }
+                    syncStatus.innerText = "서버 동기화 됨"; syncStatus.classList.replace('text-orange-400', 'text-emerald-500'); syncStatus.classList.replace('bg-orange-50', 'bg-emerald-50');
                 }
             } catch(e) {
-                // 인터넷이 끊겨서 장부를 못 가져오면? 원래 갖고 있던 수첩(로컬 데이터)이라도 보여주며 시스템 붕괴를 막습니다.
-                console.error("서버 동기화 실패. 로컬 데이터를 유지합니다.", e);
-                syncStatus.innerText = "오프라인 모드 (동기화 실패)";
-                syncStatus.classList.replace('text-orange-400', 'text-red-500');
-                syncStatus.classList.replace('bg-orange-50', 'bg-red-50');
+                console.error("서버 동기화 실패.", e);
+                syncStatus.innerText = "오프라인 모드"; syncStatus.classList.replace('text-orange-400', 'text-red-500'); syncStatus.classList.replace('bg-orange-50', 'bg-red-50');
             }
         }
         
-        // 브라우저가 모든 그림(HTML)을 다 그리면 자동으로 동기화를 시작하라는 명령어입니다.
-        window.addEventListener('load', loadServerData);
+        // [신규 기능: 프론트엔드 실시간 렌더링 엔진]
+        // 서버에서 받아온 상태(수업중, 자습가능)에 맞춰 각 강의실 팻말의 디자인을 유동적으로 조립하여 칠해줍니다.
+        async function loadRoomStatus() {
+            try {
+                const res = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: new URLSearchParams({ action: 'load_status' })
+                });
+                const responseData = await res.json();
+                
+                if (responseData.result === "success") {
+                    const statusData = responseData.data;
+                    const roomKeys = ['A', 'B', 'C', 'D', 'E']; // 제어할 5개의 강의실 목록입니다.
+                    
+                    roomKeys.forEach(room => {
+                        const badge = document.getElementById(`badge-${room}`);
+                        if (badge) {
+                            // 시트에 'A 강의실' 이라고 쓰여있을 경우를 대비한 유연한 데이터 매칭 로직입니다.
+                            const status = statusData[`${room} 강의실`] || statusData[room] || "확인불가";
+                            badge.innerText = status;
+                            
+                            // 상태에 따라 직관적인 시각적 피드백(색상)을 사용자에게 제공합니다.
+                            if (status === '자습가능' || status === '운영중') {
+                                badge.className = "text-[10px] font-bold px-2 py-1 rounded bg-emerald-50 text-emerald-600";
+                            } else if (status === '수업중') {
+                                badge.className = "text-[10px] font-bold px-2 py-1 rounded bg-red-50 text-red-500";
+                            } else {
+                                badge.className = "text-[10px] font-bold px-2 py-1 rounded bg-slate-100 text-slate-500";
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("강의실 상태 연동 실패", e);
+            }
+        }
 
-        // 4. [기능 수정] 데이터 전송 시 '클라이언트 측 ID' 생성
+        // 창이 열릴 때 문의 내역 데이터와, 강의실 상태 데이터를 동시에 비동기(병렬)로 긁어옵니다.
+        window.addEventListener('load', () => {
+            loadServerData();
+            loadRoomStatus();
+        });
+
         document.getElementById('btn-submit').addEventListener('click', async () => {
             const name = document.getElementById('input-name').value.trim();
             const content = document.getElementById('input-content').value.trim();
@@ -233,52 +255,38 @@
             
             if(!name || !content) return alert("이름과 내용을 모두 입력해주세요.");
             
-            submitBtn.disabled = true;
-            submitBtn.innerText = "서버 전송 중...";
+            submitBtn.disabled = true; submitBtn.innerText = "서버 전송 중...";
 
-            // 데이터의 충돌을 막기 위해 내 컴퓨터에서 먼저 고유 번호(ID)와 시간을 만들어서 서버로 함께 보냅니다.
             const newId = Date.now();
             const newDate = new Date().toLocaleString('ko-KR');
 
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL, { 
-                    method:'POST', 
-                    headers:{'Content-Type':'application/x-www-form-urlencoded'}, 
-                    // 구글 서버에 'id'와 'date'도 명시적으로 전달합니다.
+                    method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, 
                     body:new URLSearchParams({ action:'submit', id: newId, name: name, content: content, date: newDate }) 
                 });
                 const result = await res.json();
                 
                 if(result.result === "success") {
                     alert("성공적으로 문의가 접수되었습니다.");
-                    // 서버에 정상 등록되면 내 기기에도 반영해 줍니다. 이제 양쪽의 ID가 완벽하게 동일합니다.
                     localReports.push({ id: newId, name, content, date: newDate, status: 'pending' });
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                     
-                    document.getElementById('input-name').value = ""; 
-                    document.getElementById('input-content').value = ""; 
-                    updateStats();
+                    document.getElementById('input-name').value = ""; document.getElementById('input-content').value = ""; updateStats();
                 }
-            } catch(e) { 
-                alert("서버 연동 오류가 발생했습니다. 인터넷 연결을 확인해주세요."); 
-            } finally {
-                submitBtn.disabled = false; submitBtn.innerText = "문의 접수";
-            }
+            } catch(e) { alert("서버 연동 오류가 발생했습니다. 인터넷 연결을 확인해주세요."); 
+            } finally { submitBtn.disabled = false; submitBtn.innerText = "문의 접수"; }
         });
 
         document.getElementById('admin-login-btn').addEventListener('click', () => { 
             if (prompt("관리자 암호를 입력하세요.") === ADMIN_PW) { 
                 contentSections.forEach(sec => sec.classList.add('hidden')); 
                 document.getElementById('admin-panel').classList.remove('hidden'); 
-                renderAdminReports(); 
-                loadServerData(); // 관리자 모드에 진입할 때 한 번 더 최신 데이터를 긁어와 정확도를 높입니다.
+                renderAdminReports(); loadServerData();
             } else { alert("비밀번호가 일치하지 않습니다."); }
         });
 
-        document.getElementById('admin-close-btn').addEventListener('click', () => { 
-            document.getElementById('admin-panel').classList.add('hidden'); 
-            tabTriggers[0].click(); 
-        });
+        document.getElementById('admin-close-btn').addEventListener('click', () => { document.getElementById('admin-panel').classList.add('hidden'); tabTriggers[0].click(); });
 
         function renderAdminReports() {
             const container = document.getElementById('report-list-container');
@@ -306,16 +314,13 @@
             }).reverse().join(''); 
         }
 
-        // 5. [기능 수정] 이제 애매한 이름이나 시간이 아닌, 명확한 '고유 ID'로 타겟팅하여 구글 서버에 수정을 지시합니다.
         window.updateSheetStatus = async function(id, updateType) {
             const reportIndex = localReports.findIndex(r => r.id === id);
-            
             if (reportIndex > -1) { 
                 localReports[reportIndex].status = updateType; 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports(); updateStats(); 
             }
-            
             try { 
                 await fetch(GOOGLE_SCRIPT_URL, { 
                     method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
@@ -324,23 +329,17 @@
             } catch (err) { alert("상태 변경: 구글 시트 연동 오류가 발생했습니다."); }
         };
 
-        // 6. [기능 수정] 로컬만 삭제하는 것이 아니라, 원본 서버 데이터까지 깨끗하게 삭제하는 진정한 삭제 기능입니다.
         window.deleteGlobalReport = async function(id) { 
             if (confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?\n(삭제 후 복구할 수 없습니다)")) { 
-                // 화면상에서 먼저 빠르게 지워줍니다.
                 localReports = localReports.filter(r => r.id !== id); 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports(); updateStats(); 
-
                 try {
-                    // 구글 서버의 백엔드(delete) 로직을 호출하여 원본 엑셀 행을 폭파시킵니다.
                     await fetch(GOOGLE_SCRIPT_URL, { 
                         method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
-                        body: new URLSearchParams({ action: 'delete', id: id }) 
+                        body: newSearchParams({ action: 'delete', id: id }) 
                     }); 
-                } catch(e) {
-                    alert("서버 삭제 동기화 중 오류가 발생했습니다.");
-                }
+                } catch(e) { alert("서버 삭제 동기화 중 오류가 발생했습니다."); }
             } 
         };
     </script>
