@@ -35,16 +35,17 @@
         <nav class="px-4 py-6 space-y-1">
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2">System Menu</p>
             <a href="#section-software" class="tab-trigger flex items-center px-4 py-2.5 bg-blue-600/10 text-blue-400 font-semibold rounded-lg border border-blue-500/20 transition-colors">
-                <span class="mr-3 text-lg">🖥️</span> 강의실 현황 및 상태
+                <span class="mr-3 text-lg">🖥️</span> 강의실 프로그램 현황
             </a>
             <a href="#section-report" class="tab-trigger flex items-center px-4 py-2.5 hover:bg-slate-800 text-slate-400 font-medium rounded-lg transition-colors border border-transparent">
-                <span class="mr-3 text-lg">🎫</span> 시설 고장 문의
+                <span class="mr-3 text-lg">🎫</span> 시설 문의
             </a>
         </nav>
         <div class="p-4 space-y-3 border-t border-slate-800 bg-slate-900/50 flex-1 overflow-y-auto">
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Dashboard Status</p>
                 <div class="space-y-2.5 text-[11px]">
+                    <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/30 pb-2"><span>접속자 수</span><span class="font-bold text-white">1 명</span></div>
                     <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/30 pb-2"><span>당일 문의</span><span class="stat-today font-bold text-emerald-400">0 건</span></div>
                     <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/30 pb-2"><span>누적 문의</span><span class="stat-total font-bold text-blue-400">0 건</span></div>
                     <div class="flex justify-between items-center text-slate-400"><span>처리 완료</span><span class="stat-resolved font-bold text-orange-400">0 건</span></div>
@@ -58,18 +59,16 @@
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Node Info</p>
                 <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 대리</span></div>
-                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v3.0 (AI 스캐너)</span></div>
+                <div class="flex justify-between text-slate-400"><span>업데이트</span><span class="text-right text-slate-300">2026.06</span></div>
+                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v2.0 (SYNC)</span></div>
             </div>
         </div>
     </aside>
 
     <div class="flex-1 flex flex-col h-full overflow-hidden bg-slate-50">
         <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10 shadow-sm">
-            <h2 class="font-bold text-slate-800 text-lg flex items-center">
-                통합 관제 대시보드 (PC) 
-                <span id="sync-status" class="ml-3 text-[10px] text-emerald-500 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full shadow-sm">스캐너 동기화 됨</span>
-            </h2>
-            <button id="admin-login-btn" class="text-xs font-bold text-slate-600 bg-slate-100 border border-slate-200 px-4 py-2 rounded-md hover:bg-slate-200 transition-colors">⚙️ 관리자 모드</button>
+            <h2 class="font-bold text-slate-800 text-lg">통합 관제 대시보드 (PC) <span id="sync-status" class="ml-2 text-[10px] text-emerald-500 bg-emerald-50 px-2 py-1 rounded">서버 동기화 됨</span></h2>
+            <button id="admin-login-btn" class="text-xs font-bold text-slate-600 bg-slate-100 border border-slate-200 px-4 py-2 rounded-md">⚙️ 관리자 모드</button>
         </header>
 
         <main class="flex-1 overflow-y-auto p-8 scroll-smooth" id="main-content">
@@ -78,8 +77,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800 text-sm whitespace-nowrap">A 강의실 (21석)</h4>
-                                <span id="badge-A" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded truncate max-w-[150px] ml-2 text-right">상태 스캔 중...</span>
+                                <h4 class="font-bold text-slate-800 text-sm">A 강의실 (21석)</h4>
+                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Photoshop 2022</span><span class="tag-item">VS 2022/2026</span><span class="tag-item">Unreal 5.7.4</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
@@ -87,8 +86,8 @@
                         </div>
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800 text-sm whitespace-nowrap">B 강의실 (20석)</h4>
-                                <span id="badge-B" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded truncate max-w-[150px] ml-2 text-right">상태 스캔 중...</span>
+                                <h4 class="font-bold text-slate-800 text-sm">B 강의실 (20석)</h4>
+                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Photoshop 2021</span><span class="tag-item">VS 2019/2022</span><span class="tag-item">Unity 21/22/6000</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-11700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>MSI 750W</span></div></div>
@@ -96,8 +95,8 @@
                         </div>
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800 text-sm whitespace-nowrap">C 강의실 (15석)</h4>
-                                <span id="badge-C" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded truncate max-w-[150px] ml-2 text-right">상태 스캔 중...</span>
+                                <h4 class="font-bold text-slate-800 text-sm">C 강의실 (15석)</h4>
+                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Clip Studio 3.0</span><span class="tag-item">Sketchup 2022</span><span class="tag-item">Office 2021</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
@@ -105,8 +104,7 @@
                         </div>
                         <div class="bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md md:col-span-2">
                             <div class="p-5 border-b border-blue-100 bg-blue-50/50 flex justify-between items-center rounded-t-2xl">
-                                <h4 class="font-bold text-blue-800 text-sm flex items-center gap-2">D 강의실 (19석) <span class="bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded uppercase">High-End</span></h4>
-                                <span id="badge-D" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded truncate max-w-[200px] text-right">상태 스캔 중...</span>
+                                <h4 class="font-bold text-blue-800 text-sm">D 강의실 (19석) - High-End Suite</h4>
                             </div>
                             <div class="p-6 flex flex-col lg:flex-row gap-8">
                                 <div class="flex-1"><p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Software</p><span class="tag-item bg-blue-100 text-blue-700">3ds Max 2023</span><span class="tag-item">Substance Painter</span><span class="tag-item font-bold">Unreal 5.3.2</span></div>
@@ -117,8 +115,8 @@
                         </div>
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <h4 class="font-bold text-slate-800 text-sm whitespace-nowrap">E 강의실 (13석)</h4>
-                                <span id="badge-E" class="bg-slate-100 text-[10px] font-bold text-slate-400 px-2 py-1 rounded truncate max-w-[150px] ml-2 text-right">상태 스캔 중...</span>
+                                <h4 class="font-bold text-slate-800 text-sm">E 강의실 (13석)</h4>
+                                <span class="bg-emerald-50 text-[10px] font-bold text-emerald-600 px-2 py-1 rounded">운영중</span>
                             </div>
                             <div class="p-5 flex-1"><div class="mb-4"><span class="tag-item">Photoshop 2020</span><span class="tag-item">한글 2024</span><span class="tag-item">Office 2021</span></div>
                                 <div class="space-y-1"><div class="hw-info"><span class="label">CPU</span><span>i7-10700</span></div><div class="hw-info"><span class="label">RAM</span><span>삼성 DDR4 16G</span></div><div class="hw-info"><span class="label">GPU</span><span>GTX 1660 S</span></div><div class="hw-info"><span class="label">Disk</span><span>SSD 250G/500G</span></div><div class="hw-info"><span class="label">PSU</span><span>600W</span></div></div>
@@ -141,8 +139,8 @@
                 <section id="admin-panel" class="content-section hidden fade-in">
                     <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
                         <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-                            <h3 class="font-bold text-white text-sm"><span class="text-red-500">●</span> 보안 시스템 (관리자)</h3>
-                            <button id="admin-close-btn" class="text-slate-400 text-xs px-3 py-1 bg-slate-800 rounded hover:bg-slate-700">닫기</button>
+                            <h3 class="font-bold text-white text-sm"><span class="text-red-500">●</span> 보안 시스템</h3>
+                            <button id="admin-close-btn" class="text-slate-400 text-xs px-3 py-1 bg-slate-800 rounded">닫기</button>
                         </div>
                         <div class="p-8 bg-slate-900"><div id="report-list-container" class="space-y-4 max-h-[500px] overflow-y-auto custom-scrollbar"><p class="text-center text-slate-600 py-10">내역 없음</p></div></div>
                     </div>
@@ -153,9 +151,9 @@
 
     <script>
         // =========================================================================
-        // [중요] 반드시 새로 발급받은 구글 스크립트 웹앱 주소로 아래 URL을 변경하세요!
+        // [중요] 반드시 권한(모든 사용자)을 수정하여 새로 발급받은 URL을 붙여넣으세요!
         // =========================================================================
-        const GOOGLE_SCRIPT_URL = "여기에_주소를_붙여넣으세요"; 
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
         const ADMIN_PW = "admin1234";
 
         const tabTriggers = document.querySelectorAll('.tab-trigger');
@@ -181,16 +179,15 @@
         }
         updateStats();
 
-        // 서버에서 문의 내역 가져오기
+        // [수정됨] 데이터를 가져올 때는 에러 확률이 적은 GET 방식을 사용합니다. URL 뒤에 ?action=load 를 붙여 전송합니다.
         async function loadServerData() {
             const syncStatus = document.getElementById('sync-status');
             syncStatus.innerText = "서버 불러오는 중...";
             syncStatus.className = "ml-3 text-[10px] text-orange-500 bg-orange-50 border border-orange-100 px-2.5 py-1 rounded-full shadow-sm";
 
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({ action: 'load' })
+                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=load", {
+                    method: 'GET'
                 });
                 const responseData = await res.json();
                 
@@ -210,12 +207,11 @@
             }
         }
         
-        // [핵심 엔진] 구글 서버의 인공지능 스캐너가 판독한 결과(수업/자습)를 화면에 렌더링합니다.
+        // [수정됨] 스캐너 상태를 가져올 때도 GET 방식을 사용합니다.
         async function loadRoomStatus() {
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({ action: 'load_status' })
+                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=load_status", {
+                    method: 'GET'
                 });
                 const responseData = await res.json();
                 
@@ -226,12 +222,10 @@
                     roomKeys.forEach(room => {
                         const badge = document.getElementById(`badge-${room}`);
                         if (badge) {
-                            // 스캐너가 보내온 "수업중 (웹툰 프로젝트)" 문자열을 가져옵니다.
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
-                            badge.title = status; // 마우스를 올리면 전체 글자가 보이도록 툴팁을 답니다.
+                            badge.title = status; 
                             
-                            // 상태 문자열에 포함된 단어를 기준으로 CSS(색상)를 동적으로 스위칭합니다.
                             if (status.includes('자습가능') || status.includes('운영중')) {
                                 badge.className = "text-[10px] font-bold px-2 py-1 rounded truncate max-w-[200px] ml-2 text-right bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-sm";
                             } else if (status.includes('수업중')) {
@@ -245,12 +239,12 @@
             } catch (e) { console.error("상태 연동 실패", e); }
         }
 
-        // 브라우저 로딩이 끝나면 백그라운드에서 투트랙(문의내역 + 스캐너상태)으로 서버와 통신합니다.
         window.addEventListener('load', () => {
             loadServerData();
             loadRoomStatus();
         });
 
+        // [기존 유지] 데이터를 서버에 '저장(쓰기)' 할 때는 기존대로 안전한 POST 방식을 사용합니다.
         document.getElementById('btn-submit').addEventListener('click', async () => {
             const name = document.getElementById('input-name').value.trim();
             const content = document.getElementById('input-content').value.trim();
@@ -332,7 +326,7 @@
         };
 
         window.deleteGlobalReport = async function(id) { 
-            if (confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?\n(삭제 후 복구할 수 없습니다)")) { 
+            if (confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?\\n(삭제 후 복구할 수 없습니다)")) { 
                 localReports = localReports.filter(r => r.id !== id); 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports(); updateStats(); 
@@ -345,5 +339,3 @@
             } 
         };
     </script>
-</body>
-</html>
