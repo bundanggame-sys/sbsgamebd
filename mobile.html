@@ -39,7 +39,11 @@
                     <!-- A 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-white text-base whitespace-nowrap">A 강의실 (21석)</span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base whitespace-nowrap">A 강의실 (21석)</span>
+                                <!-- [신규 UI] 모바일 환경에 맞춘 상태 제어 버튼 -->
+                                <button onclick="editRoomStatus('A')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
+                            </div>
                             <span id="badge-A" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
                         </div>
                         <div class="mb-3">
@@ -68,7 +72,10 @@
                     <!-- B 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-white text-base whitespace-nowrap">B 강의실 (20석)</span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base whitespace-nowrap">B 강의실 (20석)</span>
+                                <button onclick="editRoomStatus('B')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
+                            </div>
                             <span id="badge-B" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
                         </div>
                         <div class="mb-3">
@@ -97,7 +104,10 @@
                     <!-- C 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-white text-base whitespace-nowrap">C 강의실 (15석)</span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base whitespace-nowrap">C 강의실 (15석)</span>
+                                <button onclick="editRoomStatus('C')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
+                            </div>
                             <span id="badge-C" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
                         </div>
                         <div class="mb-3">
@@ -126,7 +136,10 @@
                     <!-- D 강의실 -->
                     <div class="bg-blue-900/20 border-2 border-blue-500/30 rounded-2xl p-4 shadow-xl flex flex-col">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-blue-300 text-base flex items-center gap-1">D 강의실 <span class="text-[8px] font-bold text-white bg-blue-600 px-1 py-0.5 rounded uppercase">High</span></span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-blue-300 text-base flex items-center gap-1">D 강의실 <span class="text-[8px] font-bold text-white bg-blue-600 px-1 py-0.5 rounded uppercase">High</span></span>
+                                <button onclick="editRoomStatus('D')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
+                            </div>
                             <span id="badge-D" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
                         </div>
                         <div class="mb-3">
@@ -155,7 +168,10 @@
                     <!-- E 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-white text-base whitespace-nowrap">E 강의실 (13석)</span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base whitespace-nowrap">E 강의실 (13석)</span>
+                                <button onclick="editRoomStatus('E')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
+                            </div>
                             <span id="badge-E" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
                         </div>
                         <div class="mb-3">
@@ -197,7 +213,6 @@
             </section>
 
             <section id="section-mobile-status" class="content-section hidden fade-in space-y-4">
-                <!-- [모바일 패치] 현황판 통계 UI를 당월 누적을 포함하여 4줄로 확장했습니다. -->
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center flex justify-center items-center gap-2">Dashboard Summary <span id="mobile-sync-text" class="text-[8px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded">동기화 대기중</span></p>
                     <div class="space-y-4 text-xs">
@@ -273,7 +288,6 @@
             });
         });
 
-        // [모바일 패치] PC 버전과 동일하게 날짜를 정밀 비교하는 통계 함수 엔진으로 교체했습니다.
         function updateStats() {
             const now = new Date();
             const y = now.getFullYear();
@@ -337,12 +351,14 @@
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
                             
+                            // [모바일 패치] 수동 상태(오버라이드) 시 모바일 전용 보라색 테마 적용
                             if (status.includes('자습가능') || status.includes('운영중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                             } else if (status.includes('수업중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-red-500/10 text-red-400 border border-red-500/20";
                             } else {
-                                badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-slate-700 text-slate-400";
+                                // 수동 강제 제어 (다크 모드 보라색)
+                                badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-sm";
                             }
                         }
                     });
@@ -419,6 +435,43 @@
             loadSoftwareData();
             loadHardwareData(); 
         });
+
+        // ------------------------------------------------------------------------
+        // [모바일 엔진] 강의실 상태 수동 제어(Manual Override) 함수
+        // ------------------------------------------------------------------------
+        window.editRoomStatus = async function(room) {
+            if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
+            
+            const badge = document.getElementById(`badge-${room}`);
+            const currentBadge = badge.innerText;
+            // 스캐너의 기본 문구가 아니면 수동 상태이므로 프롬프트에 미리 채워줍니다.
+            const defaultText = (currentBadge.includes('자습가능') || currentBadge.includes('수업중') || currentBadge.includes('스캔 중...')) ? '' : currentBadge;
+            
+            const newStatus = prompt(`[${room} 강의실] 강제로 고정할 상태를 입력하세요.\n(예: 사용중, 특강중, 회의중, 수리중 등)\n\n※ 빈칸으로 지우고 확인을 누르면 다시 '자동 스캔 모드'로 복귀합니다.`, defaultText);
+            if (newStatus === null) return; 
+            
+            // 모바일 화면 즉각 반영 (Optimistic UI)
+            if (newStatus.trim() === '') {
+                badge.innerText = "스캔 중...";
+                badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-slate-700 text-slate-400";
+            } else {
+                badge.innerText = newStatus;
+                badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-sm";
+            }
+            
+            // 서버에 덮어쓰기 명령 전송
+            try {
+                await safeFetchJSON(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: new URLSearchParams({ action: 'update_room_status', room: room, status: newStatus.trim() })
+                });
+                
+                // 빈칸으로 지웠을 때는 바로 자동 스캔 엔진을 한 바퀴 돌려 상태를 복원합니다.
+                if (newStatus.trim() === '') { loadRoomStatus(); }
+                else { alert(`[${room} 강의실] 상태가 강제 고정되었습니다.`); }
+                
+            } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
+        };
 
         window.editHardware = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
@@ -526,9 +579,10 @@
                 btn.classList.remove('bg-slate-800', 'text-slate-400', 'border-slate-700');
                 btn.classList.add('bg-blue-600/20', 'text-blue-400', 'border-blue-500/30');
                 
+                // 로그인 시 [상태 제어] 버튼을 포함해 관리자 메뉴가 모두 열립니다.
                 document.querySelectorAll('.admin-ui').forEach(el => el.classList.remove('hidden'));
                 
-                alert("✅ 관리자 권한 획득!\n인프라 탭에서 HW/SW를 수정할 수 있습니다.");
+                alert("✅ 관리자 권한 획득!\n인프라 탭에서 강의실 상태와 HW/SW를 수정할 수 있습니다.");
                 tabTriggers[0].click(); 
                 
                 renderAdminReports();
