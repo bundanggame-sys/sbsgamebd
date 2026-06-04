@@ -41,6 +41,7 @@
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
                                 <span class="font-bold text-white text-base whitespace-nowrap">A 강의실 (21석)</span>
+                                <!-- 관리자 전용 수동 상태 제어 버튼 -->
                                 <button onclick="editRoomStatus('A')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
                             </div>
                             <span id="badge-A" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
@@ -58,6 +59,7 @@
                                 <button onclick="editHardware('A')" class="admin-ui hidden text-[8px] font-bold bg-slate-700 text-slate-300 px-2 py-1 rounded">✏️ 수정</button>
                             </div>
                             <div class="space-y-1">
+                                <!-- MB가 포함된 6줄 스펙 -->
                                 <div class="hw-info"><span class="label">CPU</span><span id="hw-A-cpu">로딩중...</span></div>
                                 <div class="hw-info"><span class="label">RAM</span><span id="hw-A-ram">로딩중...</span></div>
                                 <div class="hw-info"><span class="label">GPU</span><span id="hw-A-gpu">로딩중...</span></div>
@@ -215,6 +217,7 @@
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center flex justify-center items-center gap-2">Dashboard Summary <span id="mobile-sync-text" class="text-[8px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded">동기화 대기중</span></p>
                     <div class="space-y-4 text-xs">
+                        <!-- 정교하게 분리된 통계 4줄 (버그 패치 완료) -->
                         <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당일 문의 접수</span><span class="stat-today font-bold text-emerald-400 text-sm">0 건</span></div>
                         <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당월 누적 문의</span><span class="stat-month font-bold text-blue-400 text-sm">0 건</span></div>
                         <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>전체 누적 문의</span><span class="stat-total font-bold text-indigo-400 text-sm">0 건</span></div>
@@ -293,6 +296,7 @@
             const m = now.getMonth() + 1;
             const d = now.getDate();
 
+            // 정확한 통계 분리를 위한 접두사 문자열 (버그 완벽 차단)
             const todayPrefix = `${y}. ${m}. ${d}.`;
             const monthPrefix = `${y}. ${m}. `;
 
@@ -350,12 +354,12 @@
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
                             
+                            // 자동 상태일 때는 에메랄드/레드, 수동 제어(오버라이드)일 때는 모바일 전용 보라색 테마 적용
                             if (status.includes('자습가능') || status.includes('운영중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                             } else if (status.includes('수업중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-red-500/10 text-red-400 border border-red-500/20";
                             } else {
-                                // 수동 상태일 때 모바일 다크 테마용 보라색 배지 적용
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-sm";
                             }
                         }
@@ -427,18 +431,18 @@
             });
         }
 
-        // [모바일 패치] 페이지가 켜져 있으면 1분(60초)마다 서버에 몰래 물어보고 상태를 갱신합니다.
         window.addEventListener('load', () => {
             loadServerData();
             loadRoomStatus();
             loadSoftwareData();
             loadHardwareData(); 
             
+            // 앱이 켜져 있는 동안 타이머 검증을 위해 60초마다 서버에 백그라운드 갱신(Polling)을 요청합니다.
             setInterval(loadRoomStatus, 60000);
         });
 
         // ------------------------------------------------------------------------
-        // [모바일 패치] 상태 변경 시 '유지 시간(duration)'을 묻는 2단계 프롬프트 구조
+        // [모바일 엔진] 2단계 프롬프트(상태 -> 시간) 수동 제어 타이머 로직
         // ------------------------------------------------------------------------
         window.editRoomStatus = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
@@ -450,7 +454,7 @@
             const newStatus = prompt(`[${room} 강의실] 강제로 고정할 상태를 입력하세요.\n(예: 사용중, 특강중, 회의중 등)\n\n※ 빈칸으로 지우고 확인을 누르면 즉시 '자동 스캔 모드'로 복귀합니다.`, defaultText);
             if (newStatus === null) return; 
 
-            // 상태를 입력했을 때만 타이머를 몇 분 맞출지 연달아 물어봅니다.
+            // 상태를 입력한 경우에만 유지 시간(타이머)을 추가로 묻습니다.
             let duration = '';
             if (newStatus.trim() !== '') {
                 duration = prompt(`[${room} 강의실] 유지할 시간을 '분' 단위로 입력하세요.\n(예: 60)\n\n※ 빈칸으로 두면 직접 해제할 때까지 무기한 유지됩니다.`);
@@ -467,7 +471,7 @@
             }
             
             try {
-                // 입력한 분(duration) 데이터도 함께 실어서 보냅니다.
+                // 시간 데이터도 함께 URL 파라미터로 실어서 백엔드에 전달합니다.
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_room_status', room: room, status: newStatus.trim(), duration: duration.trim() })
@@ -476,7 +480,6 @@
                 if (newStatus.trim() === '') { 
                     loadRoomStatus(); 
                 } else { 
-                    // 모바일용 설정 완료 알람 메시지
                     const timeMsg = duration.trim() ? `${duration}분 뒤 자동 해제됩니다.` : "직접 해제할 때까지 무기한 유지됩니다.";
                     alert(`[${room} 강의실] 상태가 강제 고정되었습니다.\n(${timeMsg})`); 
                 }
