@@ -41,7 +41,6 @@
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
                                 <span class="font-bold text-white text-base whitespace-nowrap">A 강의실 (21석)</span>
-                                <!-- 관리자 전용 수동 상태 제어 버튼 -->
                                 <button onclick="editRoomStatus('A')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
                             </div>
                             <span id="badge-A" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
@@ -59,7 +58,6 @@
                                 <button onclick="editHardware('A')" class="admin-ui hidden text-[8px] font-bold bg-slate-700 text-slate-300 px-2 py-1 rounded">✏️ 수정</button>
                             </div>
                             <div class="space-y-1">
-                                <!-- MB가 포함된 6줄 스펙 -->
                                 <div class="hw-info"><span class="label">CPU</span><span id="hw-A-cpu">로딩중...</span></div>
                                 <div class="hw-info"><span class="label">RAM</span><span id="hw-A-ram">로딩중...</span></div>
                                 <div class="hw-info"><span class="label">GPU</span><span id="hw-A-gpu">로딩중...</span></div>
@@ -217,7 +215,6 @@
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center flex justify-center items-center gap-2">Dashboard Summary <span id="mobile-sync-text" class="text-[8px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded">동기화 대기중</span></p>
                     <div class="space-y-4 text-xs">
-                        <!-- 정교하게 분리된 통계 4줄 (버그 패치 완료) -->
                         <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당일 문의 접수</span><span class="stat-today font-bold text-emerald-400 text-sm">0 건</span></div>
                         <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당월 누적 문의</span><span class="stat-month font-bold text-blue-400 text-sm">0 건</span></div>
                         <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>전체 누적 문의</span><span class="stat-total font-bold text-indigo-400 text-sm">0 건</span></div>
@@ -227,7 +224,7 @@
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Emergency Contact</p>
                     <div class="space-y-4 text-xs">
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민 총무)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span></div>
+                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민 대리)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span></div>
                         <div class="flex justify-between items-center"><span>보안 관제 센터</span><span class="font-bold text-white text-sm">1588-3112</span></div>
                     </div>
                 </div>
@@ -269,7 +266,7 @@
         let softwareData = { 'A': [], 'B': [], 'C': [], 'D': [], 'E': [] };
         
         let hardwareData = {
-            'A': { cpu: 'i7-10700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B460M 보드', power: '600W' },
+            'A': { cpu: 'i7-10700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'MSI H510M/MSI B560M 박격포', power: '600W' },
             'B': { cpu: 'i7-11700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B560M 보드', power: 'MSI 750W' },
             'C': { cpu: 'i7-10700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B460M 보드', power: '600W' },
             'D': { cpu: 'i9-14900KF', ram: 'DDR5 64G', gpu: 'RTX 4070 Ti 12G', disk: 'Crucial T500 1TB', mb: 'Z790 보드', power: '900W' },
@@ -296,7 +293,6 @@
             const m = now.getMonth() + 1;
             const d = now.getDate();
 
-            // 정확한 통계 분리를 위한 접두사 문자열 (버그 완벽 차단)
             const todayPrefix = `${y}. ${m}. ${d}.`;
             const monthPrefix = `${y}. ${m}. `;
 
@@ -310,10 +306,10 @@
                 if (r.status === 'complete') resolvedCount++;
             });
 
-            document.querySelectorAll('.stat-total').forEach(el => el.innerText = localReports.length + " 건");
-            document.querySelectorAll('.stat-month').forEach(el => el.innerText = monthCount + " 건");
-            document.querySelectorAll('.stat-today').forEach(el => el.innerText = todayCount + " 건");
-            document.querySelectorAll('.stat-resolved').forEach(el => el.innerText = resolvedCount + " 건");
+            document.querySelector('.stat-total').innerText = localReports.length + " 건";
+            document.querySelector('.stat-month').innerText = monthCount + " 건";
+            document.querySelector('.stat-today').innerText = todayCount + " 건";
+            document.querySelector('.stat-resolved').innerText = resolvedCount + " 건";
         }
         updateStats();
 
@@ -324,6 +320,7 @@
             catch (e) { throw new Error("서버 에러 또는 구글 권한 문제 발생"); }
         }
 
+        // [통신 방어 및 UI 피드백 적용]
         async function loadServerData() {
             const syncDot = document.getElementById('mobile-sync-dot');
             const syncText = document.getElementById('mobile-sync-text');
@@ -336,10 +333,14 @@
                     if (isAdminMode) { renderAdminReports(); }
                     syncDot.classList.replace('bg-blue-500', 'bg-emerald-500');
                     syncText.innerText = "서버 연동됨"; syncText.classList.replace('text-slate-300', 'text-emerald-300');
-                }
+                } else { throw new Error("서버 응답 오류"); }
             } catch(e) {
                 syncDot.classList.replace('bg-blue-500', 'bg-red-500');
-                syncText.innerText = "오프라인"; syncText.classList.replace('text-slate-300', 'text-red-300');
+                syncText.innerText = "통신 지연"; syncText.classList.replace('text-slate-300', 'text-red-400');
+                const container = document.getElementById('report-list-container');
+                if (container && container.innerHTML.includes('내역 없음')) {
+                    container.innerHTML = '<p class="text-center text-red-400 py-10 text-[10px] font-bold">서버 통신 지연 (새로고침 요망)</p>';
+                }
             }
         }
         
@@ -354,7 +355,6 @@
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
                             
-                            // 자동 상태일 때는 에메랄드/레드, 수동 제어(오버라이드)일 때는 모바일 전용 보라색 테마 적용
                             if (status.includes('자습가능') || status.includes('운영중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                             } else if (status.includes('수업중')) {
@@ -364,8 +364,17 @@
                             }
                         }
                     });
-                }
-            } catch (e) { console.error("상태 연동 실패", e); }
+                } else { throw new Error("서버 응답 오류"); }
+            } catch (e) { 
+                console.error("상태 연동 실패", e); 
+                ['A', 'B', 'C', 'D', 'E'].forEach(room => {
+                    const badge = document.getElementById(`badge-${room}`);
+                    if (badge && badge.innerText === '스캔 중...') {
+                        badge.innerText = "통신 실패";
+                        badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-red-900/50 text-red-400 border border-red-500/30";
+                    }
+                });
+            }
         }
 
         async function loadSoftwareData() {
@@ -375,12 +384,14 @@
                     const data = responseData.data;
                     ['A', 'B', 'C', 'D', 'E'].forEach(room => { if(data[room]) { softwareData[room] = data[room]; } });
                     renderAllSoftware();
-                }
+                } else { throw new Error("서버 응답 오류"); }
             } catch(e) { 
                 console.error("소프트웨어 연동 실패"); 
                 ['A', 'B', 'C', 'D', 'E'].forEach(room => {
                     const el = document.getElementById(`sw-container-${room}`);
-                    if (el) el.innerHTML = '<p class="text-[10px] text-red-400">데이터 로드 실패 (URL 확인 요망)</p>';
+                    if (el && el.innerHTML.includes('통신중')) {
+                        el.innerHTML = '<p class="text-[10px] text-red-400 font-bold">통신 지연 (새로고침 요망)</p>';
+                    }
                 });
             }
         }
@@ -395,7 +406,7 @@
                         if(data[room] && data[room].cpu !== '') { hardwareData[room] = data[room]; } 
                     });
                     renderAllHardwareSpecs(); 
-                }
+                } else { throw new Error("서버 응답 오류"); }
             } catch(e) { console.error("하드웨어 사양 연동 실패"); }
         }
 
@@ -431,37 +442,33 @@
             });
         }
 
-        window.addEventListener('load', () => {
-            loadServerData();
-            loadRoomStatus();
-            loadSoftwareData();
-            loadHardwareData(); 
+        // 🌟 [순차적 통신 엔진 탑재] 한 번에 하나씩 차례로 통신하여 구글 서버 과부하를 막습니다.
+        window.addEventListener('load', async () => {
+            try { await loadRoomStatus(); } catch(e){}
+            try { await loadHardwareData(); } catch(e){}
+            try { await loadSoftwareData(); } catch(e){}
+            try { await loadServerData(); } catch(e){}
             
-            // 앱이 켜져 있는 동안 타이머 검증을 위해 60초마다 서버에 백그라운드 갱신(Polling)을 요청합니다.
+            // 60초 주기 자동 갱신 봇
             setInterval(loadRoomStatus, 60000);
         });
 
-        // ------------------------------------------------------------------------
-        // [모바일 엔진] 2단계 프롬프트(상태 -> 시간) 수동 제어 타이머 로직
-        // ------------------------------------------------------------------------
         window.editRoomStatus = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
             
             const badge = document.getElementById(`badge-${room}`);
             const currentBadge = badge.innerText;
-            const defaultText = (currentBadge.includes('자습가능') || currentBadge.includes('수업중') || currentBadge.includes('스캔 중...')) ? '' : currentBadge;
+            const defaultText = (currentBadge.includes('자습가능') || currentBadge.includes('수업중') || currentBadge.includes('스캔 중...') || currentBadge.includes('실패')) ? '' : currentBadge;
             
             const newStatus = prompt(`[${room} 강의실] 강제로 고정할 상태를 입력하세요.\n(예: 사용중, 특강중, 회의중 등)\n\n※ 빈칸으로 지우고 확인을 누르면 즉시 '자동 스캔 모드'로 복귀합니다.`, defaultText);
             if (newStatus === null) return; 
 
-            // 상태를 입력한 경우에만 유지 시간(타이머)을 추가로 묻습니다.
             let duration = '';
             if (newStatus.trim() !== '') {
                 duration = prompt(`[${room} 강의실] 유지할 시간을 '분' 단위로 입력하세요.\n(예: 60)\n\n※ 빈칸으로 두면 직접 해제할 때까지 무기한 유지됩니다.`);
                 if (duration === null) return; 
             }
             
-            // 모바일 화면 즉각 반영 (Optimistic UI)
             if (newStatus.trim() === '') {
                 badge.innerText = "스캔 중...";
                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-slate-700 text-slate-400";
@@ -471,7 +478,6 @@
             }
             
             try {
-                // 시간 데이터도 함께 URL 파라미터로 실어서 백엔드에 전달합니다.
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_room_status', room: room, status: newStatus.trim(), duration: duration.trim() })
@@ -600,7 +606,11 @@
                 
                 renderAdminReports();
                 renderAllSoftware(); 
-                loadServerData(); 
+                
+                // 관리자 로그인 시 서버 데이터를 안전하게 다시 한 번 순차 호출
+                (async () => {
+                    try { await loadServerData(); } catch(e){}
+                })();
             } else { alert("비밀번호 불일치"); }
         });
 
