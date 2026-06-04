@@ -59,13 +59,15 @@
             </div>
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Emergency Contacts</p>
+                <!-- 직함 변경: 이승민 총무 -->
                 <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/30 pb-2"><span>시설 총괄</span><span class="font-bold text-blue-400">010-9287-2656</span></div>
                 <div class="flex justify-between items-center text-slate-400 pt-1"><span>보안 관제</span><span class="font-bold text-white">1588-3112</span></div>
             </div>
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Node Info</p>
-                <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 대리</span></div>
-                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v8.2 (통신 병목 패치)</span></div>
+                <!-- 직함 변경: 이승민 총무 -->
+                <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 총무</span></div>
+                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v8.5 (세로 스캔 엔진)</span></div>
             </div>
         </div>
     </aside>
@@ -85,6 +87,7 @@
                 <section id="section-software" class="content-section fade-in">
                     <div class="flex flex-col gap-6">
                         
+                        <!-- A 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -107,17 +110,19 @@
                                         <button onclick="editHardware('A')" class="admin-ui hidden text-[9px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded hover:bg-slate-300">✏️ 사양 수정</button>
                                     </div>
                                     <div class="space-y-1">
+                                        <div class="hw-info"><span class="label">MB</span><span id="hw-A-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">CPU</span><span id="hw-A-cpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">RAM</span><span id="hw-A-ram">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">GPU</span><span id="hw-A-gpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">DISK</span><span id="hw-A-disk">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label">MB</span><span id="hw-A-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">POWER</span><span id="hw-A-power">로딩중...</span></div>
+                                        <div class="hw-info border-none pb-0"><span class="label">장비</span><span id="hw-A-equip">로딩중...</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- B 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -140,17 +145,19 @@
                                         <button onclick="editHardware('B')" class="admin-ui hidden text-[9px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded hover:bg-slate-300">✏️ 사양 수정</button>
                                     </div>
                                     <div class="space-y-1">
+                                        <div class="hw-info"><span class="label">MB</span><span id="hw-B-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">CPU</span><span id="hw-B-cpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">RAM</span><span id="hw-B-ram">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">GPU</span><span id="hw-B-gpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">DISK</span><span id="hw-B-disk">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label">MB</span><span id="hw-B-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">POWER</span><span id="hw-B-power">로딩중...</span></div>
+                                        <div class="hw-info border-none pb-0"><span class="label">장비</span><span id="hw-B-equip">로딩중...</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- C 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -173,17 +180,19 @@
                                         <button onclick="editHardware('C')" class="admin-ui hidden text-[9px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded hover:bg-slate-300">✏️ 사양 수정</button>
                                     </div>
                                     <div class="space-y-1">
+                                        <div class="hw-info"><span class="label">MB</span><span id="hw-C-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">CPU</span><span id="hw-C-cpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">RAM</span><span id="hw-C-ram">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">GPU</span><span id="hw-C-gpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">DISK</span><span id="hw-C-disk">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label">MB</span><span id="hw-C-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">POWER</span><span id="hw-C-power">로딩중...</span></div>
+                                        <div class="hw-info border-none pb-0"><span class="label">장비</span><span id="hw-C-equip">로딩중...</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- D 강의실 -->
                         <div class="bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md">
                             <div class="p-5 border-b border-blue-100 bg-blue-50/50 flex justify-between items-center rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -206,17 +215,19 @@
                                         <button onclick="editHardware('D')" class="admin-ui hidden text-[9px] font-bold bg-blue-200 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-300">✏️ 사양 수정</button>
                                     </div>
                                     <div class="space-y-1">
-                                        <div class="hw-info font-bold text-blue-600"><span class="label text-blue-400">CPU</span><span id="hw-D-cpu">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label text-blue-400">RAM</span><span id="hw-D-ram">로딩중...</span></div>
-                                        <div class="hw-info text-blue-700"><span class="label text-blue-400">GPU</span><span id="hw-D-gpu">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label text-blue-400">DISK</span><span id="hw-D-disk">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label text-blue-400">MB</span><span id="hw-D-mb">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label text-blue-400">POWER</span><span id="hw-D-power">로딩중...</span></div>
+                                        <div class="hw-info font-bold text-blue-600"><span class="label text-blue-400">MB</span><span id="hw-D-mb" class="text-blue-100">로딩중...</span></div>
+                                        <div class="hw-info"><span class="label text-blue-400">CPU</span><span id="hw-D-cpu" class="text-blue-100">로딩중...</span></div>
+                                        <div class="hw-info"><span class="label text-blue-400">RAM</span><span id="hw-D-ram" class="text-blue-100">로딩중...</span></div>
+                                        <div class="hw-info text-blue-700"><span class="label text-blue-400">GPU</span><span id="hw-D-gpu" class="text-blue-300 font-bold">로딩중...</span></div>
+                                        <div class="hw-info"><span class="label text-blue-400">DISK</span><span id="hw-D-disk" class="text-blue-100">로딩중...</span></div>
+                                        <div class="hw-info"><span class="label text-blue-400">POWER</span><span id="hw-D-power" class="text-blue-100">로딩중...</span></div>
+                                        <div class="hw-info border-none pb-0"><span class="label text-blue-400">장비</span><span id="hw-D-equip" class="text-blue-100">로딩중...</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- E 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -239,12 +250,13 @@
                                         <button onclick="editHardware('E')" class="admin-ui hidden text-[9px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded hover:bg-slate-300">✏️ 사양 수정</button>
                                     </div>
                                     <div class="space-y-1">
+                                        <div class="hw-info"><span class="label">MB</span><span id="hw-E-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">CPU</span><span id="hw-E-cpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">RAM</span><span id="hw-E-ram">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">GPU</span><span id="hw-E-gpu">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">DISK</span><span id="hw-E-disk">로딩중...</span></div>
-                                        <div class="hw-info"><span class="label">MB</span><span id="hw-E-mb">로딩중...</span></div>
                                         <div class="hw-info"><span class="label">POWER</span><span id="hw-E-power">로딩중...</span></div>
+                                        <div class="hw-info border-none pb-0"><span class="label">장비</span><span id="hw-E-equip">로딩중...</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -293,11 +305,11 @@
         let softwareData = { 'A': [], 'B': [], 'C': [], 'D': [], 'E': [] };
         
         let hardwareData = {
-            'A': { cpu: 'i7-10700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'MSI H510M/MSI B560M 박격포', power: '600W' },
-            'B': { cpu: 'i7-11700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B560M 보드', power: 'MSI 750W' },
-            'C': { cpu: 'i7-10700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B460M 보드', power: '600W' },
-            'D': { cpu: 'i9-14900KF', ram: 'DDR5 64G', gpu: 'RTX 4070 Ti 12G', disk: 'Crucial T500 1TB', mb: 'Z790 보드', power: '900W' },
-            'E': { cpu: 'i7-10700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B460M 보드', power: '600W' }
+            'A': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
+            'B': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
+            'C': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
+            'D': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
+            'E': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' }
         };
 
         const tabTriggers = document.querySelectorAll('.tab-trigger');
@@ -346,7 +358,6 @@
             catch (e) { throw new Error("서버 에러 또는 구글 권한 문제 발생"); }
         }
 
-        // [통신 병목 패치 2] 만약 통신이 끊겨서 Catch 로 빠지면, 무한 로딩이 되지 않게 붉은색 오류 메세지를 즉각 출력합니다.
         async function loadServerData() {
             try {
                 const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load", { method: 'GET' });
@@ -396,7 +407,6 @@
                 syncStatus.innerText = "오프라인 모드"; 
                 syncStatus.className = "ml-3 text-[10px] text-red-500 bg-red-50 border border-red-100 px-2.5 py-1 rounded-full shadow-sm";
                 
-                // 스캐너 통신이 끊기면 "스캔 중..." 배지를 붉은색 "통신 실패"로 바꿔줍니다.
                 ['A', 'B', 'C', 'D', 'E'].forEach(room => {
                     const badge = document.getElementById(`badge-${room}`);
                     if (badge && badge.innerText === '스캔 중...') {
@@ -407,17 +417,24 @@
             }
         }
 
-        async function loadSoftwareData() {
+        async function loadInfraData() {
+            renderAllHardwareSpecs(); 
+            renderAllSoftware();
             try {
-                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_software", { method: 'GET' });
+                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_infra", { method: 'GET' });
                 if (responseData.result === "success") {
                     const data = responseData.data;
-                    ['A', 'B', 'C', 'D', 'E'].forEach(room => { if(data[room]) { softwareData[room] = data[room]; } });
-                    renderAllSoftware(); 
+                    ['A', 'B', 'C', 'D', 'E'].forEach(room => { 
+                        if(data[room]) {
+                            if(data[room].hw) hardwareData[room] = data[room].hw;
+                            if(data[room].sw) softwareData[room] = data[room].sw;
+                        }
+                    });
+                    renderAllHardwareSpecs(); 
+                    renderAllSoftware();
                 } else { throw new Error("서버 응답 오류"); }
             } catch(e) { 
-                console.error("소프트웨어 연동 실패"); 
-                // 통신이 끊기면 "로딩중..." 텍스트를 붉은색 에러 메시지로 바꿔줍니다.
+                console.error("인프라 사양 연동 실패", e); 
                 ['A', 'B', 'C', 'D', 'E'].forEach(room => {
                     const el = document.getElementById(`sw-container-${room}`);
                     if (el && el.innerHTML.includes('로딩중')) {
@@ -425,20 +442,6 @@
                     }
                 });
             }
-        }
-
-        async function loadHardwareData() {
-            renderAllHardwareSpecs(); 
-            try {
-                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_hw", { method: 'GET' });
-                if (responseData.result === "success") {
-                    const data = responseData.data;
-                    ['A', 'B', 'C', 'D', 'E'].forEach(room => { 
-                        if(data[room] && data[room].cpu !== '') { hardwareData[room] = data[room]; } 
-                    });
-                    renderAllHardwareSpecs(); 
-                } else { throw new Error("서버 응답 오류"); }
-            } catch(e) { console.error("하드웨어 사양 연동 실패"); }
         }
 
         function renderAllSoftware() {
@@ -463,24 +466,22 @@
         function renderAllHardwareSpecs() {
             ['A', 'B', 'C', 'D', 'E'].forEach(room => {
                 const hw = hardwareData[room];
-                if(document.getElementById(`hw-${room}-cpu`)) {
+                if(document.getElementById(`hw-${room}-mb`)) {
+                    document.getElementById(`hw-${room}-mb`).innerText = hw.mb;
                     document.getElementById(`hw-${room}-cpu`).innerText = hw.cpu;
                     document.getElementById(`hw-${room}-ram`).innerText = hw.ram;
                     document.getElementById(`hw-${room}-gpu`).innerText = hw.gpu;
                     document.getElementById(`hw-${room}-disk`).innerText = hw.disk;
-                    document.getElementById(`hw-${room}-mb`).innerText = hw.mb;
                     document.getElementById(`hw-${room}-power`).innerText = hw.power;
+                    document.getElementById(`hw-${room}-equip`).innerText = hw.equip || '-';
                 }
             });
         }
 
-        // 🌟 [통신 병목 패치 1] 구글 서버 과부하를 막기 위해 4개의 통신을 순차적으로 얌전하게 발송합니다.
         window.addEventListener('load', async () => {
             try { await loadRoomStatus(); } catch(e){}
-            try { await loadHardwareData(); } catch(e){}
-            try { await loadSoftwareData(); } catch(e){}
+            try { await loadInfraData(); } catch(e){} 
             try { await loadServerData(); } catch(e){}
-            
             setInterval(loadRoomStatus, 60000);
         });
 
@@ -489,7 +490,7 @@
             
             const badge = document.getElementById(`badge-${room}`);
             const currentBadge = badge.innerText;
-            const defaultText = (currentBadge.includes('자습가능') || currentBadge.includes('수업중')) ? '' : currentBadge;
+            const defaultText = (currentBadge.includes('자습가능') || currentBadge.includes('수업중') || currentBadge.includes('실패')) ? '' : currentBadge;
             
             const newStatus = prompt(`[${room} 강의실] 강제로 고정할 상태를 입력하세요.\n(예: 사용중, 특강중, 회의중 등)\n\n※ 빈칸으로 지우고 확인을 누르면 즉시 '자동 스캔 모드'로 복귀합니다.`, defaultText);
             if (newStatus === null) return; 
@@ -520,23 +521,23 @@
                     const timeMsg = duration.trim() ? `${duration}분 뒤 자동 해제됩니다.` : "직접 해제할 때까지 무기한 유지됩니다.";
                     alert(`[${room} 강의실] 상태가 강제 고정되었습니다.\n(${timeMsg})`); 
                 }
-                
             } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
         };
 
         window.editHardware = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
-            
             const hw = hardwareData[room];
             
+            // 순서에 맞춰서 프롬프트를 띄웁니다.
+            const newMb = prompt(`[${room} 강의실] 변경할 메인보드(MB) 사양을 입력하세요:`, hw.mb); if(newMb === null) return;
             const newCpu = prompt(`[${room} 강의실] 변경할 CPU 사양을 입력하세요:`, hw.cpu); if(newCpu === null) return;
             const newRam = prompt(`[${room} 강의실] 변경할 RAM 사양을 입력하세요:`, hw.ram); if(newRam === null) return;
             const newGpu = prompt(`[${room} 강의실] 변경할 GPU 사양을 입력하세요:`, hw.gpu); if(newGpu === null) return;
             const newDisk = prompt(`[${room} 강의실] 변경할 DISK 용량을 입력하세요:`, hw.disk); if(newDisk === null) return;
-            const newMb = prompt(`[${room} 강의실] 변경할 메인보드(MB) 사양을 입력하세요:`, hw.mb); if(newMb === null) return;
             const newPower = prompt(`[${room} 강의실] 변경할 파워(POWER) 용량을 입력하세요:`, hw.power); if(newPower === null) return;
+            const newEquip = prompt(`[${room} 강의실] 변경할 장비 내역을 입력하세요:`, hw.equip || ''); if(newEquip === null) return;
             
-            hardwareData[room] = { cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, mb: newMb, power: newPower };
+            hardwareData[room] = { mb: newMb, cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, power: newPower, equip: newEquip };
             renderAllHardwareSpecs();
             
             try {
@@ -544,7 +545,7 @@
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ 
                         action: 'update_hw', room: room, 
-                        cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, mb: newMb, power: newPower 
+                        mb: newMb, cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, power: newPower, equip: newEquip 
                     })
                 });
             } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
@@ -643,6 +644,10 @@
                 tabTriggers[0].click(); 
                 renderAdminReports(); 
                 renderAllSoftware();  
+                
+                (async () => {
+                    try { await loadInfraData(); } catch(e){}
+                })();
             } else { alert("비밀번호가 일치하지 않습니다."); }
         });
 
