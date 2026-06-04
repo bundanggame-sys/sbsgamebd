@@ -41,7 +41,6 @@
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
                                 <span class="font-bold text-white text-base whitespace-nowrap">A 강의실 (21석)</span>
-                                <!-- [신규 UI] 모바일 환경에 맞춘 상태 제어 버튼 -->
                                 <button onclick="editRoomStatus('A')" class="admin-ui hidden text-[8px] font-bold bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 active:bg-purple-500/40">⚙️ 상태 제어</button>
                             </div>
                             <span id="badge-A" class="text-sm font-bold text-slate-400 bg-slate-700 px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right">스캔 중...</span>
@@ -351,13 +350,12 @@
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
                             
-                            // [모바일 패치] 수동 상태(오버라이드) 시 모바일 전용 보라색 테마 적용
                             if (status.includes('자습가능') || status.includes('운영중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                             } else if (status.includes('수업중')) {
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-red-500/10 text-red-400 border border-red-500/20";
                             } else {
-                                // 수동 강제 제어 (다크 모드 보라색)
+                                // 수동 상태일 때 모바일 다크 테마용 보라색 배지 적용
                                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-sm";
                             }
                         }
@@ -429,26 +427,35 @@
             });
         }
 
+        // [모바일 패치] 페이지가 켜져 있으면 1분(60초)마다 서버에 몰래 물어보고 상태를 갱신합니다.
         window.addEventListener('load', () => {
             loadServerData();
             loadRoomStatus();
             loadSoftwareData();
             loadHardwareData(); 
+            
+            setInterval(loadRoomStatus, 60000);
         });
 
         // ------------------------------------------------------------------------
-        // [모바일 엔진] 강의실 상태 수동 제어(Manual Override) 함수
+        // [모바일 패치] 상태 변경 시 '유지 시간(duration)'을 묻는 2단계 프롬프트 구조
         // ------------------------------------------------------------------------
         window.editRoomStatus = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
             
             const badge = document.getElementById(`badge-${room}`);
             const currentBadge = badge.innerText;
-            // 스캐너의 기본 문구가 아니면 수동 상태이므로 프롬프트에 미리 채워줍니다.
             const defaultText = (currentBadge.includes('자습가능') || currentBadge.includes('수업중') || currentBadge.includes('스캔 중...')) ? '' : currentBadge;
             
-            const newStatus = prompt(`[${room} 강의실] 강제로 고정할 상태를 입력하세요.\n(예: 사용중, 특강중, 회의중, 수리중 등)\n\n※ 빈칸으로 지우고 확인을 누르면 다시 '자동 스캔 모드'로 복귀합니다.`, defaultText);
+            const newStatus = prompt(`[${room} 강의실] 강제로 고정할 상태를 입력하세요.\n(예: 사용중, 특강중, 회의중 등)\n\n※ 빈칸으로 지우고 확인을 누르면 즉시 '자동 스캔 모드'로 복귀합니다.`, defaultText);
             if (newStatus === null) return; 
+
+            // 상태를 입력했을 때만 타이머를 몇 분 맞출지 연달아 물어봅니다.
+            let duration = '';
+            if (newStatus.trim() !== '') {
+                duration = prompt(`[${room} 강의실] 유지할 시간을 '분' 단위로 입력하세요.\n(예: 60)\n\n※ 빈칸으로 두면 직접 해제할 때까지 무기한 유지됩니다.`);
+                if (duration === null) return; 
+            }
             
             // 모바일 화면 즉각 반영 (Optimistic UI)
             if (newStatus.trim() === '') {
@@ -459,16 +466,20 @@
                 badge.className = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-sm";
             }
             
-            // 서버에 덮어쓰기 명령 전송
             try {
+                // 입력한 분(duration) 데이터도 함께 실어서 보냅니다.
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({ action: 'update_room_status', room: room, status: newStatus.trim() })
+                    body: new URLSearchParams({ action: 'update_room_status', room: room, status: newStatus.trim(), duration: duration.trim() })
                 });
                 
-                // 빈칸으로 지웠을 때는 바로 자동 스캔 엔진을 한 바퀴 돌려 상태를 복원합니다.
-                if (newStatus.trim() === '') { loadRoomStatus(); }
-                else { alert(`[${room} 강의실] 상태가 강제 고정되었습니다.`); }
+                if (newStatus.trim() === '') { 
+                    loadRoomStatus(); 
+                } else { 
+                    // 모바일용 설정 완료 알람 메시지
+                    const timeMsg = duration.trim() ? `${duration}분 뒤 자동 해제됩니다.` : "직접 해제할 때까지 무기한 유지됩니다.";
+                    alert(`[${room} 강의실] 상태가 강제 고정되었습니다.\n(${timeMsg})`); 
+                }
                 
             } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
         };
@@ -579,7 +590,6 @@
                 btn.classList.remove('bg-slate-800', 'text-slate-400', 'border-slate-700');
                 btn.classList.add('bg-blue-600/20', 'text-blue-400', 'border-blue-500/30');
                 
-                // 로그인 시 [상태 제어] 버튼을 포함해 관리자 메뉴가 모두 열립니다.
                 document.querySelectorAll('.admin-ui').forEach(el => el.classList.remove('hidden'));
                 
                 alert("✅ 관리자 권한 획득!\n인프라 탭에서 강의실 상태와 HW/SW를 수정할 수 있습니다.");
