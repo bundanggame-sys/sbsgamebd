@@ -49,7 +49,6 @@
                             </div>
                             <div id="sw-container-A" class="min-h-[24px] flex flex-wrap"><p class="text-[10px] text-slate-500">서버 통신중...</p></div>
                         </div>
-                        <!-- [모바일 패치] MB가 포함된 6줄 사양과 모바일용 수정 버튼을 배치했습니다. -->
                         <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800 relative">
                             <div class="flex justify-between items-center mb-2">
                                 <p class="text-[9px] font-bold text-slate-500 uppercase">Hardware Specs</p>
@@ -198,18 +197,20 @@
             </section>
 
             <section id="section-mobile-status" class="content-section hidden fade-in space-y-4">
+                <!-- [모바일 패치] 현황판 통계 UI를 당월 누적을 포함하여 4줄로 확장했습니다. -->
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center flex justify-center items-center gap-2">Dashboard Summary <span id="mobile-sync-text" class="text-[8px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded">동기화 대기중</span></p>
                     <div class="space-y-4 text-xs">
                         <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당일 문의 접수</span><span class="stat-today font-bold text-emerald-400 text-sm">0 건</span></div>
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>누적 문의 수</span><span class="stat-total font-bold text-blue-400 text-sm">0 건</span></div>
+                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당월 누적 문의</span><span class="stat-month font-bold text-blue-400 text-sm">0 건</span></div>
+                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>전체 누적 문의</span><span class="stat-total font-bold text-indigo-400 text-sm">0 건</span></div>
                         <div class="flex justify-between items-center"><span>조치 완료 건</span><span class="stat-resolved font-bold text-orange-400 text-sm">0 건</span></div>
                     </div>
                 </div>
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Emergency Contact</p>
                     <div class="space-y-4 text-xs">
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민 총무)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span></div>
+                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민 대리)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span></div>
                         <div class="flex justify-between items-center"><span>보안 관제 센터</span><span class="font-bold text-white text-sm">1588-3112</span></div>
                     </div>
                 </div>
@@ -250,7 +251,6 @@
         let isAdminMode = false;
         let softwareData = { 'A': [], 'B': [], 'C': [], 'D': [], 'E': [] };
         
-        // [모바일 패치] 메인보드(mb) 값이 포함된 하드웨어 기본 메모리를 세팅합니다.
         let hardwareData = {
             'A': { cpu: 'i7-10700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B460M 보드', power: '600W' },
             'B': { cpu: 'i7-11700', ram: '삼성 DDR4 16G', gpu: 'GTX 1660 S', disk: 'SSD 250G/500G', mb: 'B560M 보드', power: 'MSI 750W' },
@@ -273,11 +273,30 @@
             });
         });
 
+        // [모바일 패치] PC 버전과 동일하게 날짜를 정밀 비교하는 통계 함수 엔진으로 교체했습니다.
         function updateStats() {
-            const todayStr = new Date().toLocaleDateString('ko-KR');
-            document.querySelector('.stat-total').innerText = localReports.length + " 건";
-            document.querySelector('.stat-today').innerText = localReports.filter(r => r.date && r.date.includes(todayStr.split('.')[0])).length + " 건";
-            document.querySelector('.stat-resolved').innerText = localReports.filter(r => r.status === 'complete').length + " 건";
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = now.getMonth() + 1;
+            const d = now.getDate();
+
+            const todayPrefix = `${y}. ${m}. ${d}.`;
+            const monthPrefix = `${y}. ${m}. `;
+
+            let todayCount = 0;
+            let monthCount = 0;
+            let resolvedCount = 0;
+
+            localReports.forEach(r => {
+                if (r.date && r.date.startsWith(todayPrefix)) todayCount++;
+                if (r.date && r.date.startsWith(monthPrefix)) monthCount++;
+                if (r.status === 'complete') resolvedCount++;
+            });
+
+            document.querySelectorAll('.stat-total').forEach(el => el.innerText = localReports.length + " 건");
+            document.querySelectorAll('.stat-month').forEach(el => el.innerText = monthCount + " 건");
+            document.querySelectorAll('.stat-today').forEach(el => el.innerText = todayCount + " 건");
+            document.querySelectorAll('.stat-resolved').forEach(el => el.innerText = resolvedCount + " 건");
         }
         updateStats();
 
@@ -348,7 +367,6 @@
             }
         }
 
-        // [모바일 패치] 구글 시트에서 하드웨어 데이터를 가져오는 함수
         async function loadHardwareData() {
             renderAllHardwareSpecs(); 
             try {
@@ -381,7 +399,6 @@
             });
         }
 
-        // [모바일 패치] HTML 요소에 자바스크립트 값(메인보드 포함)을 뿌려줍니다.
         function renderAllHardwareSpecs() {
             ['A', 'B', 'C', 'D', 'E'].forEach(room => {
                 const hw = hardwareData[room];
@@ -400,10 +417,9 @@
             loadServerData();
             loadRoomStatus();
             loadSoftwareData();
-            loadHardwareData(); // 앱 켜지자마자 하드웨어도 같이 불러옵니다.
+            loadHardwareData(); 
         });
 
-        // [모바일 패치] 수정 버튼 누를 시 메인보드 사양도 묻는 프롬프트 추가
         window.editHardware = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
             
@@ -416,11 +432,9 @@
             const newMb = prompt(`[${room} 강의실] 변경할 메인보드(MB) 사양을 입력하세요:`, hw.mb); if(newMb === null) return;
             const newPower = prompt(`[${room} 강의실] 변경할 파워(POWER) 용량을 입력하세요:`, hw.power); if(newPower === null) return;
             
-            // 즉시 화면 반영
             hardwareData[room] = { cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, mb: newMb, power: newPower };
             renderAllHardwareSpecs();
             
-            // 구글 서버로 파라미터 전송
             try {
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
