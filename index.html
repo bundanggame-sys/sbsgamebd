@@ -59,15 +59,13 @@
             </div>
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Emergency Contacts</p>
-                <!-- 직함 변경: 이승민 총무 -->
-                <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/30 pb-2"><span>시설 총괄</span><span class="font-bold text-blue-400">010-9287-2656</span></div>
+                <div class="flex justify-between items-center text-slate-400 border-b border-slate-700/30 pb-2"><span>시설 총괄</span><span class="font-bold text-blue-400">010-9287-2656 (이승민 총무)</span></div>
                 <div class="flex justify-between items-center text-slate-400 pt-1"><span>보안 관제</span><span class="font-bold text-white">1588-3112</span></div>
             </div>
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Node Info</p>
-                <!-- 직함 변경: 이승민 총무 -->
                 <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 총무</span></div>
-                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v8.5 (세로 스캔 엔진)</span></div>
+                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v8.6 (UI & SW 렌더링)</span></div>
             </div>
         </div>
     </aside>
@@ -87,7 +85,6 @@
                 <section id="section-software" class="content-section fade-in">
                     <div class="flex flex-col gap-6">
                         
-                        <!-- A 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -122,7 +119,6 @@
                             </div>
                         </div>
 
-                        <!-- B 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -157,7 +153,6 @@
                             </div>
                         </div>
 
-                        <!-- C 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -192,7 +187,6 @@
                             </div>
                         </div>
 
-                        <!-- D 강의실 -->
                         <div class="bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md">
                             <div class="p-5 border-b border-blue-100 bg-blue-50/50 flex justify-between items-center rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -227,7 +221,6 @@
                             </div>
                         </div>
 
-                        <!-- E 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
                             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
                                 <div class="flex items-center gap-3">
@@ -390,12 +383,27 @@
                             badge.innerText = status;
                             badge.title = status; 
                             
-                            if (status.includes('자습가능') || status.includes('운영중')) {
-                                badge.className = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-sm";
-                            } else if (status.includes('수업중')) {
-                                badge.className = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right bg-red-50 text-red-500 border border-red-100 shadow-sm";
+                            // 🌟 [UI 패치] D강의실 배지의 두께와 톤을 더욱 강조합니다.
+                            let baseClass = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right shadow-sm ";
+                            
+                            if (room === 'D') {
+                                baseClass += "border-2 "; 
+                                if (status.includes('자습가능') || status.includes('운영중')) {
+                                    badge.className = baseClass + "bg-blue-50 text-blue-700 border-blue-300";
+                                } else if (status.includes('수업중')) {
+                                    badge.className = baseClass + "bg-red-50 text-red-600 border-red-300";
+                                } else {
+                                    badge.className = baseClass + "bg-purple-50 text-purple-700 border-purple-300";
+                                }
                             } else {
-                                badge.className = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right bg-purple-50 text-purple-600 border border-purple-100 shadow-sm";
+                                baseClass += "border ";
+                                if (status.includes('자습가능') || status.includes('운영중')) {
+                                    badge.className = baseClass + "bg-emerald-50 text-emerald-600 border-emerald-100";
+                                } else if (status.includes('수업중')) {
+                                    badge.className = baseClass + "bg-red-50 text-red-500 border-red-100";
+                                } else {
+                                    badge.className = baseClass + "bg-purple-50 text-purple-600 border-purple-100";
+                                }
                             }
                         }
                     });
@@ -528,7 +536,6 @@
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
             const hw = hardwareData[room];
             
-            // 순서에 맞춰서 프롬프트를 띄웁니다.
             const newMb = prompt(`[${room} 강의실] 변경할 메인보드(MB) 사양을 입력하세요:`, hw.mb); if(newMb === null) return;
             const newCpu = prompt(`[${room} 강의실] 변경할 CPU 사양을 입력하세요:`, hw.cpu); if(newCpu === null) return;
             const newRam = prompt(`[${room} 강의실] 변경할 RAM 사양을 입력하세요:`, hw.ram); if(newRam === null) return;
