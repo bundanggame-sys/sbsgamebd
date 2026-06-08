@@ -200,9 +200,8 @@
             </section>
 
             <section id="section-report" class="content-section hidden fade-in space-y-6">
-                
                 <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
-                    <h3 class="font-bold text-white text-sm mb-4">🛠️ 모바일 시설 문의 접수</h3>
+                    <h3 class="font-bold text-white text-sm mb-4">🛠️ 시설 문의 접수</h3>
                     <div class="space-y-4">
                         <input type="text" id="input-name" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3.5 text-sm text-white outline-none focus:border-blue-500" placeholder="본인 성함 입력">
                         <textarea id="input-content" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-4 text-sm text-white outline-none focus:border-blue-500 resize-none" placeholder="고장 및 문의 내용을 상세히 적어주세요."></textarea>
@@ -210,32 +209,13 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-white text-sm">📋 실시간 접수 현황</h3>
-                    </div>
-                    <div id="user-report-list" class="space-y-3 max-h-[300px] overflow-y-auto">
-                        <p class="text-center text-slate-500 py-6 text-xs">불러오는 중...</p>
-                    </div>
-                </div>
-
-            </section>
-
-            <section id="section-mobile-status" class="content-section hidden fade-in space-y-4">
-                <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
-                    <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center flex justify-center items-center gap-2">Dashboard Summary <span id="mobile-sync-text" class="text-[8px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded">동기화 대기중</span></p>
-                    <div class="space-y-4 text-xs">
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당일 문의 접수</span><span class="stat-today font-bold text-emerald-400 text-sm">0 건</span></div>
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>당월 누적 문의</span><span class="stat-month font-bold text-blue-400 text-sm">0 건</span></div>
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>전체 누적 문의</span><span class="stat-total font-bold text-indigo-400 text-sm">0 건</span></div>
-                        <div class="flex justify-between items-center"><span>조치 완료 건</span><span class="stat-resolved font-bold text-orange-400 text-sm">0 건</span></div>
-                    </div>
-                </div>
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
                     <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Emergency Contact</p>
-                    <div class="space-y-4 text-xs">
-                        <div class="flex justify-between items-center border-b border-slate-700/50 pb-3"><span>시설 총괄 (이승민 총무)</span><span class="font-bold text-blue-400 text-sm">010-9287-2656</span></div>
-                        <div class="flex justify-between items-center"><span>보안 관제 센터</span><span class="font-bold text-white text-sm">1588-3112</span></div>
+                    <div class="text-xs">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-300">시설·보안 총괄 (이승민 총무)</span>
+                            <span class="font-bold text-blue-400 text-sm">010-9287-2656</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -260,13 +240,12 @@
     <nav class="fixed bottom-0 left-0 w-full h-16 bg-slate-900 border-t border-slate-800 flex justify-around items-center z-50 pb-safe">
         <a href="#section-software" class="tab-trigger flex flex-col items-center justify-center w-full h-full text-blue-500 font-bold"><span class="text-xl mb-1">🖥️</span><span class="text-[9px]">인프라</span></a>
         <a href="#section-report" class="tab-trigger flex flex-col items-center justify-center w-full h-full text-slate-500"><span class="text-xl mb-1">🎫</span><span class="text-[9px]">문의접수</span></a>
-        <a href="#section-mobile-status" class="tab-trigger flex flex-col items-center justify-center w-full h-full text-slate-500"><span class="text-xl mb-1">📊</span><span class="text-[9px]">현황</span></a>
         <a href="#section-admin" id="menu-admin-mobile" class="admin-ui hidden tab-trigger flex flex-col items-center justify-center w-full h-full text-slate-500"><span class="text-xl mb-1">⚙️</span><span class="text-[9px]">처리판</span></a>
     </nav>
 
     <script>
         // =========================================================================
-        // [중요] 반드시 새로 발급받은 구글 웹앱 URL을 겹따옴표 안에 붙여넣으세요!
+        // [중요] 구글 웹앱 URL을 입력하세요.
         // =========================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
         const ADMIN_PW = "admin1234";
@@ -274,7 +253,6 @@
         let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
         let isAdminMode = false;
         let softwareData = { 'A': [], 'B': [], 'C': [], 'D': [], 'E': [] };
-        
         let hardwareData = {
             'A': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
             'B': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
@@ -297,31 +275,7 @@
             });
         });
 
-        function updateStats() {
-            const now = new Date();
-            const y = now.getFullYear();
-            const m = now.getMonth() + 1;
-            const d = now.getDate();
-
-            const todayPrefix = `${y}. ${m}. ${d}.`;
-            const monthPrefix = `${y}. ${m}. `;
-
-            let todayCount = 0;
-            let monthCount = 0;
-            let resolvedCount = 0;
-
-            localReports.forEach(r => {
-                if (r.date && r.date.startsWith(todayPrefix)) todayCount++;
-                if (r.date && r.date.startsWith(monthPrefix)) monthCount++;
-                if (r.status === 'complete') resolvedCount++;
-            });
-
-            document.querySelector('.stat-total').innerText = localReports.length + " 건";
-            document.querySelector('.stat-month').innerText = monthCount + " 건";
-            document.querySelector('.stat-today').innerText = todayCount + " 건";
-            document.querySelector('.stat-resolved').innerText = resolvedCount + " 건";
-        }
-        updateStats();
+        // 불필요해진 모바일 updateStats() 제거하여 오류 방지
 
         async function safeFetchJSON(url, options) {
             const res = await fetch(url, options);
@@ -332,28 +286,19 @@
 
         async function loadServerData() {
             const syncDot = document.getElementById('mobile-sync-dot');
-            const syncText = document.getElementById('mobile-sync-text');
             try {
                 const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load", { method: 'GET' });
                 if (responseData.result === "success") {
                     localReports = responseData.data;
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
-                    updateStats();
-                    renderUserReports(); // 🌟 일반 사용자용 리스트 그리기
                     if (isAdminMode) { renderAdminReports(); }
                     syncDot.classList.replace('bg-blue-500', 'bg-emerald-500');
-                    syncText.innerText = "서버 연동됨"; syncText.classList.replace('text-slate-300', 'text-emerald-300');
                 } else { throw new Error("서버 응답 오류"); }
             } catch(e) {
                 syncDot.classList.replace('bg-blue-500', 'bg-red-500');
-                syncText.innerText = "통신 지연"; syncText.classList.replace('text-slate-300', 'text-red-400');
                 const container = document.getElementById('report-list-container');
                 if (container && container.innerHTML.includes('내역 없음')) {
                     container.innerHTML = '<p class="text-center text-red-400 py-10 text-[10px] font-bold">서버 통신 지연 (새로고침 요망)</p>';
-                }
-                const uContainer = document.getElementById('user-report-list');
-                if (uContainer && uContainer.innerHTML.includes('불러오는 중')) {
-                    uContainer.innerHTML = '<p class="text-center text-red-400 py-6 text-[10px] font-bold">통신 지연</p>';
                 }
             }
         }
@@ -369,7 +314,6 @@
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
                             
-                            // 🌟 [모바일 다크 테마 배지 시인성 강화 패치]
                             if (room === 'D') {
                                 let baseClass = "text-sm font-bold px-3 py-1.5 rounded-lg truncate max-w-[200px] text-right shadow-[0_0_10px_rgba(59,130,246,0.3)] border-2 ";
                                 if (status.includes('자습가능') || status.includes('운영중')) {
@@ -468,7 +412,6 @@
             try { await loadRoomStatus(); } catch(e){}
             try { await loadInfraData(); } catch(e){}
             try { await loadServerData(); } catch(e){}
-            
             setInterval(loadRoomStatus, 60000);
         });
 
@@ -508,15 +451,12 @@
                     const timeMsg = duration.trim() ? `${duration}분 뒤 자동 해제됩니다.` : "직접 해제할 때까지 무기한 유지됩니다.";
                     alert(`[${room} 강의실] 상태가 강제 고정되었습니다.\n(${timeMsg})`); 
                 }
-                
             } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
         };
 
         window.editHardware = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
             const hw = hardwareData[room];
-            
-            // 변경된 순서에 맞춰 프롬프트를 띄웁니다 (MB -> 장비)
             const newMb = prompt(`[${room} 강의실] 변경할 메인보드(MB) 사양을 입력하세요:`, hw.mb); if(newMb === null) return;
             const newCpu = prompt(`[${room} 강의실] 변경할 CPU 사양을 입력하세요:`, hw.cpu); if(newCpu === null) return;
             const newRam = prompt(`[${room} 강의실] 변경할 RAM 사양을 입력하세요:`, hw.ram); if(newRam === null) return;
@@ -531,10 +471,7 @@
             try {
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({ 
-                        action: 'update_hw', room: room, 
-                        mb: newMb, cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, power: newPower, equip: newEquip 
-                    })
+                    body: new URLSearchParams({ action: 'update_hw', room: room, mb: newMb, cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, power: newPower, equip: newEquip })
                 });
             } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
         };
@@ -588,7 +525,6 @@
                     localReports.push({ id: newId, name, content, date: newDate, status:'pending' });
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                     document.getElementById('input-name').value=""; document.getElementById('input-content').value=""; 
-                    updateStats(); renderUserReports();
                 }
             } catch(e) { alert("통신 오류 발생."); } 
             finally { btnSubmit.disabled = false; btnSubmit.innerHTML = originalBtnText; }
@@ -624,43 +560,10 @@
                 
                 alert("✅ 관리자 권한 획득!\n인프라 탭에서 강의실 상태와 HW/SW를 수정할 수 있습니다.");
                 tabTriggers[0].click(); 
-                
                 renderAdminReports();
                 renderAllSoftware(); 
-                
-                (async () => {
-                    try { await loadInfraData(); } catch(e){}
-                })();
             } else { alert("비밀번호 불일치"); }
         });
-
-        // 🌟 [UI 신규 패치] 모바일 일반 사용자 노출용 '실시간 접수 현황' 렌더러
-        function renderUserReports() {
-            const container = document.getElementById('user-report-list');
-            if (!container) return;
-            if (localReports.length === 0) {
-                container.innerHTML = '<p class="text-center text-slate-500 py-6 text-xs">접수된 문의 내역이 없습니다.</p>';
-                return;
-            }
-            container.innerHTML = localReports.map(r => {
-                let badge = '';
-                if (r.status === 'complete') badge = '<span class="bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded text-[9px] font-bold">처리완료</span>';
-                else if (r.status === 'check') badge = '<span class="bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded text-[9px] font-bold">확인중</span>';
-                else badge = '<span class="bg-slate-700 text-slate-400 px-1.5 py-0.5 rounded text-[9px] font-bold">접수대기</span>';
-                
-                return `
-                <div class="p-3 rounded-xl border border-slate-700 bg-slate-900/50 flex flex-col gap-1.5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold text-white text-xs">${r.name}</span>
-                            <span class="text-[9px] text-slate-500">${r.date}</span>
-                        </div>
-                        ${badge}
-                    </div>
-                    <p class="text-[11px] text-slate-300 whitespace-pre-wrap">${r.content}</p>
-                </div>`;
-            }).reverse().join('');
-        }
 
         function renderAdminReports() {
             const container = document.getElementById('report-list-container');
@@ -693,7 +596,7 @@
             if (reportIndex > -1) { 
                 localReports[reportIndex].status = updateType; 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
-                renderAdminReports(); updateStats(); renderUserReports();
+                renderAdminReports();
             }
             try {
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
@@ -707,7 +610,7 @@
             if(confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?")) { 
                 localReports = localReports.filter(r => String(r.id) !== String(id)); 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
-                renderAdminReports(); updateStats(); renderUserReports();
+                renderAdminReports();
 
                 try {
                     await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
