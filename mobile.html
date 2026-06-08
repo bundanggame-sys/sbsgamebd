@@ -16,9 +16,11 @@
         .fade-in { animation: fadeIn 0.2s ease-in-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+        /* 모바일 콘텐츠 영역 스크롤 확보 */
+        #main-content { min-height: calc(100vh - 120px); }
     </style>
 </head>
-<body class="h-screen overflow-hidden flex flex-col">
+<body class="h-screen flex flex-col overflow-hidden">
 
     <a href="index.html" class="fixed bottom-24 right-4 bg-blue-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-50 border-2 border-blue-400">💻</a>
 
@@ -29,13 +31,13 @@
         <button id="admin-login-btn" class="text-[10px] font-bold text-slate-400 bg-slate-800 border border-slate-700 px-2.5 py-1.5 rounded-md active:bg-slate-700 transition-colors">⚙️ 관리자 로그인</button>
     </header>
 
-    <main class="flex-1 overflow-y-auto p-4 pb-20 scroll-smooth" id="main-content">
+    <main class="flex-1 overflow-y-auto p-4 pb-20 scroll-smooth bg-slate-900" id="main-content">
         <div class="space-y-6">
 
             <section id="section-software" class="content-section fade-in">
                 <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Classroom Infrastructure</p>
                 <div class="space-y-4">
-                    
+                    <!-- A 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
@@ -68,6 +70,7 @@
                         </div>
                     </div>
                     
+                    <!-- B 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
@@ -100,6 +103,7 @@
                         </div>
                     </div>
                     
+                    <!-- C 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
@@ -132,6 +136,7 @@
                         </div>
                     </div>
                     
+                    <!-- D 강의실 -->
                     <div class="bg-slate-900 border-2 border-blue-500/40 rounded-2xl p-4 shadow-[0_0_15px_rgba(59,130,246,0.15)] flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
@@ -164,6 +169,7 @@
                         </div>
                     </div>
                     
+                    <!-- E 강의실 -->
                     <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-lg flex flex-col">
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2">
@@ -199,7 +205,9 @@
                 </div>
             </section>
 
+            <!-- 🌟 [UI 최적화] 불필요한 현황판, 실시간 접수목록을 지우고 폼과 연락처만 남겨 초경량화! -->
             <section id="section-report" class="content-section hidden fade-in space-y-6">
+                <!-- 접수 폼 -->
                 <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
                     <h3 class="font-bold text-white text-sm mb-4">🛠️ 시설 문의 접수</h3>
                     <div class="space-y-4">
@@ -209,17 +217,19 @@
                     </div>
                 </div>
 
+                <!-- 🌟 [통합 연락처] 요청하신 두 번째 사진처럼 완벽하게 군더더기를 뺐습니다. -->
                 <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg">
-                    <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Emergency Contact</p>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase mb-4 tracking-widest text-center">Emergency Contacts</p>
                     <div class="text-xs">
                         <div class="flex justify-between items-center">
-                            <span class="text-slate-300">시설·보안 총괄 (이승민 총무)</span>
+                            <span class="text-slate-300">시설 총괄</span>
                             <span class="font-bold text-blue-400 text-sm">010-9287-2656</span>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- 관리자용 탭 -->
             <section id="section-admin" class="content-section hidden fade-in">
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
                     <div class="px-4 py-3 border-b border-slate-800 flex justify-between items-center bg-slate-950">
@@ -237,6 +247,7 @@
         </div>
     </main>
 
+    <!-- 🌟 [탭 최적화] 현황 탭 삭제하고 2개의 기본탭 + 1개의 숨김 관리자탭으로 간결하게 구성 -->
     <nav class="fixed bottom-0 left-0 w-full h-16 bg-slate-900 border-t border-slate-800 flex justify-around items-center z-50 pb-safe">
         <a href="#section-software" class="tab-trigger flex flex-col items-center justify-center w-full h-full text-blue-500 font-bold"><span class="text-xl mb-1">🖥️</span><span class="text-[9px]">인프라</span></a>
         <a href="#section-report" class="tab-trigger flex flex-col items-center justify-center w-full h-full text-slate-500"><span class="text-xl mb-1">🎫</span><span class="text-[9px]">문의접수</span></a>
@@ -244,15 +255,13 @@
     </nav>
 
     <script>
-        // =========================================================================
-        // [중요] 구글 웹앱 URL을 입력하세요.
-        // =========================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvuPazlCvgN56XLra1Y3-7_fjFccgOvCUjipCDf_qHzv59um1dDPkAyda_Gr0nMN8z9Q/exec"; 
         const ADMIN_PW = "admin1234";
 
         let localReports = JSON.parse(localStorage.getItem('g_bundang_reports')) || [];
         let isAdminMode = false;
         let softwareData = { 'A': [], 'B': [], 'C': [], 'D': [], 'E': [] };
+        
         let hardwareData = {
             'A': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
             'B': { mb: '', cpu: '', ram: '', gpu: '', disk: '', power: '', equip: '' },
@@ -266,16 +275,13 @@
 
         tabTriggers.forEach(tab => {
             tab.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
+                e.preventDefault(); 
+                const targetId = this.getAttribute('href').substring(1); 
                 tabTriggers.forEach(t => { t.classList.remove('text-blue-500', 'font-bold'); t.classList.add('text-slate-500'); });
                 this.classList.remove('text-slate-500'); this.classList.add('text-blue-500', 'font-bold');
-                contentSections.forEach(sec => { if(sec.id === targetId) sec.classList.remove('hidden'); else sec.classList.add('hidden'); });
-                document.getElementById('main-content').scrollTop = 0;
+                contentSections.forEach(section => { if (section.id === targetId) section.classList.remove('hidden'); else section.classList.add('hidden'); });
             });
         });
-
-        // 불필요해진 모바일 updateStats() 제거하여 오류 방지
 
         async function safeFetchJSON(url, options) {
             const res = await fetch(url, options);
@@ -410,7 +416,7 @@
 
         window.addEventListener('load', async () => {
             try { await loadRoomStatus(); } catch(e){}
-            try { await loadInfraData(); } catch(e){}
+            try { await loadInfraData(); } catch(e){} 
             try { await loadServerData(); } catch(e){}
             setInterval(loadRoomStatus, 60000);
         });
@@ -477,92 +483,103 @@
         };
 
         window.addSoftware = async function(room) {
-            if (!isAdminMode) return;
-            const newSw = prompt(`${room} 강의실에 추가할 SW (예: Unity 6000)`);
+            if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
+            const newSw = prompt(`${room} 강의실에 추가할 소프트웨어 이름을 입력하세요.\n(예: Photoshop 2024)`);
             if (!newSw || newSw.trim() === '') return;
+            
             softwareData[room].push(newSw.trim());
             renderAllSoftware();
-            const swListStr = softwareData[room].join(',');
+            
+            const swListStr = softwareData[room].join(','); 
             try {
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
                 });
-            } catch(e) { alert("저장 실패"); }
+            } catch(e) { alert("구글 서버에 저장 중 오류가 발생했습니다."); }
         };
 
         window.deleteSoftware = async function(room, targetSw) {
             if (!isAdminMode) return;
-            if (!confirm(`'${targetSw}' 항목 삭제?`)) return;
+            if (!confirm(`정말 '${targetSw}' 항목을 삭제하시겠습니까?`)) return;
+
             softwareData[room] = softwareData[room].filter(sw => sw !== targetSw);
             renderAllSoftware(); 
+
             const swListStr = softwareData[room].join(',');
             try {
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
                 });
-            } catch(e) { alert("삭제 실패"); }
+            } catch(e) { alert("구글 서버에 삭제 동기화 중 오류가 발생했습니다."); }
         };
 
         document.getElementById('btn-submit').addEventListener('click', async () => {
             const name = document.getElementById('input-name').value.trim();
             const content = document.getElementById('input-content').value.trim();
-            if(!name || !content) return alert("성함과 내용을 입력하세요.");
+            const submitBtn = document.getElementById('btn-submit');
             
-            const originalBtnText = btnSubmit.innerHTML;
-            btnSubmit.disabled = true; btnSubmit.innerText = "전송 중...";
+            if(!name || !content) return alert("이름과 내용을 모두 입력해주세요.");
+            submitBtn.disabled = true; submitBtn.innerText = "서버 전송 중...";
+
             const newId = Date.now();
             const newDate = new Date().toLocaleString('ko-KR');
 
             try {
-                const data = await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
+                const result = await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
                     method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, 
-                    body:new URLSearchParams({action:'submit', id: newId, name: name, content: content, date: newDate}) 
+                    body:new URLSearchParams({ action:'submit', id: newId, name: name, content: content, date: newDate }) 
                 });
-                if(data.result === "success") {
-                    alert("접수 완료");
-                    localReports.push({ id: newId, name, content, date: newDate, status:'pending' });
+                
+                if(result.result === "success") {
+                    alert("성공적으로 문의가 접수되었습니다.");
+                    localReports.push({ id: newId, name, content, date: newDate, status: 'pending' });
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
-                    document.getElementById('input-name').value=""; document.getElementById('input-content').value=""; 
+                    document.getElementById('input-name').value = ""; document.getElementById('input-content').value = ""; 
                 }
-            } catch(e) { alert("통신 오류 발생."); } 
-            finally { btnSubmit.disabled = false; btnSubmit.innerHTML = originalBtnText; }
+            } catch(e) { alert("서버 연동 오류가 발생했습니다."); 
+            } finally { submitBtn.disabled = false; submitBtn.innerText = "문의 접수하기"; }
         });
 
-        document.getElementById('admin-login-btn').addEventListener('click', () => {
+        document.getElementById('admin-login-btn').addEventListener('click', () => { 
             const btn = document.getElementById('admin-login-btn');
             
-            if (isAdminMode) {
-                if (confirm("관리자 모드를 종료하시겠습니까?")) {
+            if (isAdminMode) { 
+                if (confirm("관리자 모드를 종료하고 일반 사용자로 돌아가시겠습니까?")) {
                     isAdminMode = false;
                     btn.innerText = "⚙️ 관리자 로그인";
-                    btn.classList.remove('bg-blue-600/20', 'text-blue-400', 'border-blue-500/30');
-                    btn.classList.add('bg-slate-800', 'text-slate-400', 'border-slate-700');
+                    btn.classList.remove('bg-blue-100', 'text-blue-700', 'border-blue-300');
+                    btn.classList.add('bg-slate-100', 'text-slate-600', 'border-slate-200');
                     
                     document.querySelectorAll('.admin-ui').forEach(el => el.classList.add('hidden'));
                     if (!document.getElementById('section-admin').classList.contains('hidden')) {
                         tabTriggers[0].click();
                     }
                     renderAllSoftware(); 
-                    alert("일반 모드로 전환되었습니다.");
+                    alert("일반 사용자 모드로 전환되었습니다.");
                 }
-                return;
+                return; 
             }
-
-            if(prompt("보안 비밀번호를 입력하세요.") === ADMIN_PW) {
-                isAdminMode = true;
+            
+            if (prompt("관리자 암호를 입력하세요.") === ADMIN_PW) { 
+                isAdminMode = true; 
                 btn.innerText = "🔓 관리자 (로그아웃)";
-                btn.classList.remove('bg-slate-800', 'text-slate-400', 'border-slate-700');
-                btn.classList.add('bg-blue-600/20', 'text-blue-400', 'border-blue-500/30');
+                btn.classList.remove('bg-slate-100', 'text-slate-600', 'border-slate-200');
+                btn.classList.add('bg-blue-100', 'text-blue-700', 'border-blue-300');
                 
                 document.querySelectorAll('.admin-ui').forEach(el => el.classList.remove('hidden'));
                 
-                alert("✅ 관리자 권한 획득!\n인프라 탭에서 강의실 상태와 HW/SW를 수정할 수 있습니다.");
+                alert("✅ 관리자 모드가 활성화되었습니다.\n\n- [강의실 현황] 화면에서 강의실 상태 제어와 하드웨어/소프트웨어를 조작할 수 있습니다.\n- 사이드바에 생성된 [문의 접수 처리판] 탭에서 오류 내역을 관리할 수 있습니다.");
+                
                 tabTriggers[0].click(); 
-                renderAdminReports();
-                renderAllSoftware(); 
-            } else { alert("비밀번호 불일치"); }
+                renderAdminReports(); 
+                renderAllSoftware();  
+                
+                (async () => {
+                    try { await loadInfraData(); } catch(e){}
+                })();
+            } else { alert("비밀번호가 일치하지 않습니다."); }
         });
 
         function renderAdminReports() {
@@ -598,26 +615,25 @@
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports();
             }
-            try {
+            try { 
                 await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
                     method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                     body: new URLSearchParams({ action: 'update', id: id, updateType: updateType }) 
-                });
-            } catch (err) { alert("서버 연동 실패"); }
+                }); 
+            } catch (err) { alert("상태 변경 오류가 발생했습니다."); }
         };
 
         window.deleteGlobalReport = async function(id) { 
-            if(confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?")) { 
+            if (confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?\\n(삭제 후 복구할 수 없습니다)")) { 
                 localReports = localReports.filter(r => String(r.id) !== String(id)); 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports();
-
                 try {
                     await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
                         method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                         body: new URLSearchParams({ action: 'delete', id: id }) 
-                    });
-                } catch(e) { alert("서버 삭제 실패"); }
+                    }); 
+                } catch(e) { alert("서버 삭제 동기화 중 오류가 발생했습니다."); }
             } 
         };
     </script>
