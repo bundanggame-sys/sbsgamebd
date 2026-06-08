@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임분당 통합 관제 시스템 (PC)</title>
     
-    <!-- 모바일 자동 감지 및 이동 스크립트 -->
     <script>
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             window.location.replace("mobile.html");
@@ -30,7 +29,6 @@
         .hw-info span.value { text-align: right; }
         .fade-in { animation: fadeIn 0.3s ease-in-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        .d-room-badge { background-color: #dbeafe !important; color: #1e40af !important; border: 1px solid #93c5fd !important; font-weight: 800 !important; }
     </style>
 </head>
 <body class="bg-slate-50 h-screen overflow-hidden flex text-slate-800">
@@ -59,7 +57,6 @@
         </nav>
 
         <div class="flex-shrink-0 p-4 space-y-3 border-t border-slate-800 bg-slate-900/50">
-            <!-- 🌟 [UI 패치] 요청하신 대로 연락처 부분을 초경량화/심플화 했습니다. -->
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Emergency Contacts</p>
                 <div class="flex justify-between items-center text-slate-400">
@@ -71,7 +68,7 @@
             <div class="bg-slate-800 rounded-lg p-4 border border-slate-700/50 shadow-md text-[11px]">
                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-3 tracking-wider">Node Info</p>
                 <div class="flex justify-between text-slate-400"><span>관리자</span><span class="font-bold text-white text-right">이승민 총무</span></div>
-                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v8.9 (UI Clean)</span></div>
+                <div class="flex justify-between text-slate-400"><span>버전</span><span class="font-bold text-emerald-500 text-right">v9.0 (Speed & UI)</span></div>
             </div>
         </div>
     </aside>
@@ -80,7 +77,7 @@
         <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-10 shadow-sm">
             <h2 class="font-bold text-slate-800 text-lg flex items-center">
                 통합 관제 대시보드 (PC) 
-                <span id="sync-status" class="ml-3 text-[10px] text-emerald-500 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full shadow-sm">클라우드 동기화 됨</span>
+                <span id="sync-status" class="ml-3 text-[10px] text-emerald-500 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full shadow-sm">클라우드 통신 준비...</span>
             </h2>
             <button id="admin-login-btn" class="text-xs font-bold text-slate-600 bg-slate-100 border border-slate-200 px-4 py-2 rounded-md hover:bg-slate-200 transition-colors cursor-pointer">⚙️ 관리자 로그인</button>
         </header>
@@ -91,14 +88,13 @@
                 <section id="section-software" class="content-section fade-in">
                     <div class="flex flex-col gap-6">
                         
-                        <!-- A 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <div class="flex items-center gap-3">
+                            <div class="p-5 border-b border-slate-100 flex justify-between items-start bg-slate-50/50 rounded-t-2xl gap-4">
+                                <div class="flex items-center gap-3 mt-1 flex-shrink-0">
                                     <h4 class="font-bold text-slate-800 text-base">A 강의실 (21석)</h4>
                                     <button onclick="editRoomStatus('A')" class="admin-ui hidden text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded border border-purple-200 hover:bg-purple-200 transition-colors">⚙️ 상태 제어</button>
                                 </div>
-                                <span id="badge-A" class="bg-slate-100 text-sm font-bold text-slate-400 px-4 py-2 rounded-lg truncate max-w-[250px] text-right">스캔 중...</span>
+                                <span id="badge-A" class="bg-slate-100 text-[13px] font-bold text-slate-400 px-3 py-1.5 rounded-lg text-right break-keep leading-snug">스캔 중...</span>
                             </div>
                             <div class="p-6 flex flex-col lg:flex-row gap-8">
                                 <div class="flex-1">
@@ -126,14 +122,13 @@
                             </div>
                         </div>
 
-                        <!-- B 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <div class="flex items-center gap-3">
+                            <div class="p-5 border-b border-slate-100 flex justify-between items-start bg-slate-50/50 rounded-t-2xl gap-4">
+                                <div class="flex items-center gap-3 mt-1 flex-shrink-0">
                                     <h4 class="font-bold text-slate-800 text-base">B 강의실 (20석)</h4>
                                     <button onclick="editRoomStatus('B')" class="admin-ui hidden text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded border border-purple-200 hover:bg-purple-200 transition-colors">⚙️ 상태 제어</button>
                                 </div>
-                                <span id="badge-B" class="bg-slate-100 text-sm font-bold text-slate-400 px-4 py-2 rounded-lg truncate max-w-[250px] text-right">스캔 중...</span>
+                                <span id="badge-B" class="bg-slate-100 text-[13px] font-bold text-slate-400 px-3 py-1.5 rounded-lg text-right break-keep leading-snug">스캔 중...</span>
                             </div>
                             <div class="p-6 flex flex-col lg:flex-row gap-8">
                                 <div class="flex-1">
@@ -161,14 +156,13 @@
                             </div>
                         </div>
 
-                        <!-- C 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <div class="flex items-center gap-3">
+                            <div class="p-5 border-b border-slate-100 flex justify-between items-start bg-slate-50/50 rounded-t-2xl gap-4">
+                                <div class="flex items-center gap-3 mt-1 flex-shrink-0">
                                     <h4 class="font-bold text-slate-800 text-base">C 강의실 (15석)</h4>
                                     <button onclick="editRoomStatus('C')" class="admin-ui hidden text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded border border-purple-200 hover:bg-purple-200 transition-colors">⚙️ 상태 제어</button>
                                 </div>
-                                <span id="badge-C" class="bg-slate-100 text-sm font-bold text-slate-400 px-4 py-2 rounded-lg truncate max-w-[250px] text-right">스캔 중...</span>
+                                <span id="badge-C" class="bg-slate-100 text-[13px] font-bold text-slate-400 px-3 py-1.5 rounded-lg text-right break-keep leading-snug">스캔 중...</span>
                             </div>
                             <div class="p-6 flex flex-col lg:flex-row gap-8">
                                 <div class="flex-1">
@@ -196,14 +190,13 @@
                             </div>
                         </div>
 
-                        <!-- D 강의실 -->
                         <div class="bg-white border-2 border-blue-200 rounded-2xl flex flex-col shadow-md">
-                            <div class="p-5 border-b border-blue-100 bg-blue-50/50 flex justify-between items-center rounded-t-2xl">
-                                <div class="flex items-center gap-3">
+                            <div class="p-5 border-b border-blue-100 bg-blue-50/50 flex justify-between items-start rounded-t-2xl gap-4">
+                                <div class="flex items-center gap-3 mt-1 flex-shrink-0">
                                     <h4 class="font-bold text-blue-800 text-base flex items-center gap-2">D 강의실 (19석) <span class="bg-blue-600 text-white text-[10px] px-2 py-1 rounded uppercase">High-End</span></h4>
                                     <button onclick="editRoomStatus('D')" class="admin-ui hidden text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded border border-purple-200 hover:bg-purple-200 transition-colors">⚙️ 상태 제어</button>
                                 </div>
-                                <span id="badge-D" class="bg-slate-100 text-sm font-bold text-slate-400 px-4 py-2 rounded-lg truncate max-w-[250px] text-right d-room-badge">스캔 중...</span>
+                                <span id="badge-D" class="bg-slate-100 text-[13px] font-bold text-slate-400 px-3 py-1.5 rounded-lg text-right break-keep leading-snug">스캔 중...</span>
                             </div>
                             <div class="p-6 flex flex-col lg:flex-row gap-8">
                                 <div class="flex-1">
@@ -231,14 +224,13 @@
                             </div>
                         </div>
 
-                        <!-- E 강의실 -->
                         <div class="bg-white border border-slate-200 rounded-2xl flex flex-col shadow-sm">
-                            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                                <div class="flex items-center gap-3">
+                            <div class="p-5 border-b border-slate-100 flex justify-between items-start bg-slate-50/50 rounded-t-2xl gap-4">
+                                <div class="flex items-center gap-3 mt-1 flex-shrink-0">
                                     <h4 class="font-bold text-slate-800 text-base">E 강의실 (13석)</h4>
                                     <button onclick="editRoomStatus('E')" class="admin-ui hidden text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded border border-purple-200 hover:bg-purple-200 transition-colors">⚙️ 상태 제어</button>
                                 </div>
-                                <span id="badge-E" class="bg-slate-100 text-sm font-bold text-slate-400 px-4 py-2 rounded-lg truncate max-w-[250px] text-right">스캔 중...</span>
+                                <span id="badge-E" class="bg-slate-100 text-[13px] font-bold text-slate-400 px-3 py-1.5 rounded-lg text-right break-keep leading-snug">스캔 중...</span>
                             </div>
                             <div class="p-6 flex flex-col lg:flex-row gap-8">
                                 <div class="flex-1">
@@ -269,7 +261,6 @@
                     </div>
                 </section>
 
-                <!-- 실시간 접수 현황 (PC) -->
                 <section id="section-report" class="content-section hidden fade-in">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="lg:col-span-1 space-y-6">
@@ -379,39 +370,31 @@
         }
         updateStats();
 
-        async function safeFetchJSON(url, options) {
-            const res = await fetch(url, options);
+        async function safeFetchJSON(url) {
+            const res = await fetch(url);
             const text = await res.text();
             try { return JSON.parse(text); } 
-            catch (e) { throw new Error("서버 에러 또는 구글 권한 문제 발생"); }
+            catch (e) { throw new Error("서버 에러"); }
         }
 
         async function loadServerData() {
             try {
-                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load", { method: 'GET' });
+                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load");
                 if (responseData.result === "success") {
                     localReports = responseData.data;
                     localStorage.setItem('g_bundang_reports', JSON.stringify(localReports));
                     updateStats();
                     renderUserReports(); 
                     if (isAdminMode) { renderAdminReports(); }
-                } else { throw new Error("서버 응답 오류"); }
-            } catch(e) { 
-                console.error("문의 데이터 로딩 실패", e); 
-                const container = document.getElementById('report-list-container');
-                if (container) container.innerHTML = '<p class="text-center text-red-500 py-10 font-bold">서버 통신 지연 (F5 새로고침 해주세요)</p>';
-                const uContainer = document.getElementById('user-report-list');
-                if (uContainer) uContainer.innerHTML = '<p class="text-center text-red-500 py-10 font-bold">서버 통신 지연 (F5 새로고침 해주세요)</p>';
-            }
+                }
+            } catch(e) { console.error("문의 데이터 로딩 실패", e); }
         }
         
         async function loadRoomStatus() {
             const syncStatus = document.getElementById('sync-status');
-            syncStatus.innerText = "클라우드 스캔 중...";
-            syncStatus.className = "ml-3 text-[10px] text-orange-500 bg-orange-50 border border-orange-100 px-2.5 py-1 rounded-full shadow-sm";
-
+            syncStatus.innerText = "상태 스캔 중...";
             try {
-                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_status", { method: 'GET' });
+                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_status");
                 if (responseData.result === "success") {
                     const statusData = responseData.data;
                     ['A', 'B', 'C', 'D', 'E'].forEach(room => {
@@ -419,10 +402,18 @@
                         if (badge) {
                             const status = statusData[room] || "자습가능";
                             badge.innerText = status;
-                            badge.title = status; 
                             
-                            if (room !== 'D') {
-                                let baseClass = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right shadow-sm border ";
+                            let baseClass = "text-[13px] font-bold px-3 py-1.5 rounded-lg ml-2 text-right shadow-sm border break-keep leading-snug ";
+                            if (room === 'D') {
+                                baseClass += "border-2 ";
+                                if (status.includes('자습가능') || status.includes('운영중')) {
+                                    badge.className = baseClass + "bg-blue-50 text-blue-700 border-blue-300";
+                                } else if (status.includes('수업중')) {
+                                    badge.className = baseClass + "bg-red-50 text-red-600 border-red-300";
+                                } else {
+                                    badge.className = baseClass + "bg-purple-50 text-purple-700 border-purple-300";
+                                }
+                            } else {
                                 if (status.includes('자습가능') || status.includes('운영중')) {
                                     badge.className = baseClass + "bg-emerald-50 text-emerald-600 border-emerald-100";
                                 } else if (status.includes('수업중')) {
@@ -435,19 +426,11 @@
                     });
                     syncStatus.innerText = "클라우드 동기화 됨"; 
                     syncStatus.className = "ml-3 text-[10px] text-emerald-500 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full shadow-sm";
-                } else { throw new Error("서버 응답 오류"); }
+                }
             } catch (e) {
                 console.error("스캐너 연동 실패", e);
                 syncStatus.innerText = "오프라인 모드"; 
                 syncStatus.className = "ml-3 text-[10px] text-red-500 bg-red-50 border border-red-100 px-2.5 py-1 rounded-full shadow-sm";
-                
-                ['A', 'B', 'C', 'D', 'E'].forEach(room => {
-                    const badge = document.getElementById(`badge-${room}`);
-                    if (badge && badge.innerText === '스캔 중...') {
-                        badge.innerText = "통신 실패";
-                        if (room !== 'D') badge.className = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right bg-red-50 text-red-500 border border-red-100 shadow-sm";
-                    }
-                });
             }
         }
 
@@ -455,7 +438,7 @@
             renderAllHardwareSpecs(); 
             renderAllSoftware();
             try {
-                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_infra", { method: 'GET' });
+                const responseData = await safeFetchJSON(GOOGLE_SCRIPT_URL + "?action=load_infra");
                 if (responseData.result === "success") {
                     const data = responseData.data;
                     ['A', 'B', 'C', 'D', 'E'].forEach(room => { 
@@ -466,16 +449,8 @@
                     });
                     renderAllHardwareSpecs(); 
                     renderAllSoftware();
-                } else { throw new Error("서버 응답 오류"); }
-            } catch(e) { 
-                console.error("인프라 사양 연동 실패", e); 
-                ['A', 'B', 'C', 'D', 'E'].forEach(room => {
-                    const el = document.getElementById(`sw-container-${room}`);
-                    if (el && el.innerHTML.includes('로딩중')) {
-                        el.innerHTML = '<p class="text-xs text-red-500 font-bold">통신 지연 (F5 새로고침 해주세요)</p>';
-                    }
-                });
-            }
+                }
+            } catch(e) { console.error("인프라 사양 연동 실패", e); }
         }
 
         function renderAllSoftware() {
@@ -512,20 +487,19 @@
             });
         }
 
-        window.addEventListener('load', async () => {
-            try { await loadRoomStatus(); } catch(e){}
-            try { await loadInfraData(); } catch(e){} 
-            try { await loadServerData(); } catch(e){}
+        // 🌟 [속도 초고속화 패치] 모든 데이터를 병렬(동시)로 불러오도록 변경했습니다!
+        window.addEventListener('load', () => {
+            loadRoomStatus();
+            loadInfraData();
+            loadServerData();
             setInterval(loadRoomStatus, 60000);
         });
 
         window.editRoomStatus = async function(room) {
             if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
-            
             const badge = document.getElementById(`badge-${room}`);
             const currentBadge = badge.innerText;
             const defaultText = (currentBadge.includes('자습가능') || currentBadge.includes('수업중') || currentBadge.includes('실패')) ? '' : currentBadge;
-            
             const newStatus = prompt(`[${room} 강의실] 강제로 고정할 상태를 입력하세요.\n(예: 사용중, 특강중, 회의중 등)\n\n※ 빈칸으로 지우고 확인을 누르면 즉시 '자동 스캔 모드'로 복귀합니다.`, defaultText);
             if (newStatus === null) return; 
 
@@ -535,27 +509,16 @@
                 if (duration === null) return; 
             }
             
-            if (newStatus.trim() === '') {
-                badge.innerText = "스캔 중...";
-                badge.className = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right bg-slate-100 text-slate-500";
-            } else {
-                badge.innerText = newStatus;
-                badge.className = "text-sm font-bold px-4 py-2 rounded-lg truncate max-w-[250px] ml-2 text-right bg-purple-50 text-purple-600 border border-purple-100 shadow-sm";
-            }
+            badge.innerText = newStatus.trim() === '' ? "스캔 중..." : newStatus;
             
             try {
-                await safeFetchJSON(GOOGLE_SCRIPT_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     body: new URLSearchParams({ action: 'update_room_status', room: room, status: newStatus.trim(), duration: duration.trim() })
                 });
-                
-                if (newStatus.trim() === '') { 
-                    loadRoomStatus(); 
-                } else { 
-                    const timeMsg = duration.trim() ? `${duration}분 뒤 자동 해제됩니다.` : "직접 해제할 때까지 무기한 유지됩니다.";
-                    alert(`[${room} 강의실] 상태가 강제 고정되었습니다.\n(${timeMsg})`); 
-                }
-            } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
+                if (newStatus.trim() === '') { loadRoomStatus(); } 
+                else { alert(`상태가 강제 고정되었습니다.`); }
+            } catch(e) { alert("서버 저장 실패"); }
         };
 
         window.editHardware = async function(room) {
@@ -573,47 +536,38 @@
             renderAllHardwareSpecs();
             
             try {
-                await safeFetchJSON(GOOGLE_SCRIPT_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({ 
-                        action: 'update_hw', room: room, 
-                        mb: newMb, cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, power: newPower, equip: newEquip 
-                    })
+                    body: new URLSearchParams({ action: 'update_hw', room: room, mb: newMb, cpu: newCpu, ram: newRam, gpu: newGpu, disk: newDisk, power: newPower, equip: newEquip })
                 });
-            } catch(e) { alert("서버 저장 실패: 인터넷 연결을 확인하세요."); }
+            } catch(e) { alert("서버 저장 실패"); }
         };
 
         window.addSoftware = async function(room) {
-            if (!isAdminMode) return alert("관리자 권한이 필요합니다.");
-            const newSw = prompt(`${room} 강의실에 추가할 소프트웨어 이름을 입력하세요.\n(예: Photoshop 2024)`);
+            if (!isAdminMode) return;
+            const newSw = prompt(`${room} 강의실에 추가할 소프트웨어 (예: Photoshop 2024)`);
             if (!newSw || newSw.trim() === '') return;
-            
             softwareData[room].push(newSw.trim());
             renderAllSoftware();
-            
-            const swListStr = softwareData[room].join(','); 
             try {
-                await safeFetchJSON(GOOGLE_SCRIPT_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
+                    body: new URLSearchParams({ action: 'update_software', room: room, swList: softwareData[room].join(',') })
                 });
-            } catch(e) { alert("구글 서버에 저장 중 오류가 발생했습니다."); }
+            } catch(e) { alert("저장 실패"); }
         };
 
         window.deleteSoftware = async function(room, targetSw) {
             if (!isAdminMode) return;
-            if (!confirm(`정말 '${targetSw}' 항목을 삭제하시겠습니까?`)) return;
-
+            if (!confirm(`정말 '${targetSw}' 항목 삭제?`)) return;
             softwareData[room] = softwareData[room].filter(sw => sw !== targetSw);
             renderAllSoftware(); 
-
-            const swListStr = softwareData[room].join(',');
             try {
-                await safeFetchJSON(GOOGLE_SCRIPT_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({ action: 'update_software', room: room, swList: swListStr })
+                    body: new URLSearchParams({ action: 'update_software', room: room, swList: softwareData[room].join(',') })
                 });
-            } catch(e) { alert("구글 서버에 삭제 동기화 중 오류가 발생했습니다."); }
+            } catch(e) { alert("삭제 실패"); }
         };
 
         document.getElementById('btn-submit').addEventListener('click', async () => {
@@ -628,11 +582,11 @@
             const newDate = new Date().toLocaleString('ko-KR');
 
             try {
-                const result = await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
+                const res = await fetch(GOOGLE_SCRIPT_URL, { 
                     method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, 
                     body:new URLSearchParams({ action:'submit', id: newId, name: name, content: content, date: newDate }) 
                 });
-                
+                const result = await res.json();
                 if(result.result === "success") {
                     alert("성공적으로 문의가 접수되었습니다.");
                     localReports.push({ id: newId, name, content, date: newDate, status: 'pending' });
@@ -648,19 +602,13 @@
             const btn = document.getElementById('admin-login-btn');
             
             if (isAdminMode) { 
-                if (confirm("관리자 모드를 종료하고 일반 사용자로 돌아가시겠습니까?")) {
-                    isAdminMode = false;
-                    btn.innerText = "⚙️ 관리자 로그인";
-                    btn.classList.remove('bg-blue-100', 'text-blue-700', 'border-blue-300');
-                    btn.classList.add('bg-slate-100', 'text-slate-600', 'border-slate-200');
-                    
-                    document.querySelectorAll('.admin-ui').forEach(el => el.classList.add('hidden'));
-                    if (!document.getElementById('section-admin').classList.contains('hidden')) {
-                        tabTriggers[0].click();
-                    }
-                    renderAllSoftware(); 
-                    alert("일반 사용자 모드로 전환되었습니다.");
-                }
+                isAdminMode = false;
+                btn.innerText = "⚙️ 관리자 로그인";
+                btn.classList.remove('bg-blue-100', 'text-blue-700', 'border-blue-300');
+                btn.classList.add('bg-slate-100', 'text-slate-600', 'border-slate-200');
+                document.querySelectorAll('.admin-ui').forEach(el => el.classList.add('hidden'));
+                if (!document.getElementById('section-admin').classList.contains('hidden')) { tabTriggers[0].click(); }
+                renderAllSoftware(); 
                 return; 
             }
             
@@ -669,18 +617,9 @@
                 btn.innerText = "🔓 관리자 (로그아웃)";
                 btn.classList.remove('bg-slate-100', 'text-slate-600', 'border-slate-200');
                 btn.classList.add('bg-blue-100', 'text-blue-700', 'border-blue-300');
-                
                 document.querySelectorAll('.admin-ui').forEach(el => el.classList.remove('hidden'));
-                
-                alert("✅ 관리자 모드가 활성화되었습니다.\n\n- [강의실 현황] 화면에서 강의실 상태 제어와 하드웨어/소프트웨어를 조작할 수 있습니다.\n- 사이드바에 생성된 [문의 접수 처리판] 탭에서 오류 내역을 관리할 수 있습니다.");
-                
                 tabTriggers[0].click(); 
-                renderAdminReports(); 
-                renderAllSoftware();  
-                
-                (async () => {
-                    try { await loadInfraData(); } catch(e){}
-                })();
+                renderAdminReports(); renderAllSoftware();  
             } else { alert("비밀번호가 일치하지 않습니다."); }
         });
 
@@ -692,11 +631,9 @@
                 return;
             }
             container.innerHTML = localReports.map(r => {
-                let badge = '';
-                if (r.status === 'complete') badge = '<span class="bg-emerald-100 text-emerald-600 px-2 py-1 rounded text-[10px] font-bold">처리완료</span>';
-                else if (r.status === 'check') badge = '<span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-[10px] font-bold">확인중</span>';
-                else badge = '<span class="bg-slate-100 text-slate-500 px-2 py-1 rounded text-[10px] font-bold">접수대기</span>';
-                
+                let badge = r.status === 'complete' ? '<span class="bg-emerald-100 text-emerald-600 px-2 py-1 rounded text-[10px] font-bold">처리완료</span>' : 
+                            (r.status === 'check' ? '<span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-[10px] font-bold">확인중</span>' : 
+                            '<span class="bg-slate-100 text-slate-500 px-2 py-1 rounded text-[10px] font-bold">접수대기</span>');
                 return `
                 <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50 flex flex-col gap-2">
                     <div class="flex justify-between items-start">
@@ -715,10 +652,8 @@
             const container = document.getElementById('report-list-container');
             if (localReports.length === 0) { container.innerHTML = '<p class="text-center text-slate-600 py-10">접수 내역이 없습니다.</p>'; return; }
             
-            container.innerHTML = localReports.map((report, idx) => {
-                if (!report.status) report.status = 'pending';
+            container.innerHTML = localReports.map((report) => {
                 let statusBadge = report.status === 'complete' ? '<span class="text-emerald-500">[완료]</span>' : (report.status === 'check' ? '<span class="text-blue-400">[확인]</span>' : '<span class="text-slate-400">[접수]</span>');
-                
                 return `
                 <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl flex flex-col mb-4">
                     <div class="flex items-center gap-3 mb-3">
@@ -727,11 +662,10 @@
                     </div>
                     <p class="text-white text-sm mb-2 font-bold">${report.name}</p>
                     <p class="text-slate-300 text-sm whitespace-pre-wrap">${report.content}</p>
-                    
                     <div class="flex gap-2 mt-4 pt-3 border-t border-slate-700/50">
-                        <button onclick="updateSheetStatus('${report.id}', 'check')" class="flex-1 text-[11px] text-blue-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">확인 기록</button>
-                        <button onclick="updateSheetStatus('${report.id}', 'complete')" class="flex-1 text-[11px] text-emerald-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">완료 기록</button>
-                        <button onclick="deleteGlobalReport('${report.id}')" class="flex-1 text-[11px] text-slate-400 bg-slate-900/80 px-3 py-2 rounded-lg hover:bg-slate-700 transition-colors">서버 영구 삭제</button>
+                        <button onclick="updateSheetStatus('${report.id}', 'check')" class="flex-1 text-[11px] text-blue-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700">확인 기록</button>
+                        <button onclick="updateSheetStatus('${report.id}', 'complete')" class="flex-1 text-[11px] text-emerald-400 bg-slate-900/80 px-3 py-2 rounded-lg font-bold hover:bg-slate-700">완료 기록</button>
+                        <button onclick="deleteGlobalReport('${report.id}')" class="flex-1 text-[11px] text-slate-400 bg-slate-900/80 px-3 py-2 rounded-lg hover:bg-slate-700">서버 영구 삭제</button>
                     </div>
                 </div>`
             }).reverse().join(''); 
@@ -745,24 +679,24 @@
                 renderAdminReports(); updateStats(); renderUserReports();
             }
             try { 
-                await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
+                await fetch(GOOGLE_SCRIPT_URL, { 
                     method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                     body: new URLSearchParams({ action: 'update', id: id, updateType: updateType }) 
                 }); 
-            } catch (err) { alert("상태 변경 오류가 발생했습니다."); }
+            } catch (err) {}
         };
 
         window.deleteGlobalReport = async function(id) { 
-            if (confirm("서버에서 이 내역을 완전히 영구 삭제하시겠습니까?\\n(삭제 후 복구할 수 없습니다)")) { 
+            if (confirm("서버에서 이 내역을 완전히 삭제하시겠습니까?")) { 
                 localReports = localReports.filter(r => String(r.id) !== String(id)); 
                 localStorage.setItem('g_bundang_reports', JSON.stringify(localReports)); 
                 renderAdminReports(); updateStats(); renderUserReports();
                 try {
-                    await safeFetchJSON(GOOGLE_SCRIPT_URL, { 
+                    await fetch(GOOGLE_SCRIPT_URL, { 
                         method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                         body: new URLSearchParams({ action: 'delete', id: id }) 
                     }); 
-                } catch(e) { alert("서버 삭제 동기화 중 오류가 발생했습니다."); }
+                } catch(e) {}
             } 
         };
     </script>
